@@ -1,0 +1,568 @@
+{
+  "id": "segment-tree",
+  "name": "Segment Tree / Fenwick",
+  "sourceUrl": "https://maurya29.github.io/DSA-Pattern-Workbook/pages/segment-tree.html",
+  "retrievedOn": "2026-10-04",
+  "problems": [
+    {
+      "name": "Range Sum Query Mutable",
+      "question": "Design NumArray with update(index,val) and sumRange(left,right), where sumRange returns the current sum of nums[left..right].",
+      "constraints": "1 <= nums.length <= 30000; up to 30000 calls; values fit in signed int.",
+      "examples": [
+        {
+          "input": "NumArray([1,3,5]); sumRange(0,2)",
+          "output": "9",
+          "explanation": "The initial full range sums to 9."
+        },
+        {
+          "input": "update(1,2); sumRange(0,2)",
+          "output": "8",
+          "explanation": "The array becomes [1,2,5]."
+        },
+        {
+          "input": "NumArray([7]); update(0,4); sumRange(0,0)",
+          "output": "4",
+          "explanation": "Single index updates and queries are valid."
+        }
+      ],
+      "optimizedCode": "class NumArray {\n  private final int[] nums;\n  private final int[] tree;\n\n  public NumArray(int[] nums) {\n    this.nums = nums.clone();\n    this.tree = new int[nums.length + 1];\n    for (int i = 0; i < nums.length; i++) add(i + 1, nums[i]);\n  }\n\n  public void update(int index, int val) {\n    int delta = val - nums[index];\n    nums[index] = val;\n    add(index + 1, delta);\n  }\n\n  public int sumRange(int left, int right) {\n    return prefix(right + 1) - prefix(left);\n  }\n\n  private void add(int index, int delta) {\n    while (index < tree.length) {\n      tree[index] += delta;\n      index += index & -index;\n    }\n  }\n\n  private int prefix(int index) {\n    int sum = 0;\n    while (index > 0) {\n      sum += tree[index];\n      index -= index & -index;\n    }\n    return sum;\n  }\n}",
+      "recursiveCode": "class NumArray {\n  private final int n;\n  private final int[] tree;\n\n  public NumArray(int[] nums) {\n    n = nums.length;\n    tree = new int[4 * n];\n    build(nums, 1, 0, n - 1);\n  }\n\n  public void update(int index, int val) {\n    update(1, 0, n - 1, index, val);\n  }\n\n  public int sumRange(int left, int right) {\n    return query(1, 0, n - 1, left, right);\n  }\n\n  private void build(int[] nums, int node, int left, int right) {\n    if (left == right) {\n      tree[node] = nums[left];\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    build(nums, node * 2, left, mid);\n    build(nums, node * 2 + 1, mid + 1, right);\n    tree[node] = tree[node * 2] + tree[node * 2 + 1];\n  }\n\n  private void update(int node, int left, int right, int index, int val) {\n    if (left == right) {\n      tree[node] = val;\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (index <= mid) update(node * 2, left, mid, index, val);\n    else update(node * 2 + 1, mid + 1, right, index, val);\n    tree[node] = tree[node * 2] + tree[node * 2 + 1];\n  }\n\n  private int query(int node, int left, int right, int ql, int qr) {\n    if (qr < left || right < ql) return 0;\n    if (ql <= left && right <= qr) return tree[node];\n    int mid = left + (right - left) / 2;\n    return query(node * 2, left, mid, ql, qr) + query(node * 2 + 1, mid + 1, right, ql, qr);\n  }\n}",
+      "optimizedComplexity": "update Time O(log n), sumRange Time O(log n); Space O(n). Fenwick tree stores prefix deltas.",
+      "recursiveComplexity": "update Time O(log n), sumRange Time O(log n); Space O(n). Recursive segment tree splits ranges.",
+      "source": {
+        "label": "Range Sum Query Mutable - LeetCode 307",
+        "url": "https://leetcode.com/problems/range-sum-query-mutable/"
+      }
+    },
+    {
+      "name": "Range Sum Query 2D Mutable",
+      "question": "Design NumMatrix with update(row,col,val) and sumRegion(row1,col1,row2,col2), returning the current rectangle sum.",
+      "constraints": "1 <= rows, cols <= 200; up to 10000 calls; values fit in signed int.",
+      "examples": [
+        {
+          "input": "NumMatrix sample matrix; sumRegion(2,1,4,3)",
+          "output": "8",
+          "explanation": "The selected rectangle sums to 8."
+        },
+        {
+          "input": "update(3,2,2); sumRegion(2,1,4,3)",
+          "output": "10",
+          "explanation": "Updating one cell changes later region sums."
+        },
+        {
+          "input": "matrix = [[5]]; update(0,0,3); sumRegion(0,0,0,0)",
+          "output": "3",
+          "explanation": "The one-cell matrix is handled directly."
+        }
+      ],
+      "optimizedCode": "class NumMatrix {\n  private final int rows;\n  private final int cols;\n  private final int[][] nums;\n  private final int[][] tree;\n\n  public NumMatrix(int[][] matrix) {\n    rows = matrix.length;\n    cols = matrix[0].length;\n    nums = new int[rows][cols];\n    tree = new int[rows + 1][cols + 1];\n    for (int r = 0; r < rows; r++) {\n      for (int c = 0; c < cols; c++) update(r, c, matrix[r][c]);\n    }\n  }\n\n  public void update(int row, int col, int val) {\n    int delta = val - nums[row][col];\n    nums[row][col] = val;\n    for (int r = row + 1; r <= rows; r += r & -r) {\n      for (int c = col + 1; c <= cols; c += c & -c) tree[r][c] += delta;\n    }\n  }\n\n  public int sumRegion(int row1, int col1, int row2, int col2) {\n    return prefix(row2 + 1, col2 + 1) - prefix(row1, col2 + 1) - prefix(row2 + 1, col1) + prefix(row1, col1);\n  }\n\n  private int prefix(int row, int col) {\n    int sum = 0;\n    for (int r = row; r > 0; r -= r & -r) {\n      for (int c = col; c > 0; c -= c & -c) sum += tree[r][c];\n    }\n    return sum;\n  }\n}",
+      "recursiveCode": "class NumMatrix {\n  private final int[][] matrix;\n\n  public NumMatrix(int[][] matrix) {\n    this.matrix = new int[matrix.length][matrix.length == 0 ? 0 : matrix[0].length];\n    for (int row = 0; row < matrix.length; row++) {\n      this.matrix[row] = matrix[row].clone();\n    }\n  }\n\n  public void update(int row, int col, int val) {\n    matrix[row][col] = val;\n  }\n\n  public int sumRegion(int row1, int col1, int row2, int col2) {\n    return sumRows(row1, row2, col1, col2);\n  }\n\n  private int sumRows(int row, int row2, int col1, int col2) {\n    if (row > row2) return 0;\n    return sumCols(row, col1, col2) + sumRows(row + 1, row2, col1, col2);\n  }\n\n  private int sumCols(int row, int col, int col2) {\n    if (col > col2) return 0;\n    return matrix[row][col] + sumCols(row, col + 1, col2);\n  }\n}",
+      "optimizedComplexity": "update Time O(log m log n), sumRegion Time O(log m log n); Space O(mn). 2D Fenwick tree.",
+      "recursiveComplexity": "Time O(rows * cols) per query and O(1) per update; Space O(rows + cols) recursion depth for the direct recursive scan.",
+      "source": {
+        "label": "Range Sum Query 2D Mutable - LeetCode 308",
+        "url": "https://leetcode.com/problems/range-sum-query-2d-mutable/"
+      }
+    },
+    {
+      "name": "Count of Smaller Numbers After Self",
+      "question": "Given nums, return counts where counts[i] is the number of smaller elements to the right of nums[i].",
+      "constraints": "1 <= nums.length <= 100000; values fit in signed int.",
+      "examples": [
+        {
+          "input": "nums = [5,2,6,1]",
+          "output": "[2,1,1,0]",
+          "explanation": "5 has smaller values 2 and 1 after it."
+        },
+        {
+          "input": "nums = [-1]",
+          "output": "[0]",
+          "explanation": "No elements appear after the only value."
+        },
+        {
+          "input": "nums = [-1,-1]",
+          "output": "[0,0]",
+          "explanation": "Equal values are not smaller."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public List<Integer> countSmaller(int[] nums) {\n    int[] sorted = nums.clone();\n    Arrays.sort(sorted);\n    Map<Integer, Integer> rank = new HashMap<>();\n    int next = 1;\n    for (int value : sorted) if (!rank.containsKey(value)) rank.put(value, next++);\n    int[] tree = new int[next + 1];\n    Integer[] answer = new Integer[nums.length];\n    for (int i = nums.length - 1; i >= 0; i--) {\n      int r = rank.get(nums[i]);\n      answer[i] = query(tree, r - 1);\n      add(tree, r, 1);\n    }\n    return Arrays.asList(answer);\n  }\n\n  private void add(int[] tree, int index, int delta) {\n    while (index < tree.length) {\n      tree[index] += delta;\n      index += index & -index;\n    }\n  }\n\n  private int query(int[] tree, int index) {\n    int sum = 0;\n    while (index > 0) {\n      sum += tree[index];\n      index -= index & -index;\n    }\n    return sum;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public List<Integer> countSmaller(int[] nums) {\n    int n = nums.length;\n    int[] indexes = new int[n];\n    int[] temp = new int[n];\n    int[] counts = new int[n];\n    for (int i = 0; i < n; i++) indexes[i] = i;\n    sort(nums, indexes, temp, counts, 0, n - 1);\n    List<Integer> answer = new ArrayList<>();\n    for (int count : counts) answer.add(count);\n    return answer;\n  }\n\n  private void sort(int[] nums, int[] indexes, int[] temp, int[] counts, int left, int right) {\n    if (left >= right) return;\n    int mid = left + (right - left) / 2;\n    sort(nums, indexes, temp, counts, left, mid);\n    sort(nums, indexes, temp, counts, mid + 1, right);\n    merge(nums, indexes, temp, counts, left, mid, right);\n  }\n\n  private void merge(int[] nums, int[] indexes, int[] temp, int[] counts, int left, int mid, int right) {\n    int i = left, j = mid + 1, k = left, smaller = 0;\n    while (i <= mid && j <= right) {\n      if (nums[indexes[j]] < nums[indexes[i]]) {\n        temp[k++] = indexes[j++];\n        smaller++;\n      } else {\n        counts[indexes[i]] += smaller;\n        temp[k++] = indexes[i++];\n      }\n    }\n    while (i <= mid) {\n      counts[indexes[i]] += smaller;\n      temp[k++] = indexes[i++];\n    }\n    while (j <= right) temp[k++] = indexes[j++];\n    for (int p = left; p <= right; p++) indexes[p] = temp[p];\n  }\n}",
+      "optimizedComplexity": "Time O(n log n); Space O(n). Fenwick tree over compressed ranks.",
+      "recursiveComplexity": "Time O(n log n); Space O(n). Merge sort counts right-half values that cross each left index.",
+      "source": {
+        "label": "Count of Smaller Numbers After Self - LeetCode 315",
+        "url": "https://leetcode.com/problems/count-of-smaller-numbers-after-self/"
+      }
+    },
+    {
+      "name": "Reverse Pairs",
+      "question": "Given nums, count pairs i < j where nums[i] > 2 * nums[j].",
+      "constraints": "1 <= nums.length <= 50000; values fit in signed int.",
+      "examples": [
+        {
+          "input": "nums = [1,3,2,3,1]",
+          "output": "2",
+          "explanation": "Two pairs satisfy the strict double relation."
+        },
+        {
+          "input": "nums = [2,4,3,5,1]",
+          "output": "3",
+          "explanation": "Three left values are more than double a later value."
+        },
+        {
+          "input": "nums = [-5,-5]",
+          "output": "1",
+          "explanation": "-5 > -10 is true for the ordered pair."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int reversePairs(int[] nums) {\n    TreeSet<Long> values = new TreeSet<>();\n    for (int value : nums) {\n      values.add((long) value);\n      values.add(2L * value);\n    }\n    Map<Long, Integer> rank = new HashMap<>();\n    int id = 1;\n    for (long value : values) rank.put(value, id++);\n    int[] tree = new int[id + 1];\n    int pairs = 0;\n    for (int i = 0; i < nums.length; i++) {\n      int notGreater = query(tree, rank.get(2L * nums[i]));\n      pairs += i - notGreater;\n      add(tree, rank.get((long) nums[i]), 1);\n    }\n    return pairs;\n  }\n\n  private void add(int[] tree, int index, int delta) {\n    while (index < tree.length) {\n      tree[index] += delta;\n      index += index & -index;\n    }\n  }\n\n  private int query(int[] tree, int index) {\n    int sum = 0;\n    while (index > 0) {\n      sum += tree[index];\n      index -= index & -index;\n    }\n    return sum;\n  }\n}",
+      "recursiveCode": "class Solution {\n  public int reversePairs(int[] nums) {\n    return sort(nums, new int[nums.length], 0, nums.length - 1);\n  }\n\n  private int sort(int[] nums, int[] temp, int left, int right) {\n    if (left >= right) return 0;\n    int mid = left + (right - left) / 2;\n    int count = sort(nums, temp, left, mid) + sort(nums, temp, mid + 1, right);\n    int j = mid + 1;\n    for (int i = left; i <= mid; i++) {\n      while (j <= right && (long) nums[i] > 2L * nums[j]) j++;\n      count += j - (mid + 1);\n    }\n    merge(nums, temp, left, mid, right);\n    return count;\n  }\n\n  private void merge(int[] nums, int[] temp, int left, int mid, int right) {\n    int i = left, j = mid + 1, k = left;\n    while (i <= mid && j <= right) temp[k++] = nums[i] <= nums[j] ? nums[i++] : nums[j++];\n    while (i <= mid) temp[k++] = nums[i++];\n    while (j <= right) temp[k++] = nums[j++];\n    for (int p = left; p <= right; p++) nums[p] = temp[p];\n  }\n}",
+      "optimizedComplexity": "Time O(n log n); Space O(n). Fenwick tree over compressed nums and doubled thresholds.",
+      "recursiveComplexity": "Time O(n log n); Space O(n). Merge sort counts cross pairs before merging sorted halves.",
+      "source": {
+        "label": "Reverse Pairs - LeetCode 493",
+        "url": "https://leetcode.com/problems/reverse-pairs/"
+      }
+    },
+    {
+      "name": "Create Sorted Array through Instructions",
+      "question": "Given instructions, insert each value into a sorted array and add min(count strictly less, count strictly greater) to the cost.",
+      "constraints": "1 <= instructions.length <= 100000; 1 <= instructions[i] <= 100000; answer modulo 1e9+7.",
+      "examples": [
+        {
+          "input": "instructions = [1,5,6,2]",
+          "output": "1",
+          "explanation": "Only inserting 2 contributes min(1,2)=1."
+        },
+        {
+          "input": "instructions = [1,2,3,6,5,4]",
+          "output": "3",
+          "explanation": "Later smaller values create insertion costs."
+        },
+        {
+          "input": "instructions = [1,3,3,3,2,4,2,1,2]",
+          "output": "4",
+          "explanation": "Duplicates are excluded from strictly less/greater counts."
+        }
+      ],
+      "optimizedCode": "class Solution {\n  private static final int MOD = 1_000_000_007;\n\n  public int createSortedArray(int[] instructions) {\n    int max = 0;\n    for (int value : instructions) max = Math.max(max, value);\n    int[] tree = new int[max + 2];\n    long cost = 0;\n    for (int i = 0; i < instructions.length; i++) {\n      int value = instructions[i];\n      int less = query(tree, value - 1);\n      int greater = i - query(tree, value);\n      cost = (cost + Math.min(less, greater)) % MOD;\n      add(tree, value, 1);\n    }\n    return (int) cost;\n  }\n\n  private void add(int[] tree, int index, int delta) {\n    while (index < tree.length) {\n      tree[index] += delta;\n      index += index & -index;\n    }\n  }\n\n  private int query(int[] tree, int index) {\n    int sum = 0;\n    while (index > 0) {\n      sum += tree[index];\n      index -= index & -index;\n    }\n    return sum;\n  }\n}",
+      "recursiveCode": "class Solution {\n  private static final int MOD = 1_000_000_007;\n  private int[] tree;\n\n  public int createSortedArray(int[] instructions) {\n    int max = 0;\n    for (int value : instructions) max = Math.max(max, value);\n    tree = new int[4 * (max + 1)];\n    long cost = 0;\n    for (int i = 0; i < instructions.length; i++) {\n      int value = instructions[i];\n      int less = query(1, 1, max, 1, value - 1);\n      int greater = i - query(1, 1, max, 1, value);\n      cost = (cost + Math.min(less, greater)) % MOD;\n      update(1, 1, max, value);\n    }\n    return (int) cost;\n  }\n\n  private void update(int node, int left, int right, int index) {\n    if (left == right) {\n      tree[node]++;\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (index <= mid) update(node * 2, left, mid, index);\n    else update(node * 2 + 1, mid + 1, right, index);\n    tree[node] = tree[node * 2] + tree[node * 2 + 1];\n  }\n\n  private int query(int node, int left, int right, int ql, int qr) {\n    if (ql > qr || qr < left || right < ql) return 0;\n    if (ql <= left && right <= qr) return tree[node];\n    int mid = left + (right - left) / 2;\n    return query(node * 2, left, mid, ql, qr) + query(node * 2 + 1, mid + 1, right, ql, qr);\n  }\n}",
+      "optimizedComplexity": "Time O(n log V); Space O(V). Fenwick tree counts inserted values by rank.",
+      "recursiveComplexity": "Time O(n log V); Space O(V). Recursive segment tree queries less/greater counts and updates frequencies.",
+      "source": {
+        "label": "Create Sorted Array through Instructions - LeetCode 1649",
+        "url": "https://leetcode.com/problems/create-sorted-array-through-instructions/"
+      }
+    },
+    {
+      "name": "Count of Range Sum",
+      "question": "Given nums and bounds lower and upper, count range sums nums[i..j] whose sum lies in [lower, upper].",
+      "constraints": "1 <= nums.length <= 100000; values and bounds fit int; count can exceed int during computation.",
+      "examples": [
+        {
+          "input": "nums = [-2,5,-1], lower = -2, upper = 2",
+          "output": "3",
+          "explanation": "Three subarrays have sums inside the target range."
+        },
+        {
+          "input": "nums = [0], lower = 0, upper = 0",
+          "output": "1",
+          "explanation": "The single zero sum is valid."
+        },
+        {
+          "input": "nums = [1,-1], lower = 0, upper = 0",
+          "output": "1",
+          "explanation": "The full subarray sums to zero."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int countRangeSum(int[] nums, int lower, int upper) {\n    long[] prefix = new long[nums.length + 1];\n    for (int i = 0; i < nums.length; i++) prefix[i + 1] = prefix[i] + nums[i];\n    long[] sorted = prefix.clone();\n    Arrays.sort(sorted);\n    sorted = unique(sorted);\n    int[] tree = new int[sorted.length + 1];\n    int count = 0;\n    add(tree, rank(sorted, 0), 1);\n    for (int i = 1; i < prefix.length; i++) {\n      long leftValue = prefix[i] - upper;\n      long rightValue = prefix[i] - lower;\n      int left = lowerBound(sorted, leftValue) + 1;\n      int right = upperBound(sorted, rightValue);\n      count += query(tree, right) - query(tree, left - 1);\n      add(tree, rank(sorted, prefix[i]), 1);\n    }\n    return count;\n  }\n\n  private long[] unique(long[] values) {\n    int size = 0;\n    for (long value : values) if (size == 0 || values[size - 1] != value) values[size++] = value;\n    return Arrays.copyOf(values, size);\n  }\n\n  private int rank(long[] values, long target) {\n    return lowerBound(values, target) + 1;\n  }\n\n  private int lowerBound(long[] values, long target) {\n    int left = 0, right = values.length;\n    while (left < right) {\n      int mid = left + (right - left) / 2;\n      if (values[mid] < target) left = mid + 1;\n      else right = mid;\n    }\n    return left;\n  }\n\n  private int upperBound(long[] values, long target) {\n    int left = 0, right = values.length;\n    while (left < right) {\n      int mid = left + (right - left) / 2;\n      if (values[mid] <= target) left = mid + 1;\n      else right = mid;\n    }\n    return left;\n  }\n\n  private void add(int[] tree, int index, int delta) {\n    while (index < tree.length) {\n      tree[index] += delta;\n      index += index & -index;\n    }\n  }\n\n  private int query(int[] tree, int index) {\n    int sum = 0;\n    while (index > 0) {\n      sum += tree[index];\n      index -= index & -index;\n    }\n    return sum;\n  }\n}",
+      "recursiveCode": "class Solution {\n  public int countRangeSum(int[] nums, int lower, int upper) {\n    long[] prefix = new long[nums.length + 1];\n    for (int i = 0; i < nums.length; i++) prefix[i + 1] = prefix[i] + nums[i];\n    return sort(prefix, new long[prefix.length], 0, prefix.length - 1, lower, upper);\n  }\n\n  private int sort(long[] sums, long[] temp, int left, int right, int lower, int upper) {\n    if (left >= right) return 0;\n    int mid = left + (right - left) / 2;\n    int count = sort(sums, temp, left, mid, lower, upper) + sort(sums, temp, mid + 1, right, lower, upper);\n    int start = mid + 1, end = mid + 1;\n    for (int i = left; i <= mid; i++) {\n      while (start <= right && sums[start] - sums[i] < lower) start++;\n      while (end <= right && sums[end] - sums[i] <= upper) end++;\n      count += end - start;\n    }\n    merge(sums, temp, left, mid, right);\n    return count;\n  }\n\n  private void merge(long[] sums, long[] temp, int left, int mid, int right) {\n    int i = left, j = mid + 1, k = left;\n    while (i <= mid && j <= right) temp[k++] = sums[i] <= sums[j] ? sums[i++] : sums[j++];\n    while (i <= mid) temp[k++] = sums[i++];\n    while (j <= right) temp[k++] = sums[j++];\n    for (int p = left; p <= right; p++) sums[p] = temp[p];\n  }\n}",
+      "optimizedComplexity": "Time O(n log n); Space O(n). Fenwick tree counts previous compressed prefix sums in the needed interval.",
+      "recursiveComplexity": "Time O(n log n); Space O(n). Merge sort counts valid cross-prefix ranges while sorting prefix sums.",
+      "source": {
+        "label": "Count of Range Sum - LeetCode 327",
+        "url": "https://leetcode.com/problems/count-of-range-sum/"
+      }
+    },
+    {
+      "name": "Range Module",
+      "question": "Design RangeModule with addRange, queryRange, and removeRange over half-open intervals [left,right).",
+      "constraints": "1 <= left < right <= 1e9; up to 10000 operations.",
+      "examples": [
+        {
+          "input": "addRange(10,20); removeRange(14,16); queryRange(10,14)",
+          "output": "true",
+          "explanation": "[10,14) remains covered."
+        },
+        {
+          "input": "queryRange(13,15)",
+          "output": "false",
+          "explanation": "The removed gap breaks full coverage."
+        },
+        {
+          "input": "queryRange(16,17)",
+          "output": "true",
+          "explanation": "[16,20) remains covered."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass RangeModule {\n  private final TreeMap<Integer, Integer> ranges = new TreeMap<>();\n\n  public void addRange(int left, int right) {\n    Integer start = ranges.floorKey(left);\n    if (start != null && ranges.get(start) >= left) {\n      left = start;\n      right = Math.max(right, ranges.remove(start));\n    }\n    Integer next = ranges.ceilingKey(left);\n    while (next != null && next <= right) {\n      right = Math.max(right, ranges.remove(next));\n      next = ranges.ceilingKey(left);\n    }\n    ranges.put(left, right);\n  }\n\n  public boolean queryRange(int left, int right) {\n    Integer start = ranges.floorKey(left);\n    return start != null && ranges.get(start) >= right;\n  }\n\n  public void removeRange(int left, int right) {\n    Integer start = ranges.floorKey(left);\n    if (start != null && ranges.get(start) > left) {\n      int end = ranges.get(start);\n      ranges.put(start, left);\n      if (end > right) ranges.put(right, end);\n    }\n    Integer next = ranges.ceilingKey(left);\n    while (next != null && next < right) {\n      int end = ranges.remove(next);\n      if (end > right) {\n        ranges.put(right, end);\n        break;\n      }\n      next = ranges.ceilingKey(left);\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass RangeModule {\n  private final List<int[]> ranges = new ArrayList<>();\n\n  public void addRange(int left, int right) {\n    ranges.add(new int[]{left, right});\n    ranges.sort((a, b) -> Integer.compare(a[0], b[0]));\n    List<int[]> merged = new ArrayList<>();\n    mergeInto(0, merged);\n    ranges.clear();\n    ranges.addAll(merged);\n  }\n\n  public boolean queryRange(int left, int right) {\n    return query(left, right, 0);\n  }\n\n  public void removeRange(int left, int right) {\n    List<int[]> next = new ArrayList<>();\n    removeInto(left, right, 0, next);\n    ranges.clear();\n    ranges.addAll(next);\n  }\n\n  private void mergeInto(int index, List<int[]> merged) {\n    if (index == ranges.size()) return;\n    int[] range = ranges.get(index);\n    if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < range[0]) merged.add(new int[]{range[0], range[1]});\n    else merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], range[1]);\n    mergeInto(index + 1, merged);\n  }\n\n  private boolean query(int left, int right, int index) {\n    if (index == ranges.size()) return false;\n    int[] range = ranges.get(index);\n    return (range[0] <= left && right <= range[1]) || query(left, right, index + 1);\n  }\n\n  private void removeInto(int left, int right, int index, List<int[]> next) {\n    if (index == ranges.size()) return;\n    int[] range = ranges.get(index);\n    if (range[1] <= left || right <= range[0]) next.add(range);\n    else {\n      if (range[0] < left) next.add(new int[]{range[0], left});\n      if (right < range[1]) next.add(new int[]{right, range[1]});\n    }\n    removeInto(left, right, index + 1, next);\n  }\n}",
+      "optimizedComplexity": "add/remove/query Time O(k log n); Space O(n). TreeMap stores disjoint intervals by start.",
+      "recursiveComplexity": "add/remove/query Time O(n); Space O(n + stack). Recursive list processing merges, splits, and scans intervals.",
+      "source": {
+        "label": "Range Module - LeetCode 715",
+        "url": "https://leetcode.com/problems/range-module/"
+      }
+    },
+    {
+      "name": "My Calendar III",
+      "question": "Design MyCalendarThree where book(start,end) adds a half-open event [start,end) and returns the maximum number of overlapping events so far.",
+      "constraints": "0 <= start < end <= 1e9; up to 400 calls.",
+      "examples": [
+        {
+          "input": "book(10,20); book(50,60); book(10,40)",
+          "output": "1,1,2",
+          "explanation": "The third booking overlaps [10,20)."
+        },
+        {
+          "input": "book(5,15); book(5,10); book(25,55)",
+          "output": "3,3,3 after the sample continuation",
+          "explanation": "The maximum overlap reaches three."
+        },
+        {
+          "input": "book(1,2); book(2,3)",
+          "output": "1,1",
+          "explanation": "Touching half-open intervals do not overlap."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass MyCalendarThree {\n  private final TreeMap<Integer, Integer> delta = new TreeMap<>();\n\n  public int book(int start, int end) {\n    delta.put(start, delta.getOrDefault(start, 0) + 1);\n    delta.put(end, delta.getOrDefault(end, 0) - 1);\n    int active = 0;\n    int best = 0;\n    for (int change : delta.values()) {\n      active += change;\n      best = Math.max(best, active);\n    }\n    return best;\n  }\n}",
+      "recursiveCode": "class MyCalendarThree {\n  private static class Node {\n    Node left;\n    Node right;\n    int add;\n    int max;\n  }\n\n  private final Node root = new Node();\n  private static final int LIMIT = 1_000_000_000;\n\n  public int book(int start, int end) {\n    update(root, 0, LIMIT, start, end - 1);\n    return root.max;\n  }\n\n  private void update(Node node, int left, int right, int ql, int qr) {\n    if (ql <= left && right <= qr) {\n      node.add++;\n      node.max++;\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (ql <= mid) {\n      if (node.left == null) node.left = new Node();\n      update(node.left, left, mid, ql, qr);\n    }\n    if (qr > mid) {\n      if (node.right == null) node.right = new Node();\n      update(node.right, mid + 1, right, ql, qr);\n    }\n    int leftMax = node.left == null ? 0 : node.left.max;\n    int rightMax = node.right == null ? 0 : node.right.max;\n    node.max = node.add + Math.max(leftMax, rightMax);\n  }\n}",
+      "optimizedComplexity": "book Time O(n) for sweep-map implementation here; Space O(n). Ordered deltas compute max active count.",
+      "recursiveComplexity": "book Time O(log C); Space O(number of touched nodes). Dynamic lazy segment tree over the coordinate domain.",
+      "source": {
+        "label": "My Calendar III - LeetCode 732",
+        "url": "https://leetcode.com/problems/my-calendar-iii/"
+      }
+    },
+    {
+      "name": "Falling Squares",
+      "question": "Given falling squares as [left, sideLength], return the maximum stack height after each square lands.",
+      "constraints": "1 <= positions.length <= 1000; coordinates and side lengths are positive integers.",
+      "examples": [
+        {
+          "input": "positions = [[1,2],[2,3],[6,1]]",
+          "output": "[2,5,5]",
+          "explanation": "The second square overlaps the first and stacks to height 5."
+        },
+        {
+          "input": "positions = [[100,100],[200,100]]",
+          "output": "[100,100]",
+          "explanation": "Touching intervals do not overlap."
+        },
+        {
+          "input": "positions = [[1,3],[1,2]]",
+          "output": "[3,5]",
+          "explanation": "The second square lands on the previous square."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private int[] max;\n  private int[] lazy;\n\n  public List<Integer> fallingSquares(int[][] positions) {\n    TreeSet<Integer> coordinates = new TreeSet<>();\n    for (int[] p : positions) {\n      coordinates.add(p[0]);\n      coordinates.add(p[0] + p[1] - 1);\n    }\n    Map<Integer, Integer> rank = new HashMap<>();\n    int index = 0;\n    for (int coordinate : coordinates) rank.put(coordinate, index++);\n    max = new int[4 * index];\n    lazy = new int[4 * index];\n    List<Integer> answer = new ArrayList<>();\n    int best = 0;\n    for (int[] p : positions) {\n      int left = rank.get(p[0]);\n      int right = rank.get(p[0] + p[1] - 1);\n      int height = query(1, 0, index - 1, left, right) + p[1];\n      update(1, 0, index - 1, left, right, height);\n      best = Math.max(best, height);\n      answer.add(best);\n    }\n    return answer;\n  }\n\n  private int query(int node, int left, int right, int ql, int qr) {\n    if (qr < left || right < ql) return 0;\n    if (ql <= left && right <= qr) return max[node];\n    push(node);\n    int mid = left + (right - left) / 2;\n    return Math.max(query(node * 2, left, mid, ql, qr), query(node * 2 + 1, mid + 1, right, ql, qr));\n  }\n\n  private void update(int node, int left, int right, int ql, int qr, int value) {\n    if (qr < left || right < ql) return;\n    if (ql <= left && right <= qr) {\n      max[node] = value;\n      lazy[node] = value;\n      return;\n    }\n    push(node);\n    int mid = left + (right - left) / 2;\n    update(node * 2, left, mid, ql, qr, value);\n    update(node * 2 + 1, mid + 1, right, ql, qr, value);\n    max[node] = Math.max(max[node * 2], max[node * 2 + 1]);\n  }\n\n  private void push(int node) {\n    if (lazy[node] == 0) return;\n    for (int child : new int[]{node * 2, node * 2 + 1}) {\n      max[child] = lazy[node];\n      lazy[child] = lazy[node];\n    }\n    lazy[node] = 0;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public List<Integer> fallingSquares(int[][] positions) {\n    List<int[]> intervals = new ArrayList<>();\n    List<Integer> answer = new ArrayList<>();\n    place(positions, 0, intervals, answer, 0);\n    return answer;\n  }\n\n  private void place(int[][] positions, int index, List<int[]> intervals, List<Integer> answer, int best) {\n    if (index == positions.length) return;\n    int left = positions[index][0];\n    int right = left + positions[index][1];\n    int height = base(intervals, 0, left, right, 0) + positions[index][1];\n    intervals.add(new int[]{left, right, height});\n    int nextBest = Math.max(best, height);\n    answer.add(nextBest);\n    place(positions, index + 1, intervals, answer, nextBest);\n  }\n\n  private int base(List<int[]> intervals, int index, int left, int right, int best) {\n    if (index == intervals.size()) return best;\n    int[] interval = intervals.get(index);\n    if (left < interval[1] && interval[0] < right) best = Math.max(best, interval[2]);\n    return base(intervals, index + 1, left, right, best);\n  }\n}",
+      "optimizedComplexity": "Time O(n log n); Space O(n). Coordinate-compressed segment tree does range max query and range assign.",
+      "recursiveComplexity": "Time O(n^2); Space O(n + stack). Recursive scan finds the base height among previous intervals.",
+      "source": {
+        "label": "Falling Squares - LeetCode 699",
+        "url": "https://leetcode.com/problems/falling-squares/"
+      }
+    },
+    {
+      "name": "Longest Increasing Subsequence II",
+      "question": "Given nums and k, return the length of the longest increasing subsequence where adjacent chosen values differ by at most k.",
+      "constraints": "1 <= nums.length <= 100000; 1 <= nums[i], k <= 100000.",
+      "examples": [
+        {
+          "input": "nums = [4,2,1,4,3,4,5,8,15], k = 3",
+          "output": "5",
+          "explanation": "One valid subsequence is [1,3,4,5,8]."
+        },
+        {
+          "input": "nums = [7,4,5,1,8,12,4,7], k = 5",
+          "output": "4",
+          "explanation": "The value-difference limit restricts transitions."
+        },
+        {
+          "input": "nums = [1,5], k = 1",
+          "output": "1",
+          "explanation": "5 cannot follow 1 because the difference is greater than k."
+        }
+      ],
+      "optimizedCode": "class Solution {\n  private int[] tree;\n\n  public int lengthOfLIS(int[] nums, int k) {\n    int max = 0;\n    for (int value : nums) max = Math.max(max, value);\n    tree = new int[4 * (max + 1)];\n    int answer = 0;\n    for (int value : nums) {\n      int left = Math.max(1, value - k);\n      int best = query(1, 1, max, left, value - 1) + 1;\n      update(1, 1, max, value, best);\n      answer = Math.max(answer, best);\n    }\n    return answer;\n  }\n\n  private int query(int node, int left, int right, int ql, int qr) {\n    if (ql > qr || qr < left || right < ql) return 0;\n    if (ql <= left && right <= qr) return tree[node];\n    int mid = left + (right - left) / 2;\n    return Math.max(query(node * 2, left, mid, ql, qr), query(node * 2 + 1, mid + 1, right, ql, qr));\n  }\n\n  private void update(int node, int left, int right, int index, int value) {\n    if (left == right) {\n      tree[node] = Math.max(tree[node], value);\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (index <= mid) update(node * 2, left, mid, index, value);\n    else update(node * 2 + 1, mid + 1, right, index, value);\n    tree[node] = Math.max(tree[node * 2], tree[node * 2 + 1]);\n  }\n}",
+      "recursiveCode": "class Solution {\n  private int[] tree;\n  private int maxValue;\n\n  public int lengthOfLIS(int[] nums, int k) {\n    for (int value : nums) maxValue = Math.max(maxValue, value);\n    tree = new int[4 * (maxValue + 1)];\n    return scan(nums, k, 0, 0);\n  }\n\n  private int scan(int[] nums, int k, int index, int bestAnswer) {\n    if (index == nums.length) return bestAnswer;\n    int value = nums[index];\n    int best = query(1, 1, maxValue, Math.max(1, value - k), value - 1) + 1;\n    update(1, 1, maxValue, value, best);\n    return scan(nums, k, index + 1, Math.max(bestAnswer, best));\n  }\n\n  private int query(int node, int left, int right, int ql, int qr) {\n    if (ql > qr || qr < left || right < ql) return 0;\n    if (ql <= left && right <= qr) return tree[node];\n    int mid = left + (right - left) / 2;\n    return Math.max(query(node * 2, left, mid, ql, qr), query(node * 2 + 1, mid + 1, right, ql, qr));\n  }\n\n  private void update(int node, int left, int right, int index, int value) {\n    if (left == right) {\n      tree[node] = Math.max(tree[node], value);\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (index <= mid) update(node * 2, left, mid, index, value);\n    else update(node * 2 + 1, mid + 1, right, index, value);\n    tree[node] = Math.max(tree[node * 2], tree[node * 2 + 1]);\n  }\n}",
+      "optimizedComplexity": "Time O(n log V); Space O(V). Segment tree range maximum query over value coordinates.",
+      "recursiveComplexity": "Time O(n log V); Space O(V). Recursive segment tree query/update stores best length per value.",
+      "source": {
+        "label": "Longest Increasing Subsequence II - LeetCode 2407",
+        "url": "https://leetcode.com/problems/longest-increasing-subsequence-ii/"
+      }
+    },
+    {
+      "name": "Number of Longest Increasing Subsequence",
+      "question": "Given nums, return the number of longest strictly increasing subsequences.",
+      "constraints": "1 <= nums.length <= 2000; answer fits in 32-bit signed int.",
+      "examples": [
+        {
+          "input": "nums = [1,3,5,4,7]",
+          "output": "2",
+          "explanation": "The longest length is 4 with two choices ending at 7."
+        },
+        {
+          "input": "nums = [2,2,2,2,2]",
+          "output": "5",
+          "explanation": "Every single value is a longest subsequence."
+        },
+        {
+          "input": "nums = [1]",
+          "output": "1",
+          "explanation": "The only subsequence has length 1."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private int[] bestLength;\n  private int[] ways;\n\n  public int findNumberOfLIS(int[] nums) {\n    int[] sorted = nums.clone();\n    Arrays.sort(sorted);\n    int size = 0;\n    for (int value : sorted) if (size == 0 || sorted[size - 1] != value) sorted[size++] = value;\n    bestLength = new int[4 * size + 4];\n    ways = new int[4 * size + 4];\n    for (int value : nums) {\n      int rank = lowerBound(sorted, size, value) + 1;\n      int[] best = query(1, 1, size, 1, rank - 1);\n      int length = best[0] + 1;\n      int count = best[1] == 0 ? 1 : best[1];\n      update(1, 1, size, rank, length, count);\n    }\n    return ways[1];\n  }\n\n  private int lowerBound(int[] values, int size, int target) {\n    int left = 0, right = size;\n    while (left < right) {\n      int mid = left + (right - left) / 2;\n      if (values[mid] < target) left = mid + 1;\n      else right = mid;\n    }\n    return left;\n  }\n\n  private int[] query(int node, int left, int right, int ql, int qr) {\n    if (ql > qr || qr < left || right < ql) return new int[]{0, 0};\n    if (ql <= left && right <= qr) return new int[]{bestLength[node], ways[node]};\n    int mid = left + (right - left) / 2;\n    return merge(query(node * 2, left, mid, ql, qr), query(node * 2 + 1, mid + 1, right, ql, qr));\n  }\n\n  private void update(int node, int left, int right, int index, int length, int count) {\n    if (left == right) {\n      int[] merged = merge(new int[]{bestLength[node], ways[node]}, new int[]{length, count});\n      bestLength[node] = merged[0];\n      ways[node] = merged[1];\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (index <= mid) update(node * 2, left, mid, index, length, count);\n    else update(node * 2 + 1, mid + 1, right, index, length, count);\n    int[] merged = merge(new int[]{bestLength[node * 2], ways[node * 2]}, new int[]{bestLength[node * 2 + 1], ways[node * 2 + 1]});\n    bestLength[node] = merged[0];\n    ways[node] = merged[1];\n  }\n\n  private int[] merge(int[] a, int[] b) {\n    if (a[0] == b[0]) return new int[]{a[0], a[1] + b[1]};\n    return a[0] > b[0] ? a : b;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private int[] bestLength;\n  private int[] ways;\n  private int[] values;\n  private int size;\n\n  public int findNumberOfLIS(int[] nums) {\n    values = nums.clone();\n    Arrays.sort(values);\n    for (int value : values) if (size == 0 || values[size - 1] != value) values[size++] = value;\n    bestLength = new int[4 * size + 4];\n    ways = new int[4 * size + 4];\n    scan(nums, 0);\n    return ways[1];\n  }\n\n  private void scan(int[] nums, int index) {\n    if (index == nums.length) return;\n    int rank = lowerBound(nums[index], 0, size) + 1;\n    int[] best = query(1, 1, size, 1, rank - 1);\n    update(1, 1, size, rank, best[0] + 1, best[1] == 0 ? 1 : best[1]);\n    scan(nums, index + 1);\n  }\n\n  private int lowerBound(int target, int left, int right) {\n    if (left >= right) return left;\n    int mid = left + (right - left) / 2;\n    if (values[mid] < target) return lowerBound(target, mid + 1, right);\n    return lowerBound(target, left, mid);\n  }\n\n  private int[] query(int node, int left, int right, int ql, int qr) {\n    if (ql > qr || qr < left || right < ql) return new int[]{0, 0};\n    if (ql <= left && right <= qr) return new int[]{bestLength[node], ways[node]};\n    int mid = left + (right - left) / 2;\n    return merge(query(node * 2, left, mid, ql, qr), query(node * 2 + 1, mid + 1, right, ql, qr));\n  }\n\n  private void update(int node, int left, int right, int index, int length, int count) {\n    if (left == right) {\n      int[] merged = merge(new int[]{bestLength[node], ways[node]}, new int[]{length, count});\n      bestLength[node] = merged[0];\n      ways[node] = merged[1];\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (index <= mid) update(node * 2, left, mid, index, length, count);\n    else update(node * 2 + 1, mid + 1, right, index, length, count);\n    int[] merged = merge(new int[]{bestLength[node * 2], ways[node * 2]}, new int[]{bestLength[node * 2 + 1], ways[node * 2 + 1]});\n    bestLength[node] = merged[0];\n    ways[node] = merged[1];\n  }\n\n  private int[] merge(int[] a, int[] b) {\n    if (a[0] == b[0]) return new int[]{a[0], a[1] + b[1]};\n    return a[0] > b[0] ? a : b;\n  }\n}",
+      "optimizedComplexity": "Time O(n log n); Space O(n). Segment tree over compressed values stores best length/count pairs.",
+      "recursiveComplexity": "Time O(n log n); Space O(n). Recursive segment tree merges length/count pairs.",
+      "source": {
+        "label": "Number of Longest Increasing Subsequence - LeetCode 673",
+        "url": "https://leetcode.com/problems/number-of-longest-increasing-subsequence/"
+      }
+    },
+    {
+      "name": "Handling Sum Queries After Update",
+      "question": "Given nums1, nums2, and queries, support flipping nums1 bits in a range, adding p times the number of ones in nums1 to the sum of nums2, and reporting the sum.",
+      "constraints": "1 <= nums1.length <= 100000; nums1 is binary; queries length up to 100000.",
+      "examples": [
+        {
+          "input": "nums1=[1,0,1], nums2=[0,0,0], queries=[[1,1,1],[2,1,0],[3,0,0]]",
+          "output": "[3]",
+          "explanation": "After flipping index 1, nums1 has three ones, so add 3."
+        },
+        {
+          "input": "flip the same range twice",
+          "output": "original ones count restored",
+          "explanation": "Lazy flip toggles cancel when applied twice."
+        },
+        {
+          "input": "query type 3 before type 2",
+          "output": "initial sum(nums2)",
+          "explanation": "The sum is tracked independently as long."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private int[] ones;\n  private boolean[] lazy;\n  private int n;\n\n  public long[] handleQuery(int[] nums1, int[] nums2, int[][] queries) {\n    n = nums1.length;\n    ones = new int[4 * n];\n    lazy = new boolean[4 * n];\n    build(nums1, 1, 0, n - 1);\n    long sum = 0;\n    for (int value : nums2) sum += value;\n    List<Long> answer = new ArrayList<>();\n    for (int[] query : queries) {\n      if (query[0] == 1) flip(1, 0, n - 1, query[1], query[2]);\n      else if (query[0] == 2) sum += (long) query[1] * ones[1];\n      else answer.add(sum);\n    }\n    long[] result = new long[answer.size()];\n    for (int i = 0; i < answer.size(); i++) result[i] = answer.get(i);\n    return result;\n  }\n\n  private void build(int[] nums, int node, int left, int right) {\n    if (left == right) {\n      ones[node] = nums[left];\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    build(nums, node * 2, left, mid);\n    build(nums, node * 2 + 1, mid + 1, right);\n    ones[node] = ones[node * 2] + ones[node * 2 + 1];\n  }\n\n  private void flip(int node, int left, int right, int ql, int qr) {\n    if (qr < left || right < ql) return;\n    if (ql <= left && right <= qr) {\n      apply(node, left, right);\n      return;\n    }\n    push(node, left, right);\n    int mid = left + (right - left) / 2;\n    flip(node * 2, left, mid, ql, qr);\n    flip(node * 2 + 1, mid + 1, right, ql, qr);\n    ones[node] = ones[node * 2] + ones[node * 2 + 1];\n  }\n\n  private void apply(int node, int left, int right) {\n    ones[node] = right - left + 1 - ones[node];\n    lazy[node] = !lazy[node];\n  }\n\n  private void push(int node, int left, int right) {\n    if (!lazy[node] || left == right) return;\n    int mid = left + (right - left) / 2;\n    apply(node * 2, left, mid);\n    apply(node * 2 + 1, mid + 1, right);\n    lazy[node] = false;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public long[] handleQuery(int[] nums1, int[] nums2, int[][] queries) {\n    long sum = 0;\n    for (int value : nums2) sum += value;\n    List<Long> answer = new ArrayList<>();\n    process(nums1, queries, 0, sum, answer);\n    long[] result = new long[answer.size()];\n    for (int i = 0; i < answer.size(); i++) result[i] = answer.get(i);\n    return result;\n  }\n\n  private void process(int[] nums1, int[][] queries, int index, long sum, List<Long> answer) {\n    if (index == queries.length) return;\n    int[] query = queries[index];\n    if (query[0] == 1) {\n      flip(nums1, query[1], query[2]);\n    } else if (query[0] == 2) {\n      sum += (long) query[1] * countOnes(nums1, 0);\n    } else {\n      answer.add(sum);\n    }\n    process(nums1, queries, index + 1, sum, answer);\n  }\n\n  private void flip(int[] nums, int left, int right) {\n    if (left > right) return;\n    nums[left] ^= 1;\n    flip(nums, left + 1, right);\n  }\n\n  private int countOnes(int[] nums, int index) {\n    if (index == nums.length) return 0;\n    return nums[index] + countOnes(nums, index + 1);\n  }\n}",
+      "optimizedComplexity": "Time O((n+q) log n); Space O(n + answers). Lazy segment tree supports range flip and total ones.",
+      "recursiveComplexity": "Time O(nq); Space O(n + answers + recursion). Recursive brute force flips and counts ranges.",
+      "source": {
+        "label": "Handling Sum Queries After Update - LeetCode 2569",
+        "url": "https://leetcode.com/problems/handling-sum-queries-after-update/"
+      }
+    },
+    {
+      "name": "Count Integers in Intervals",
+      "question": "Design CountIntervals with add(left, right) and count(), where count returns how many distinct integers are covered by at least one added interval.",
+      "constraints": "1 <= left <= right <= 1e9; many operations require logarithmic interval lookup instead of per-value marking.",
+      "examples": [
+        {
+          "input": "add(2, 3), add(7, 10), count()",
+          "output": "6",
+          "explanation": "Covered values are 2,3,7,8,9,10."
+        },
+        {
+          "input": "add(5, 8), count()",
+          "output": "8",
+          "explanation": "The intervals become [2,3] and [5,10], covering 8 integers."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass CountIntervals {\n  private final TreeMap<Integer, Integer> intervals = new TreeMap<>();\n  private long covered;\n\n  public void add(int left, int right) {\n    Map.Entry<Integer, Integer> entry = intervals.floorEntry(right);\n    while (entry != null && entry.getValue() >= left - 1) {\n      left = Math.min(left, entry.getKey());\n      right = Math.max(right, entry.getValue());\n      covered -= (long) entry.getValue() - entry.getKey() + 1;\n      intervals.remove(entry.getKey());\n      entry = intervals.floorEntry(right);\n    }\n    intervals.put(left, right);\n    covered += (long) right - left + 1;\n  }\n\n  public int count() {\n    return (int) covered;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass CountIntervals {\n  private final List<int[]> intervals = new ArrayList<>();\n  private long covered;\n\n  public void add(int left, int right) {\n    merge(0, left, right);\n  }\n\n  public int count() {\n    return (int) covered;\n  }\n\n  private void merge(int index, int left, int right) {\n    if (index == intervals.size() || intervals.get(index)[0] > right + 1) {\n      intervals.add(index, new int[] {left, right});\n      covered += (long) right - left + 1;\n      return;\n    }\n    int[] current = intervals.get(index);\n    if (current[1] < left - 1) {\n      merge(index + 1, left, right);\n      return;\n    }\n    intervals.remove(index);\n    covered -= (long) current[1] - current[0] + 1;\n    merge(index, Math.min(left, current[0]), Math.max(right, current[1]));\n  }\n}",
+      "optimizedComplexity": "Time O(k log m) per add where k intervals are merged and m intervals are stored; Space O(m).",
+      "recursiveComplexity": "Time O(m) per add in the recursive list merge; Space O(m) plus O(m) recursion depth.",
+      "source": {
+        "label": "LeetCode 2276 - Count Integers in Intervals",
+        "url": "https://leetcode.com/problems/count-integers-in-intervals/"
+      }
+    },
+    {
+      "name": "Peaks in Array",
+      "question": "Given nums and queries, type 1 [1,l,r] asks for the number of peak indices inside nums[l..r], and type 2 [2,index,value] updates nums[index].",
+      "constraints": "nums length and queries can be large, so each query should avoid scanning the whole subarray.",
+      "examples": [
+        {
+          "input": "nums=[3,1,4,2,5], query [1,0,4]",
+          "output": "[1]",
+          "explanation": "Index 2 is the only peak."
+        },
+        {
+          "input": "update index 3 to 6, then query [1,0,4]",
+          "output": "[1]",
+          "explanation": "The peak moves from index 2 to index 3."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public List<Integer> countOfPeaks(int[] nums, int[][] queries) {\n    Fenwick tree = new Fenwick(nums.length);\n    for (int index = 1; index + 1 < nums.length; index++) {\n      if (isPeak(nums, index)) tree.add(index, 1);\n    }\n\n    List<Integer> answer = new ArrayList<>();\n    for (int[] query : queries) {\n      if (query[0] == 1) {\n        int left = query[1] + 1;\n        int right = query[2] - 1;\n        answer.add(left <= right ? tree.sumRange(left, right) : 0);\n      } else {\n        int index = query[1];\n        nums[index] = query[2];\n        refresh(nums, tree, index - 1);\n        refresh(nums, tree, index);\n        refresh(nums, tree, index + 1);\n      }\n    }\n    return answer;\n  }\n\n  private void refresh(int[] nums, Fenwick tree, int index) {\n    if (index <= 0 || index + 1 >= nums.length) return;\n    int current = tree.sumRange(index, index);\n    int next = isPeak(nums, index) ? 1 : 0;\n    tree.add(index, next - current);\n  }\n\n  private boolean isPeak(int[] nums, int index) {\n    return nums[index] > nums[index - 1] && nums[index] > nums[index + 1];\n  }\n\n  private static class Fenwick {\n    private final int[] bit;\n\n    Fenwick(int n) {\n      bit = new int[n + 1];\n    }\n\n    void add(int index, int delta) {\n      for (int i = index + 1; i < bit.length; i += i & -i) bit[i] += delta;\n    }\n\n    int prefixSum(int index) {\n      int sum = 0;\n      for (int i = index + 1; i > 0; i -= i & -i) sum += bit[i];\n      return sum;\n    }\n\n    int sumRange(int left, int right) {\n      return prefixSum(right) - (left == 0 ? 0 : prefixSum(left - 1));\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public List<Integer> countOfPeaks(int[] nums, int[][] queries) {\n    int[] peaks = new int[nums.length];\n    for (int i = 1; i + 1 < nums.length; i++) peaks[i] = isPeak(nums, i) ? 1 : 0;\n    SegmentTree tree = new SegmentTree(peaks);\n\n    List<Integer> answer = new ArrayList<>();\n    for (int[] query : queries) {\n      if (query[0] == 1) {\n        int left = query[1] + 1;\n        int right = query[2] - 1;\n        answer.add(left <= right ? tree.query(left, right) : 0);\n      } else {\n        int index = query[1];\n        nums[index] = query[2];\n        updatePeak(nums, tree, index - 1);\n        updatePeak(nums, tree, index);\n        updatePeak(nums, tree, index + 1);\n      }\n    }\n    return answer;\n  }\n\n  private void updatePeak(int[] nums, SegmentTree tree, int index) {\n    if (index <= 0 || index + 1 >= nums.length) return;\n    tree.update(index, isPeak(nums, index) ? 1 : 0);\n  }\n\n  private boolean isPeak(int[] nums, int index) {\n    return nums[index] > nums[index - 1] && nums[index] > nums[index + 1];\n  }\n\n  private static class SegmentTree {\n    private final int n;\n    private final int[] tree;\n\n    SegmentTree(int[] values) {\n      n = values.length;\n      tree = new int[Math.max(1, 4 * n)];\n      build(1, 0, n - 1, values);\n    }\n\n    void update(int index, int value) {\n      update(1, 0, n - 1, index, value);\n    }\n\n    int query(int left, int right) {\n      return query(1, 0, n - 1, left, right);\n    }\n\n    private void build(int node, int left, int right, int[] values) {\n      if (left == right) {\n        tree[node] = values[left];\n        return;\n      }\n      int mid = left + (right - left) / 2;\n      build(node * 2, left, mid, values);\n      build(node * 2 + 1, mid + 1, right, values);\n      tree[node] = tree[node * 2] + tree[node * 2 + 1];\n    }\n\n    private void update(int node, int left, int right, int index, int value) {\n      if (left == right) {\n        tree[node] = value;\n        return;\n      }\n      int mid = left + (right - left) / 2;\n      if (index <= mid) update(node * 2, left, mid, index, value);\n      else update(node * 2 + 1, mid + 1, right, index, value);\n      tree[node] = tree[node * 2] + tree[node * 2 + 1];\n    }\n\n    private int query(int node, int left, int right, int ql, int qr) {\n      if (qr < left || right < ql) return 0;\n      if (ql <= left && right <= qr) return tree[node];\n      int mid = left + (right - left) / 2;\n      return query(node * 2, left, mid, ql, qr) + query(node * 2 + 1, mid + 1, right, ql, qr);\n    }\n  }\n}",
+      "optimizedComplexity": "Time O((n + q) log n); each update refreshes at most three Fenwick positions; Space O(n).",
+      "recursiveComplexity": "Time O((n + q) log n) with recursive segment tree point updates and range sums; Space O(n).",
+      "source": {
+        "label": "LeetCode 3187 - Peaks in Array",
+        "url": "https://leetcode.com/problems/peaks-in-array/"
+      }
+    },
+    {
+      "name": "Booking Concert Tickets in Groups",
+      "question": "Design BookMyShow with gather(k,maxRow), which seats k people contiguously in one row, and scatter(k,maxRow), which seats k people anywhere across rows 0..maxRow.",
+      "constraints": "n and operations are large; scanning every row for each request is too slow.",
+      "examples": [
+        {
+          "input": "BookMyShow(2,5); gather(4,0)",
+          "output": "[0,0]",
+          "explanation": "Row 0 has 5 free seats and gives seats starting at 0."
+        },
+        {
+          "input": "scatter(6,1)",
+          "output": "true",
+          "explanation": "The remaining one seat in row 0 and five in row 1 are enough."
+        }
+      ],
+      "optimizedCode": "class BookMyShow {\n  private final int n;\n  private final int m;\n  private final long[] sum;\n  private final int[] max;\n\n  public BookMyShow(int n, int m) {\n    this.n = n;\n    this.m = m;\n    sum = new long[4 * n];\n    max = new int[4 * n];\n    build(1, 0, n - 1);\n  }\n\n  public int[] gather(int k, int maxRow) {\n    maxRow = Math.min(maxRow, n - 1);\n    if (queryMax(1, 0, n - 1, 0, maxRow) < k) return new int[0];\n    int row = findFirst(1, 0, n - 1, maxRow, k);\n    int free = (int) querySum(1, 0, n - 1, row, row);\n    int start = m - free;\n    update(1, 0, n - 1, row, free - k);\n    return new int[] {row, start};\n  }\n\n  public boolean scatter(int k, int maxRow) {\n    maxRow = Math.min(maxRow, n - 1);\n    if (querySum(1, 0, n - 1, 0, maxRow) < k) return false;\n    while (k > 0) {\n      int row = findFirst(1, 0, n - 1, maxRow, 1);\n      int free = (int) querySum(1, 0, n - 1, row, row);\n      int take = Math.min(k, free);\n      update(1, 0, n - 1, row, free - take);\n      k -= take;\n    }\n    return true;\n  }\n\n  private void build(int node, int left, int right) {\n    if (left == right) {\n      sum[node] = m;\n      max[node] = m;\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    build(node * 2, left, mid);\n    build(node * 2 + 1, mid + 1, right);\n    pull(node);\n  }\n\n  private void update(int node, int left, int right, int index, int free) {\n    if (left == right) {\n      sum[node] = free;\n      max[node] = free;\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (index <= mid) update(node * 2, left, mid, index, free);\n    else update(node * 2 + 1, mid + 1, right, index, free);\n    pull(node);\n  }\n\n  private int findFirst(int node, int left, int right, int maxRow, int need) {\n    if (left > maxRow || max[node] < need) return -1;\n    if (left == right) return left;\n    int mid = left + (right - left) / 2;\n    int fromLeft = findFirst(node * 2, left, mid, maxRow, need);\n    return fromLeft != -1 ? fromLeft : findFirst(node * 2 + 1, mid + 1, right, maxRow, need);\n  }\n\n  private int queryMax(int node, int left, int right, int ql, int qr) {\n    if (qr < left || right < ql) return 0;\n    if (ql <= left && right <= qr) return max[node];\n    int mid = left + (right - left) / 2;\n    return Math.max(queryMax(node * 2, left, mid, ql, qr), queryMax(node * 2 + 1, mid + 1, right, ql, qr));\n  }\n\n  private long querySum(int node, int left, int right, int ql, int qr) {\n    if (qr < left || right < ql) return 0;\n    if (ql <= left && right <= qr) return sum[node];\n    int mid = left + (right - left) / 2;\n    return querySum(node * 2, left, mid, ql, qr) + querySum(node * 2 + 1, mid + 1, right, ql, qr);\n  }\n\n  private void pull(int node) {\n    sum[node] = sum[node * 2] + sum[node * 2 + 1];\n    max[node] = Math.max(max[node * 2], max[node * 2 + 1]);\n  }\n}",
+      "recursiveCode": "class BookMyShow {\n  private final int rows;\n  private final int seatsPerRow;\n  private final int[] used;\n\n  public BookMyShow(int n, int m) {\n    rows = n;\n    seatsPerRow = m;\n    used = new int[n];\n  }\n\n  public int[] gather(int k, int maxRow) {\n    return gather(0, Math.min(maxRow, rows - 1), k);\n  }\n\n  public boolean scatter(int k, int maxRow) {\n    maxRow = Math.min(maxRow, rows - 1);\n    if (freeSeats(0, maxRow) < k) return false;\n    scatter(0, maxRow, new int[] {k});\n    return true;\n  }\n\n  private int[] gather(int row, int maxRow, int k) {\n    if (row > maxRow) return new int[0];\n    if (seatsPerRow - used[row] >= k) {\n      int start = used[row];\n      used[row] += k;\n      return new int[] {row, start};\n    }\n    return gather(row + 1, maxRow, k);\n  }\n\n  private long freeSeats(int row, int maxRow) {\n    if (row > maxRow) return 0;\n    return seatsPerRow - used[row] + freeSeats(row + 1, maxRow);\n  }\n\n  private void scatter(int row, int maxRow, int[] remaining) {\n    if (row > maxRow || remaining[0] == 0) return;\n    int take = Math.min(remaining[0], seatsPerRow - used[row]);\n    used[row] += take;\n    remaining[0] -= take;\n    scatter(row + 1, maxRow, remaining);\n  }\n}",
+      "optimizedComplexity": "Time O(log n) for gather and O(t log n) for scatter where t rows are touched; Space O(n).",
+      "recursiveComplexity": "Time O(n) in the recursive direct simulation; Space O(n) plus recursion depth.",
+      "source": {
+        "label": "LeetCode 2286 - Booking Concert Tickets in Groups",
+        "url": "https://leetcode.com/problems/booking-concert-tickets-in-groups/"
+      }
+    },
+    {
+      "name": "Range Frequency Queries",
+      "question": "Design RangeFreqQuery so query(left, right, value) returns how many times value appears between left and right inclusive.",
+      "constraints": "Large query count makes repeated range scans too slow; preprocessing is allowed because values do not update.",
+      "examples": [
+        {
+          "input": "arr=[12,33,4,56,22,2,34,33,22,12,34,56], query(1,2,4)",
+          "output": "1",
+          "explanation": "Only index 2 contains 4."
+        },
+        {
+          "input": "query(0,11,33)",
+          "output": "2",
+          "explanation": "The value 33 appears at indices 1 and 7."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass RangeFreqQuery {\n  private final Map<Integer, List<Integer>> positions = new HashMap<>();\n\n  public RangeFreqQuery(int[] arr) {\n    for (int index = 0; index < arr.length; index++) {\n      positions.computeIfAbsent(arr[index], key -> new ArrayList<>()).add(index);\n    }\n  }\n\n  public int query(int left, int right, int value) {\n    List<Integer> list = positions.get(value);\n    if (list == null) return 0;\n    return upperBound(list, right) - lowerBound(list, left);\n  }\n\n  private int lowerBound(List<Integer> list, int target) {\n    int left = 0, right = list.size();\n    while (left < right) {\n      int mid = left + (right - left) / 2;\n      if (list.get(mid) < target) left = mid + 1;\n      else right = mid;\n    }\n    return left;\n  }\n\n  private int upperBound(List<Integer> list, int target) {\n    int left = 0, right = list.size();\n    while (left < right) {\n      int mid = left + (right - left) / 2;\n      if (list.get(mid) <= target) left = mid + 1;\n      else right = mid;\n    }\n    return left;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass RangeFreqQuery {\n  private final Map<Integer, List<Integer>> positions = new HashMap<>();\n\n  public RangeFreqQuery(int[] arr) {\n    for (int index = 0; index < arr.length; index++) {\n      positions.computeIfAbsent(arr[index], key -> new ArrayList<>()).add(index);\n    }\n  }\n\n  public int query(int left, int right, int value) {\n    List<Integer> list = positions.get(value);\n    if (list == null) return 0;\n    return upperBound(list, right, 0, list.size()) - lowerBound(list, left, 0, list.size());\n  }\n\n  private int lowerBound(List<Integer> list, int target, int left, int right) {\n    if (left >= right) return left;\n    int mid = left + (right - left) / 2;\n    if (list.get(mid) < target) return lowerBound(list, target, mid + 1, right);\n    return lowerBound(list, target, left, mid);\n  }\n\n  private int upperBound(List<Integer> list, int target, int left, int right) {\n    if (left >= right) return left;\n    int mid = left + (right - left) / 2;\n    if (list.get(mid) <= target) return upperBound(list, target, mid + 1, right);\n    return upperBound(list, target, left, mid);\n  }\n}",
+      "optimizedComplexity": "Time O(n) preprocessing and O(log f) per query where f is frequency of value; Space O(n).",
+      "recursiveComplexity": "Time O(log f) per query using recursive binary searches; Space O(log f) recursion depth.",
+      "source": {
+        "label": "LeetCode 2080 - Range Frequency Queries",
+        "url": "https://leetcode.com/problems/range-frequency-queries/"
+      }
+    },
+    {
+      "name": "Mutable Range Minimum Query",
+      "question": "Design a data structure with update(index, value) and rangeMin(left, right) over a mutable integer array.",
+      "constraints": "Use O(log n) updates and queries when the operation count is large.",
+      "examples": [
+        {
+          "input": "nums=[5,2,7,3], rangeMin(1,3)",
+          "output": "2",
+          "explanation": "Minimum in [2,7,3] is 2."
+        },
+        {
+          "input": "update(1,8), rangeMin(1,3)",
+          "output": "3",
+          "explanation": "The range becomes [8,7,3]."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass RangeMinQuery {\n  private final int size;\n  private final int[] tree;\n\n  public RangeMinQuery(int[] nums) {\n    int power = 1;\n    while (power < nums.length) power <<= 1;\n    size = power;\n    tree = new int[2 * size];\n    Arrays.fill(tree, Integer.MAX_VALUE);\n    for (int i = 0; i < nums.length; i++) tree[size + i] = nums[i];\n    for (int i = size - 1; i > 0; i--) tree[i] = Math.min(tree[i * 2], tree[i * 2 + 1]);\n  }\n\n  public void update(int index, int value) {\n    int pos = size + index;\n    tree[pos] = value;\n    for (pos >>= 1; pos > 0; pos >>= 1) tree[pos] = Math.min(tree[pos * 2], tree[pos * 2 + 1]);\n  }\n\n  public int rangeMin(int left, int right) {\n    int answer = Integer.MAX_VALUE;\n    for (left += size, right += size; left <= right; left >>= 1, right >>= 1) {\n      if ((left & 1) == 1) answer = Math.min(answer, tree[left++]);\n      if ((right & 1) == 0) answer = Math.min(answer, tree[right--]);\n    }\n    return answer;\n  }\n}",
+      "recursiveCode": "class RangeMinQuery {\n  private final int n;\n  private final int[] tree;\n\n  public RangeMinQuery(int[] nums) {\n    n = nums.length;\n    tree = new int[4 * n];\n    build(1, 0, n - 1, nums);\n  }\n\n  public void update(int index, int value) {\n    update(1, 0, n - 1, index, value);\n  }\n\n  public int rangeMin(int left, int right) {\n    return query(1, 0, n - 1, left, right);\n  }\n\n  private void build(int node, int left, int right, int[] nums) {\n    if (left == right) {\n      tree[node] = nums[left];\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    build(node * 2, left, mid, nums);\n    build(node * 2 + 1, mid + 1, right, nums);\n    tree[node] = Math.min(tree[node * 2], tree[node * 2 + 1]);\n  }\n\n  private void update(int node, int left, int right, int index, int value) {\n    if (left == right) {\n      tree[node] = value;\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (index <= mid) update(node * 2, left, mid, index, value);\n    else update(node * 2 + 1, mid + 1, right, index, value);\n    tree[node] = Math.min(tree[node * 2], tree[node * 2 + 1]);\n  }\n\n  private int query(int node, int left, int right, int ql, int qr) {\n    if (qr < left || right < ql) return Integer.MAX_VALUE;\n    if (ql <= left && right <= qr) return tree[node];\n    int mid = left + (right - left) / 2;\n    return Math.min(query(node * 2, left, mid, ql, qr), query(node * 2 + 1, mid + 1, right, ql, qr));\n  }\n}",
+      "optimizedComplexity": "Time O(log n) per update/query with an iterative segment tree; Space O(n).",
+      "recursiveComplexity": "Time O(log n) per update/query; Space O(n) tree plus O(log n) recursion depth.",
+      "source": {
+        "label": "Segment Tree - CP Algorithms",
+        "url": "https://cp-algorithms.com/data_structures/segment_tree.html"
+      }
+    },
+    {
+      "name": "Mutable Range Maximum Query",
+      "question": "Design a data structure with update(index, value) and rangeMax(left, right) over a mutable integer array.",
+      "constraints": "Large operation counts require O(log n) instead of O(n) range scans.",
+      "examples": [
+        {
+          "input": "nums=[5,2,7,3], rangeMax(1,3)",
+          "output": "7",
+          "explanation": "Maximum in [2,7,3] is 7."
+        },
+        {
+          "input": "update(2,1), rangeMax(1,3)",
+          "output": "3",
+          "explanation": "The range becomes [2,1,3]."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass RangeMaxQuery {\n  private final int size;\n  private final int[] tree;\n\n  public RangeMaxQuery(int[] nums) {\n    int power = 1;\n    while (power < nums.length) power <<= 1;\n    size = power;\n    tree = new int[2 * size];\n    Arrays.fill(tree, Integer.MIN_VALUE);\n    for (int i = 0; i < nums.length; i++) tree[size + i] = nums[i];\n    for (int i = size - 1; i > 0; i--) tree[i] = Math.max(tree[i * 2], tree[i * 2 + 1]);\n  }\n\n  public void update(int index, int value) {\n    int pos = size + index;\n    tree[pos] = value;\n    for (pos >>= 1; pos > 0; pos >>= 1) tree[pos] = Math.max(tree[pos * 2], tree[pos * 2 + 1]);\n  }\n\n  public int rangeMax(int left, int right) {\n    int answer = Integer.MIN_VALUE;\n    for (left += size, right += size; left <= right; left >>= 1, right >>= 1) {\n      if ((left & 1) == 1) answer = Math.max(answer, tree[left++]);\n      if ((right & 1) == 0) answer = Math.max(answer, tree[right--]);\n    }\n    return answer;\n  }\n}",
+      "recursiveCode": "class RangeMaxQuery {\n  private final int n;\n  private final int[] tree;\n\n  public RangeMaxQuery(int[] nums) {\n    n = nums.length;\n    tree = new int[4 * n];\n    build(1, 0, n - 1, nums);\n  }\n\n  public void update(int index, int value) {\n    update(1, 0, n - 1, index, value);\n  }\n\n  public int rangeMax(int left, int right) {\n    return query(1, 0, n - 1, left, right);\n  }\n\n  private void build(int node, int left, int right, int[] nums) {\n    if (left == right) {\n      tree[node] = nums[left];\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    build(node * 2, left, mid, nums);\n    build(node * 2 + 1, mid + 1, right, nums);\n    tree[node] = Math.max(tree[node * 2], tree[node * 2 + 1]);\n  }\n\n  private void update(int node, int left, int right, int index, int value) {\n    if (left == right) {\n      tree[node] = value;\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    if (index <= mid) update(node * 2, left, mid, index, value);\n    else update(node * 2 + 1, mid + 1, right, index, value);\n    tree[node] = Math.max(tree[node * 2], tree[node * 2 + 1]);\n  }\n\n  private int query(int node, int left, int right, int ql, int qr) {\n    if (qr < left || right < ql) return Integer.MIN_VALUE;\n    if (ql <= left && right <= qr) return tree[node];\n    int mid = left + (right - left) / 2;\n    return Math.max(query(node * 2, left, mid, ql, qr), query(node * 2 + 1, mid + 1, right, ql, qr));\n  }\n}",
+      "optimizedComplexity": "Time O(log n) per update/query with an iterative segment tree; Space O(n).",
+      "recursiveComplexity": "Time O(log n) per update/query; Space O(n) tree plus O(log n) recursion depth.",
+      "source": {
+        "label": "Segment Tree - CP Algorithms",
+        "url": "https://cp-algorithms.com/data_structures/segment_tree.html"
+      }
+    },
+    {
+      "name": "Lazy Propagation Range Add",
+      "question": "Design RangeAddSum with addRange(left,right,delta) and sumRange(left,right) over a mutable integer array.",
+      "constraints": "Use lazy propagation to keep both range add and range sum near O(log n).",
+      "examples": [
+        {
+          "input": "nums=[1,2,3,4], addRange(1,3,2), sumRange(0,3)",
+          "output": "16",
+          "explanation": "Array becomes [1,4,5,6]."
+        },
+        {
+          "input": "sumRange(1,2)",
+          "output": "9",
+          "explanation": "The updated middle range is 4+5."
+        }
+      ],
+      "optimizedCode": "class RangeAddSum {\n  private final int size;\n  private final int height;\n  private final long[] tree;\n  private final long[] lazy;\n  private final int[] length;\n\n  public RangeAddSum(int[] nums) {\n    int power = 1;\n    int levels = 0;\n    while (power < nums.length) {\n      power <<= 1;\n      levels++;\n    }\n    size = power;\n    height = levels;\n    tree = new long[2 * size];\n    lazy = new long[2 * size];\n    length = new int[2 * size];\n    for (int i = 0; i < size; i++) length[size + i] = i < nums.length ? 1 : 0;\n    for (int i = size - 1; i > 0; i--) length[i] = length[i * 2] + length[i * 2 + 1];\n    for (int i = 0; i < nums.length; i++) tree[size + i] = nums[i];\n    for (int i = size - 1; i > 0; i--) pull(i);\n  }\n\n  public void addRange(int left, int right, long delta) {\n    int l = left + size;\n    int r = right + size;\n    int originalLeft = l;\n    int originalRight = r;\n    pushPath(l);\n    pushPath(r);\n    while (l <= r) {\n      if ((l & 1) == 1) apply(l++, delta);\n      if ((r & 1) == 0) apply(r--, delta);\n      l >>= 1;\n      r >>= 1;\n    }\n    pullPath(originalLeft);\n    pullPath(originalRight);\n  }\n\n  public long sumRange(int left, int right) {\n    int l = left + size;\n    int r = right + size;\n    pushPath(l);\n    pushPath(r);\n    long sum = 0;\n    while (l <= r) {\n      if ((l & 1) == 1) sum += tree[l++];\n      if ((r & 1) == 0) sum += tree[r--];\n      l >>= 1;\n      r >>= 1;\n    }\n    return sum;\n  }\n\n  private void apply(int node, long delta) {\n    tree[node] += delta * length[node];\n    if (node < size) lazy[node] += delta;\n  }\n\n  private void push(int node) {\n    if (lazy[node] == 0) return;\n    apply(node * 2, lazy[node]);\n    apply(node * 2 + 1, lazy[node]);\n    lazy[node] = 0;\n  }\n\n  private void pushPath(int node) {\n    for (int level = height; level > 0; level--) push(node >> level);\n  }\n\n  private void pull(int node) {\n    tree[node] = tree[node * 2] + tree[node * 2 + 1] + lazy[node] * length[node];\n  }\n\n  private void pullPath(int node) {\n    for (node >>= 1; node > 0; node >>= 1) pull(node);\n  }\n}",
+      "recursiveCode": "class RangeAddSum {\n  private final int n;\n  private final long[] tree;\n  private final long[] lazy;\n\n  public RangeAddSum(int[] nums) {\n    n = nums.length;\n    tree = new long[4 * n];\n    lazy = new long[4 * n];\n    build(1, 0, n - 1, nums);\n  }\n\n  public void addRange(int left, int right, long delta) {\n    add(1, 0, n - 1, left, right, delta);\n  }\n\n  public long sumRange(int left, int right) {\n    return query(1, 0, n - 1, left, right);\n  }\n\n  private void build(int node, int left, int right, int[] nums) {\n    if (left == right) {\n      tree[node] = nums[left];\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    build(node * 2, left, mid, nums);\n    build(node * 2 + 1, mid + 1, right, nums);\n    tree[node] = tree[node * 2] + tree[node * 2 + 1];\n  }\n\n  private void add(int node, int left, int right, int ql, int qr, long delta) {\n    if (qr < left || right < ql) return;\n    if (ql <= left && right <= qr) {\n      tree[node] += delta * (right - left + 1L);\n      lazy[node] += delta;\n      return;\n    }\n    push(node, left, right);\n    int mid = left + (right - left) / 2;\n    add(node * 2, left, mid, ql, qr, delta);\n    add(node * 2 + 1, mid + 1, right, ql, qr, delta);\n    tree[node] = tree[node * 2] + tree[node * 2 + 1];\n  }\n\n  private long query(int node, int left, int right, int ql, int qr) {\n    if (qr < left || right < ql) return 0;\n    if (ql <= left && right <= qr) return tree[node];\n    push(node, left, right);\n    int mid = left + (right - left) / 2;\n    return query(node * 2, left, mid, ql, qr) + query(node * 2 + 1, mid + 1, right, ql, qr);\n  }\n\n  private void push(int node, int left, int right) {\n    if (lazy[node] == 0 || left == right) return;\n    int mid = left + (right - left) / 2;\n    apply(node * 2, left, mid, lazy[node]);\n    apply(node * 2 + 1, mid + 1, right, lazy[node]);\n    lazy[node] = 0;\n  }\n\n  private void apply(int node, int left, int right, long delta) {\n    tree[node] += delta * (right - left + 1L);\n    lazy[node] += delta;\n  }\n}",
+      "optimizedComplexity": "Time O(log n) amortized per operation with iterative lazy propagation; Space O(n).",
+      "recursiveComplexity": "Time O(log n) per operation with recursive lazy propagation; Space O(n) plus recursion depth.",
+      "source": {
+        "label": "Lazy Segment Tree - CP Algorithms",
+        "url": "https://cp-algorithms.com/data_structures/segment_tree.html#range-updates-lazy-propagation"
+      }
+    },
+    {
+      "name": "Lazy Propagation Range Assign",
+      "question": "Design RangeAssignSum with assignRange(left,right,value) and sumRange(left,right) over a mutable integer array.",
+      "constraints": "Lazy assignment keeps repeated range overwrite and range sum operations near O(log n).",
+      "examples": [
+        {
+          "input": "nums=[1,2,3,4], assignRange(1,2,5), sumRange(0,3)",
+          "output": "15",
+          "explanation": "Array becomes [1,5,5,4]."
+        },
+        {
+          "input": "assignRange(0,3,2), sumRange(1,3)",
+          "output": "6",
+          "explanation": "All positions become 2."
+        }
+      ],
+      "optimizedCode": "class RangeAssignSum {\n  private final int size;\n  private final int height;\n  private final long[] tree;\n  private final long[] lazyValue;\n  private final boolean[] hasLazy;\n  private final int[] length;\n\n  public RangeAssignSum(int[] nums) {\n    int power = 1;\n    int levels = 0;\n    while (power < nums.length) {\n      power <<= 1;\n      levels++;\n    }\n    size = power;\n    height = levels;\n    tree = new long[2 * size];\n    lazyValue = new long[2 * size];\n    hasLazy = new boolean[2 * size];\n    length = new int[2 * size];\n    for (int i = 0; i < size; i++) length[size + i] = i < nums.length ? 1 : 0;\n    for (int i = size - 1; i > 0; i--) length[i] = length[i * 2] + length[i * 2 + 1];\n    for (int i = 0; i < nums.length; i++) tree[size + i] = nums[i];\n    for (int i = size - 1; i > 0; i--) pull(i);\n  }\n\n  public void assignRange(int left, int right, long value) {\n    int l = left + size;\n    int r = right + size;\n    int originalLeft = l;\n    int originalRight = r;\n    pushPath(l);\n    pushPath(r);\n    while (l <= r) {\n      if ((l & 1) == 1) apply(l++, value);\n      if ((r & 1) == 0) apply(r--, value);\n      l >>= 1;\n      r >>= 1;\n    }\n    pullPath(originalLeft);\n    pullPath(originalRight);\n  }\n\n  public long sumRange(int left, int right) {\n    int l = left + size;\n    int r = right + size;\n    pushPath(l);\n    pushPath(r);\n    long sum = 0;\n    while (l <= r) {\n      if ((l & 1) == 1) sum += tree[l++];\n      if ((r & 1) == 0) sum += tree[r--];\n      l >>= 1;\n      r >>= 1;\n    }\n    return sum;\n  }\n\n  private void apply(int node, long value) {\n    tree[node] = value * length[node];\n    if (node < size) {\n      lazyValue[node] = value;\n      hasLazy[node] = true;\n    }\n  }\n\n  private void push(int node) {\n    if (!hasLazy[node]) return;\n    apply(node * 2, lazyValue[node]);\n    apply(node * 2 + 1, lazyValue[node]);\n    hasLazy[node] = false;\n  }\n\n  private void pushPath(int node) {\n    for (int level = height; level > 0; level--) push(node >> level);\n  }\n\n  private void pull(int node) {\n    tree[node] = hasLazy[node] ? lazyValue[node] * length[node] : tree[node * 2] + tree[node * 2 + 1];\n  }\n\n  private void pullPath(int node) {\n    for (node >>= 1; node > 0; node >>= 1) pull(node);\n  }\n}",
+      "recursiveCode": "class RangeAssignSum {\n  private final int n;\n  private final long[] tree;\n  private final long[] lazyValue;\n  private final boolean[] hasLazy;\n\n  public RangeAssignSum(int[] nums) {\n    n = nums.length;\n    tree = new long[4 * n];\n    lazyValue = new long[4 * n];\n    hasLazy = new boolean[4 * n];\n    build(1, 0, n - 1, nums);\n  }\n\n  public void assignRange(int left, int right, long value) {\n    assign(1, 0, n - 1, left, right, value);\n  }\n\n  public long sumRange(int left, int right) {\n    return query(1, 0, n - 1, left, right);\n  }\n\n  private void build(int node, int left, int right, int[] nums) {\n    if (left == right) {\n      tree[node] = nums[left];\n      return;\n    }\n    int mid = left + (right - left) / 2;\n    build(node * 2, left, mid, nums);\n    build(node * 2 + 1, mid + 1, right, nums);\n    tree[node] = tree[node * 2] + tree[node * 2 + 1];\n  }\n\n  private void assign(int node, int left, int right, int ql, int qr, long value) {\n    if (qr < left || right < ql) return;\n    if (ql <= left && right <= qr) {\n      apply(node, left, right, value);\n      return;\n    }\n    push(node, left, right);\n    int mid = left + (right - left) / 2;\n    assign(node * 2, left, mid, ql, qr, value);\n    assign(node * 2 + 1, mid + 1, right, ql, qr, value);\n    tree[node] = tree[node * 2] + tree[node * 2 + 1];\n  }\n\n  private long query(int node, int left, int right, int ql, int qr) {\n    if (qr < left || right < ql) return 0;\n    if (ql <= left && right <= qr) return tree[node];\n    push(node, left, right);\n    int mid = left + (right - left) / 2;\n    return query(node * 2, left, mid, ql, qr) + query(node * 2 + 1, mid + 1, right, ql, qr);\n  }\n\n  private void apply(int node, int left, int right, long value) {\n    tree[node] = value * (right - left + 1L);\n    lazyValue[node] = value;\n    hasLazy[node] = true;\n  }\n\n  private void push(int node, int left, int right) {\n    if (!hasLazy[node] || left == right) return;\n    int mid = left + (right - left) / 2;\n    apply(node * 2, left, mid, lazyValue[node]);\n    apply(node * 2 + 1, mid + 1, right, lazyValue[node]);\n    hasLazy[node] = false;\n  }\n}",
+      "optimizedComplexity": "Time O(log n) amortized per operation with iterative lazy assignment; Space O(n).",
+      "recursiveComplexity": "Time O(log n) per operation with recursive lazy assignment; Space O(n) plus recursion depth.",
+      "source": {
+        "label": "Lazy Segment Tree - CP Algorithms",
+        "url": "https://cp-algorithms.com/data_structures/segment_tree.html#assignment-on-segments"
+      }
+    }
+  ]
+}

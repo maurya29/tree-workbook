@@ -1,0 +1,608 @@
+{
+  "id": "graphs",
+  "name": "Graphs",
+  "sourceUrl": "https://maurya29.github.io/DSA-Pattern-Workbook/pages/graphs.html",
+  "retrievedOn": "2026-10-04",
+  "problems": [
+    {
+      "name": "Number of Islands",
+      "question": "Given an m x n grid of characters 1 and 0, count how many disconnected groups of land cells exist. Land cells connect vertically and horizontally.",
+      "constraints": "m == grid.length; n == grid[i].length; 1 <= m,n <= 300; grid[i][j] is 0 or 1.",
+      "examples": [
+        {
+          "input": "grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]",
+          "output": "1",
+          "explanation": "All land cells are connected into one island."
+        },
+        {
+          "input": "grid = [[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]",
+          "output": "3",
+          "explanation": "There are three disconnected land components."
+        },
+        {
+          "input": "grid = [[\"0\"]]",
+          "output": "0",
+          "explanation": "There is no land to count."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int numIslands(char[][] grid) {\n    int rows = grid.length;\n    int cols = grid[0].length;\n    boolean[][] seen = new boolean[rows][cols];\n    int islands = 0;\n    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    for (int r = 0; r < rows; r++) {\n      for (int c = 0; c < cols; c++) {\n        if (grid[r][c] == '0' || seen[r][c]) continue;\n        islands++;\n        Deque<int[]> queue = new ArrayDeque<>();\n        queue.offer(new int[] {r, c});\n        seen[r][c] = true;\n\n        while (!queue.isEmpty()) {\n          int[] cell = queue.poll();\n          for (int[] d : dirs) {\n            int nr = cell[0] + d[0], nc = cell[1] + d[1];\n            if (nr < 0 || nc < 0 || nr == rows || nc == cols) continue;\n            if (seen[nr][nc] || grid[nr][nc] == '0') continue;\n            seen[nr][nc] = true;\n            queue.offer(new int[] {nr, nc});\n          }\n        }\n      }\n    }\n\n    return islands;\n  }\n}",
+      "recursiveCode": "class Solution {\n  public int numIslands(char[][] grid) {\n    int islands = 0;\n    for (int r = 0; r < grid.length; r++) {\n      for (int c = 0; c < grid[0].length; c++) {\n        if (grid[r][c] == '1') {\n          islands++;\n          sink(grid, r, c);\n        }\n      }\n    }\n    return islands;\n  }\n\n  private void sink(char[][] grid, int r, int c) {\n    if (r < 0 || c < 0 || r == grid.length || c == grid[0].length) return;\n    if (grid[r][c] != '1') return;\n\n    grid[r][c] = '0';\n    sink(grid, r + 1, c);\n    sink(grid, r - 1, c);\n    sink(grid, r, c + 1);\n    sink(grid, r, c - 1);\n  }\n}",
+      "optimizedComplexity": "Time O(mn); Space O(mn). Each cell is pushed into the queue at most once.",
+      "recursiveComplexity": "Time O(mn); Space O(mn). DFS visits each cell once and recursion depth can reach mn.",
+      "source": {
+        "label": "Number of Islands - LeetCode 200",
+        "url": "https://leetcode.com/problems/number-of-islands/"
+      }
+    },
+    {
+      "name": "Clone Graph",
+      "question": "Given a reference to a node in a connected undirected graph, return a deep copy of the graph.",
+      "constraints": "0 <= nodes <= 100; 1 <= Node.val <= 100; Node.val is unique; graph is connected from the input node.",
+      "examples": [
+        {
+          "input": "adjList = [[2,4],[1,3],[2,4],[1,3]]",
+          "output": "[[2,4],[1,3],[2,4],[1,3]]",
+          "explanation": "The four-node cycle is copied with new node objects."
+        },
+        {
+          "input": "adjList = [[]]",
+          "output": "[[]]",
+          "explanation": "A single isolated node is cloned."
+        },
+        {
+          "input": "adjList = []",
+          "output": "[]",
+          "explanation": "A null input returns null."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Node {\n  public int val;\n  public List<Node> neighbors;\n  public Node() { val = 0; neighbors = new ArrayList<>(); }\n  public Node(int val) { this.val = val; neighbors = new ArrayList<>(); }\n  public Node(int val, ArrayList<Node> neighbors) { this.val = val; this.neighbors = neighbors; }\n}\n\nclass Solution {\n  public Node cloneGraph(Node node) {\n    if (node == null) return null;\n    Map<Node, Node> clone = new HashMap<>();\n    Deque<Node> queue = new ArrayDeque<>();\n    clone.put(node, new Node(node.val));\n    queue.offer(node);\n\n    while (!queue.isEmpty()) {\n      Node current = queue.poll();\n      for (Node next : current.neighbors) {\n        if (!clone.containsKey(next)) {\n          clone.put(next, new Node(next.val));\n          queue.offer(next);\n        }\n        clone.get(current).neighbors.add(clone.get(next));\n      }\n    }\n    return clone.get(node);\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Node {\n  public int val;\n  public List<Node> neighbors;\n  public Node() { val = 0; neighbors = new ArrayList<>(); }\n  public Node(int val) { this.val = val; neighbors = new ArrayList<>(); }\n  public Node(int val, ArrayList<Node> neighbors) { this.val = val; this.neighbors = neighbors; }\n}\n\nclass Solution {\n  public Node cloneGraph(Node node) {\n    return clone(node, new HashMap<>());\n  }\n\n  private Node clone(Node node, Map<Node, Node> copies) {\n    if (node == null) return null;\n    if (copies.containsKey(node)) return copies.get(node);\n\n    Node copy = new Node(node.val);\n    copies.put(node, copy);\n    for (Node next : node.neighbors) {\n      copy.neighbors.add(clone(next, copies));\n    }\n    return copy;\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V). BFS creates one clone per node and processes each edge once.",
+      "recursiveComplexity": "Time O(V + E); Space O(V). DFS recursion plus the map stores cloned nodes.",
+      "source": {
+        "label": "Clone Graph - LeetCode 133",
+        "url": "https://leetcode.com/problems/clone-graph/"
+      }
+    },
+    {
+      "name": "Max Area of Island",
+      "question": "Given a binary grid, return the maximum number of land cells in any connected island.",
+      "constraints": "1 <= rows, cols <= 50; grid[i][j] is 0 or 1.",
+      "examples": [
+        {
+          "input": "grid = [[0,0,1,0],[1,1,1,0],[0,0,0,1]]",
+          "output": "4",
+          "explanation": "The largest four-direction component has four cells."
+        },
+        {
+          "input": "grid = [[0,0,0]]",
+          "output": "0",
+          "explanation": "There is no island."
+        },
+        {
+          "input": "grid = [[1,1],[1,1]]",
+          "output": "4",
+          "explanation": "Every cell belongs to the same island."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int maxAreaOfIsland(int[][] grid) {\n    boolean[][] seen = new boolean[grid.length][grid[0].length];\n    int best = 0;\n    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n    for (int r = 0; r < grid.length; r++) {\n      for (int c = 0; c < grid[0].length; c++) {\n        if (grid[r][c] == 0 || seen[r][c]) continue;\n        int area = 0;\n        Deque<int[]> stack = new ArrayDeque<>();\n        stack.push(new int[] {r, c});\n        seen[r][c] = true;\n\n        while (!stack.isEmpty()) {\n          int[] cell = stack.pop();\n          area++;\n          for (int[] d : dirs) {\n            int nr = cell[0] + d[0], nc = cell[1] + d[1];\n            if (nr < 0 || nc < 0 || nr == grid.length || nc == grid[0].length) continue;\n            if (seen[nr][nc] || grid[nr][nc] == 0) continue;\n            seen[nr][nc] = true;\n            stack.push(new int[] {nr, nc});\n          }\n        }\n        best = Math.max(best, area);\n      }\n    }\n    return best;\n  }\n}",
+      "recursiveCode": "class Solution {\n  public int maxAreaOfIsland(int[][] grid) {\n    int best = 0;\n    for (int r = 0; r < grid.length; r++) {\n      for (int c = 0; c < grid[0].length; c++) {\n        best = Math.max(best, dfs(grid, r, c));\n      }\n    }\n    return best;\n  }\n\n  private int dfs(int[][] grid, int r, int c) {\n    if (r < 0 || c < 0 || r == grid.length || c == grid[0].length) return 0;\n    if (grid[r][c] == 0) return 0;\n\n    grid[r][c] = 0;\n    return 1 + dfs(grid, r + 1, c) + dfs(grid, r - 1, c)\n             + dfs(grid, r, c + 1) + dfs(grid, r, c - 1);\n  }\n}",
+      "optimizedComplexity": "Time O(mn); Space O(mn). Shared visited state avoids recounting a component.",
+      "recursiveComplexity": "Time O(mn); Space O(mn). Recursive DFS depth can include the whole grid.",
+      "source": {
+        "label": "Max Area of Island - LeetCode 695",
+        "url": "https://leetcode.com/problems/max-area-of-island/"
+      }
+    },
+    {
+      "name": "Pacific Atlantic Water Flow",
+      "question": "Given a matrix of heights, return all cells from which water can flow to both the Pacific and Atlantic oceans.",
+      "constraints": "1 <= m,n <= 200; 0 <= heights[i][j] <= 100000.",
+      "examples": [
+        {
+          "input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]",
+          "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]",
+          "explanation": "These cells can flow to both ocean borders."
+        },
+        {
+          "input": "heights = [[1]]",
+          "output": "[[0,0]]",
+          "explanation": "The only cell touches both oceans."
+        },
+        {
+          "input": "heights = [[1,2,3]]",
+          "output": "[[0,2]]",
+          "explanation": "Only the rightmost cell can flow to both ends in this row."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public List<List<Integer>> pacificAtlantic(int[][] heights) {\n    int rows = heights.length, cols = heights[0].length;\n    boolean[][] pacific = new boolean[rows][cols];\n    boolean[][] atlantic = new boolean[rows][cols];\n    Deque<int[]> pQueue = new ArrayDeque<>();\n    Deque<int[]> aQueue = new ArrayDeque<>();\n\n    for (int r = 0; r < rows; r++) {\n      add(pacific, pQueue, r, 0);\n      add(atlantic, aQueue, r, cols - 1);\n    }\n    for (int c = 0; c < cols; c++) {\n      add(pacific, pQueue, 0, c);\n      add(atlantic, aQueue, rows - 1, c);\n    }\n\n    bfs(heights, pQueue, pacific);\n    bfs(heights, aQueue, atlantic);\n\n    List<List<Integer>> answer = new ArrayList<>();\n    for (int r = 0; r < rows; r++) {\n      for (int c = 0; c < cols; c++) {\n        if (pacific[r][c] && atlantic[r][c]) answer.add(Arrays.asList(r, c));\n      }\n    }\n    return answer;\n  }\n\n  private void add(boolean[][] seen, Deque<int[]> queue, int r, int c) {\n    if (!seen[r][c]) {\n      seen[r][c] = true;\n      queue.offer(new int[] {r, c});\n    }\n  }\n\n  private void bfs(int[][] heights, Deque<int[]> queue, boolean[][] seen) {\n    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n    while (!queue.isEmpty()) {\n      int[] cell = queue.poll();\n      for (int[] d : dirs) {\n        int nr = cell[0] + d[0], nc = cell[1] + d[1];\n        if (nr < 0 || nc < 0 || nr == heights.length || nc == heights[0].length) continue;\n        if (seen[nr][nc] || heights[nr][nc] < heights[cell[0]][cell[1]]) continue;\n        seen[nr][nc] = true;\n        queue.offer(new int[] {nr, nc});\n      }\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public List<List<Integer>> pacificAtlantic(int[][] heights) {\n    int rows = heights.length, cols = heights[0].length;\n    boolean[][] pacific = new boolean[rows][cols];\n    boolean[][] atlantic = new boolean[rows][cols];\n\n    for (int r = 0; r < rows; r++) {\n      dfs(heights, r, 0, Integer.MIN_VALUE, pacific);\n      dfs(heights, r, cols - 1, Integer.MIN_VALUE, atlantic);\n    }\n    for (int c = 0; c < cols; c++) {\n      dfs(heights, 0, c, Integer.MIN_VALUE, pacific);\n      dfs(heights, rows - 1, c, Integer.MIN_VALUE, atlantic);\n    }\n\n    List<List<Integer>> answer = new ArrayList<>();\n    for (int r = 0; r < rows; r++) {\n      for (int c = 0; c < cols; c++) {\n        if (pacific[r][c] && atlantic[r][c]) answer.add(Arrays.asList(r, c));\n      }\n    }\n    return answer;\n  }\n\n  private void dfs(int[][] heights, int r, int c, int previous, boolean[][] seen) {\n    if (r < 0 || c < 0 || r == heights.length || c == heights[0].length) return;\n    if (seen[r][c] || heights[r][c] < previous) return;\n\n    seen[r][c] = true;\n    dfs(heights, r + 1, c, heights[r][c], seen);\n    dfs(heights, r - 1, c, heights[r][c], seen);\n    dfs(heights, r, c + 1, heights[r][c], seen);\n    dfs(heights, r, c - 1, heights[r][c], seen);\n  }\n}",
+      "optimizedComplexity": "Time O(mn); Space O(mn). Two border BFS traversals mark all cells once per ocean.",
+      "recursiveComplexity": "Time O(mn); Space O(mn). Two DFS traversals mark all reachable cells per ocean.",
+      "source": {
+        "label": "Pacific Atlantic Water Flow - LeetCode 417",
+        "url": "https://leetcode.com/problems/pacific-atlantic-water-flow/"
+      }
+    },
+    {
+      "name": "Surrounded Regions",
+      "question": "Given an m x n board of X and O, capture every O region fully surrounded by X by changing it to X.",
+      "constraints": "1 <= m,n <= 200; board[i][j] is X or O.",
+      "examples": [
+        {
+          "input": "board = [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]",
+          "output": "[[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]",
+          "explanation": "Only the border-connected O survives."
+        },
+        {
+          "input": "board = [[\"X\"]]",
+          "output": "[[\"X\"]]",
+          "explanation": "A single X is unchanged."
+        },
+        {
+          "input": "board = [[\"O\",\"O\"],[\"O\",\"O\"]]",
+          "output": "[[\"O\",\"O\"],[\"O\",\"O\"]]",
+          "explanation": "Every O touches the border."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public void solve(char[][] board) {\n    int rows = board.length, cols = board[0].length;\n    Deque<int[]> queue = new ArrayDeque<>();\n\n    for (int r = 0; r < rows; r++) {\n      offer(board, queue, r, 0);\n      offer(board, queue, r, cols - 1);\n    }\n    for (int c = 0; c < cols; c++) {\n      offer(board, queue, 0, c);\n      offer(board, queue, rows - 1, c);\n    }\n\n    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n    while (!queue.isEmpty()) {\n      int[] cell = queue.poll();\n      for (int[] d : dirs) {\n        offer(board, queue, cell[0] + d[0], cell[1] + d[1]);\n      }\n    }\n\n    for (int r = 0; r < rows; r++) {\n      for (int c = 0; c < cols; c++) {\n        if (board[r][c] == 'O') board[r][c] = 'X';\n        if (board[r][c] == '#') board[r][c] = 'O';\n      }\n    }\n  }\n\n  private void offer(char[][] board, Deque<int[]> queue, int r, int c) {\n    if (r < 0 || c < 0 || r == board.length || c == board[0].length) return;\n    if (board[r][c] != 'O') return;\n    board[r][c] = '#';\n    queue.offer(new int[] {r, c});\n  }\n}",
+      "recursiveCode": "class Solution {\n  public void solve(char[][] board) {\n    int rows = board.length, cols = board[0].length;\n    for (int r = 0; r < rows; r++) {\n      mark(board, r, 0);\n      mark(board, r, cols - 1);\n    }\n    for (int c = 0; c < cols; c++) {\n      mark(board, 0, c);\n      mark(board, rows - 1, c);\n    }\n\n    for (int r = 0; r < rows; r++) {\n      for (int c = 0; c < cols; c++) {\n        if (board[r][c] == 'O') board[r][c] = 'X';\n        if (board[r][c] == '#') board[r][c] = 'O';\n      }\n    }\n  }\n\n  private void mark(char[][] board, int r, int c) {\n    if (r < 0 || c < 0 || r == board.length || c == board[0].length) return;\n    if (board[r][c] != 'O') return;\n    board[r][c] = '#';\n    mark(board, r + 1, c);\n    mark(board, r - 1, c);\n    mark(board, r, c + 1);\n    mark(board, r, c - 1);\n  }\n}",
+      "optimizedComplexity": "Time O(mn); Space O(mn). Border BFS marks each safe cell once.",
+      "recursiveComplexity": "Time O(mn); Space O(mn). Border DFS marks each safe cell once.",
+      "source": {
+        "label": "Surrounded Regions - LeetCode 130",
+        "url": "https://leetcode.com/problems/surrounded-regions/"
+      }
+    },
+    {
+      "name": "Rotting Oranges",
+      "question": "Given a grid containing empty cells, fresh oranges, and rotten oranges, return the minimum minutes until no fresh orange remains, or -1 if impossible.",
+      "constraints": "1 <= rows, cols <= 10; grid[i][j] is 0, 1, or 2.",
+      "examples": [
+        {
+          "input": "grid = [[2,1,1],[1,1,0],[0,1,1]]",
+          "output": "4",
+          "explanation": "The infection reaches the farthest fresh orange after four minutes."
+        },
+        {
+          "input": "grid = [[2,1,1],[0,1,1],[1,0,1]]",
+          "output": "-1",
+          "explanation": "The bottom-left fresh orange is isolated."
+        },
+        {
+          "input": "grid = [[0,2]]",
+          "output": "0",
+          "explanation": "There are no fresh oranges."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int orangesRotting(int[][] grid) {\n    Deque<int[]> queue = new ArrayDeque<>();\n    int fresh = 0;\n    for (int r = 0; r < grid.length; r++) {\n      for (int c = 0; c < grid[0].length; c++) {\n        if (grid[r][c] == 2) queue.offer(new int[] {r, c});\n        if (grid[r][c] == 1) fresh++;\n      }\n    }\n\n    int minutes = 0;\n    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n    while (fresh > 0 && !queue.isEmpty()) {\n      int size = queue.size();\n      for (int i = 0; i < size; i++) {\n        int[] cell = queue.poll();\n        for (int[] d : dirs) {\n          int nr = cell[0] + d[0], nc = cell[1] + d[1];\n          if (nr < 0 || nc < 0 || nr == grid.length || nc == grid[0].length) continue;\n          if (grid[nr][nc] != 1) continue;\n          grid[nr][nc] = 2;\n          fresh--;\n          queue.offer(new int[] {nr, nc});\n        }\n      }\n      minutes++;\n    }\n    return fresh == 0 ? minutes : -1;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private final int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n  public int orangesRotting(int[][] grid) {\n    Deque<int[]> queue = new ArrayDeque<>();\n    int fresh = 0;\n    for (int r = 0; r < grid.length; r++) {\n      for (int c = 0; c < grid[0].length; c++) {\n        if (grid[r][c] == 2) queue.offer(new int[] {r, c});\n        if (grid[r][c] == 1) fresh++;\n      }\n    }\n    return rotLayer(grid, queue, fresh, 0);\n  }\n\n  private int rotLayer(int[][] grid, Deque<int[]> queue, int fresh, int minutes) {\n    if (fresh == 0) return minutes;\n    if (queue.isEmpty()) return -1;\n\n    int size = queue.size();\n    for (int i = 0; i < size; i++) {\n      int[] cell = queue.poll();\n      for (int[] d : dirs) {\n        int nr = cell[0] + d[0], nc = cell[1] + d[1];\n        if (nr < 0 || nc < 0 || nr == grid.length || nc == grid[0].length) continue;\n        if (grid[nr][nc] != 1) continue;\n        grid[nr][nc] = 2;\n        fresh--;\n        queue.offer(new int[] {nr, nc});\n      }\n    }\n    return rotLayer(grid, queue, fresh, minutes + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(mn); Space O(mn). Multi-source BFS processes each orange once.",
+      "recursiveComplexity": "Time O(mn); Space O(mn). Recursive layer processing consumes one BFS frontier per call.",
+      "source": {
+        "label": "Rotting Oranges - LeetCode 994",
+        "url": "https://leetcode.com/problems/rotting-oranges/"
+      }
+    },
+    {
+      "name": "Walls and Gates",
+      "question": "Given rooms marked as walls, gates, and empty rooms, fill each empty room with its distance to the nearest gate.",
+      "constraints": "m == rooms.length; n == rooms[i].length; rooms use -1 for walls, 0 for gates, and 2147483647 for empty rooms.",
+      "examples": [
+        {
+          "input": "rooms = [[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]",
+          "output": "[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]",
+          "explanation": "Each empty room receives the shortest gate distance."
+        },
+        {
+          "input": "rooms = [[-1]]",
+          "output": "[[-1]]",
+          "explanation": "A wall stays unchanged."
+        },
+        {
+          "input": "rooms = [[0,2147483647]]",
+          "output": "[[0,1]]",
+          "explanation": "The empty room is one step from the gate."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static final int INF = 2147483647;\n\n  public void wallsAndGates(int[][] rooms) {\n    Deque<int[]> queue = new ArrayDeque<>();\n    for (int r = 0; r < rooms.length; r++) {\n      for (int c = 0; c < rooms[0].length; c++) {\n        if (rooms[r][c] == 0) queue.offer(new int[] {r, c});\n      }\n    }\n\n    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n    while (!queue.isEmpty()) {\n      int[] cell = queue.poll();\n      for (int[] d : dirs) {\n        int nr = cell[0] + d[0], nc = cell[1] + d[1];\n        if (nr < 0 || nc < 0 || nr == rooms.length || nc == rooms[0].length) continue;\n        if (rooms[nr][nc] != INF) continue;\n        rooms[nr][nc] = rooms[cell[0]][cell[1]] + 1;\n        queue.offer(new int[] {nr, nc});\n      }\n    }\n  }\n}",
+      "recursiveCode": "class Solution {\n  public void wallsAndGates(int[][] rooms) {\n    for (int r = 0; r < rooms.length; r++) {\n      for (int c = 0; c < rooms[0].length; c++) {\n        if (rooms[r][c] == 0) fill(rooms, r, c, 0);\n      }\n    }\n  }\n\n  private void fill(int[][] rooms, int r, int c, int distance) {\n    if (r < 0 || c < 0 || r == rooms.length || c == rooms[0].length) return;\n    if (rooms[r][c] < distance) return;\n\n    rooms[r][c] = distance;\n    fill(rooms, r + 1, c, distance + 1);\n    fill(rooms, r - 1, c, distance + 1);\n    fill(rooms, r, c + 1, distance + 1);\n    fill(rooms, r, c - 1, distance + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(mn); Space O(mn). All gates expand together and each room is finalized once.",
+      "recursiveComplexity": "Time O(mn); Space O(mn). DFS from gates relaxes only when it improves a room distance.",
+      "source": {
+        "label": "Walls and Gates - LeetCode 286",
+        "url": "https://leetcode.com/problems/walls-and-gates/"
+      }
+    },
+    {
+      "name": "Course Schedule",
+      "question": "Given numCourses and prerequisite pairs, determine whether it is possible to finish every course.",
+      "constraints": "1 <= numCourses <= 2000; 0 <= prerequisites.length <= 5000; prerequisites[i] = [course, prerequisite].",
+      "examples": [
+        {
+          "input": "numCourses = 2, prerequisites = [[1,0]]",
+          "output": "true",
+          "explanation": "Take course 0 before course 1."
+        },
+        {
+          "input": "numCourses = 2, prerequisites = [[1,0],[0,1]]",
+          "output": "false",
+          "explanation": "The two courses depend on each other."
+        },
+        {
+          "input": "numCourses = 3, prerequisites = []",
+          "output": "true",
+          "explanation": "There are no dependency cycles."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public boolean canFinish(int numCourses, int[][] prerequisites) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i < numCourses; i++) graph.add(new ArrayList<>());\n    int[] indegree = new int[numCourses];\n\n    for (int[] edge : prerequisites) {\n      graph.get(edge[1]).add(edge[0]);\n      indegree[edge[0]]++;\n    }\n\n    Deque<Integer> queue = new ArrayDeque<>();\n    for (int i = 0; i < numCourses; i++) {\n      if (indegree[i] == 0) queue.offer(i);\n    }\n\n    int taken = 0;\n    while (!queue.isEmpty()) {\n      int course = queue.poll();\n      taken++;\n      for (int next : graph.get(course)) {\n        if (--indegree[next] == 0) queue.offer(next);\n      }\n    }\n    return taken == numCourses;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public boolean canFinish(int numCourses, int[][] prerequisites) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i < numCourses; i++) graph.add(new ArrayList<>());\n    for (int[] edge : prerequisites) graph.get(edge[1]).add(edge[0]);\n\n    int[] state = new int[numCourses];\n    for (int course = 0; course < numCourses; course++) {\n      if (hasCycle(course, graph, state)) return false;\n    }\n    return true;\n  }\n\n  private boolean hasCycle(int course, List<List<Integer>> graph, int[] state) {\n    if (state[course] == 1) return true;\n    if (state[course] == 2) return false;\n\n    state[course] = 1;\n    for (int next : graph.get(course)) {\n      if (hasCycle(next, graph, state)) return true;\n    }\n    state[course] = 2;\n    return false;\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V + E). Kahn BFS removes zero-indegree nodes once.",
+      "recursiveComplexity": "Time O(V + E); Space O(V + E). DFS coloring detects back edges.",
+      "source": {
+        "label": "Course Schedule - LeetCode 207",
+        "url": "https://leetcode.com/problems/course-schedule/"
+      }
+    },
+    {
+      "name": "Course Schedule II",
+      "question": "Given numCourses and prerequisites, return one valid order to finish all courses, or an empty array if impossible.",
+      "constraints": "1 <= numCourses <= 2000; 0 <= prerequisites.length <= numCourses * (numCourses - 1).",
+      "examples": [
+        {
+          "input": "numCourses = 2, prerequisites = [[1,0]]",
+          "output": "[0,1]",
+          "explanation": "Course 0 must appear before course 1."
+        },
+        {
+          "input": "numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]",
+          "output": "[0,1,2,3]",
+          "explanation": "Several valid topological orders exist."
+        },
+        {
+          "input": "numCourses = 2, prerequisites = [[1,0],[0,1]]",
+          "output": "[]",
+          "explanation": "A directed cycle prevents a valid order."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int[] findOrder(int numCourses, int[][] prerequisites) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i < numCourses; i++) graph.add(new ArrayList<>());\n    int[] indegree = new int[numCourses];\n\n    for (int[] edge : prerequisites) {\n      graph.get(edge[1]).add(edge[0]);\n      indegree[edge[0]]++;\n    }\n\n    Deque<Integer> queue = new ArrayDeque<>();\n    for (int i = 0; i < numCourses; i++) {\n      if (indegree[i] == 0) queue.offer(i);\n    }\n\n    int[] order = new int[numCourses];\n    int index = 0;\n    while (!queue.isEmpty()) {\n      int course = queue.poll();\n      order[index++] = course;\n      for (int next : graph.get(course)) {\n        if (--indegree[next] == 0) queue.offer(next);\n      }\n    }\n    return index == numCourses ? order : new int[0];\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int[] findOrder(int numCourses, int[][] prerequisites) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i < numCourses; i++) graph.add(new ArrayList<>());\n    for (int[] edge : prerequisites) graph.get(edge[1]).add(edge[0]);\n\n    int[] state = new int[numCourses];\n    List<Integer> postorder = new ArrayList<>();\n    for (int course = 0; course < numCourses; course++) {\n      if (!dfs(course, graph, state, postorder)) return new int[0];\n    }\n\n    Collections.reverse(postorder);\n    int[] order = new int[numCourses];\n    for (int i = 0; i < numCourses; i++) order[i] = postorder.get(i);\n    return order;\n  }\n\n  private boolean dfs(int course, List<List<Integer>> graph, int[] state, List<Integer> postorder) {\n    if (state[course] == 1) return false;\n    if (state[course] == 2) return true;\n\n    state[course] = 1;\n    for (int next : graph.get(course)) {\n      if (!dfs(next, graph, state, postorder)) return false;\n    }\n    state[course] = 2;\n    postorder.add(course);\n    return true;\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V + E). Kahn BFS processes every course and edge once.",
+      "recursiveComplexity": "Time O(V + E); Space O(V + E). DFS postorder builds the topological order when no cycle exists.",
+      "source": {
+        "label": "Course Schedule II - LeetCode 210",
+        "url": "https://leetcode.com/problems/course-schedule-ii/"
+      }
+    },
+    {
+      "name": "Graph Valid Tree",
+      "question": "Given n nodes labeled 0 to n - 1 and undirected edges, return true if the edges form exactly one valid tree.",
+      "constraints": "1 <= n <= 2000; 0 <= edges.length <= 5000; edges[i] connects two distinct nodes.",
+      "examples": [
+        {
+          "input": "n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]",
+          "output": "true",
+          "explanation": "All nodes are connected and there is no cycle."
+        },
+        {
+          "input": "n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]",
+          "output": "false",
+          "explanation": "The edge [1,3] creates a cycle."
+        },
+        {
+          "input": "n = 4, edges = [[0,1],[2,3]]",
+          "output": "false",
+          "explanation": "The graph has two components."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public boolean validTree(int n, int[][] edges) {\n    if (edges.length != n - 1) return false;\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());\n    for (int[] edge : edges) {\n      graph.get(edge[0]).add(edge[1]);\n      graph.get(edge[1]).add(edge[0]);\n    }\n\n    boolean[] seen = new boolean[n];\n    Deque<Integer> queue = new ArrayDeque<>();\n    queue.offer(0);\n    seen[0] = true;\n    int visited = 0;\n\n    while (!queue.isEmpty()) {\n      int node = queue.poll();\n      visited++;\n      for (int next : graph.get(node)) {\n        if (seen[next]) continue;\n        seen[next] = true;\n        queue.offer(next);\n      }\n    }\n    return visited == n;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public boolean validTree(int n, int[][] edges) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());\n    for (int[] edge : edges) {\n      graph.get(edge[0]).add(edge[1]);\n      graph.get(edge[1]).add(edge[0]);\n    }\n\n    boolean[] seen = new boolean[n];\n    if (hasCycle(0, -1, graph, seen)) return false;\n    for (boolean value : seen) {\n      if (!value) return false;\n    }\n    return true;\n  }\n\n  private boolean hasCycle(int node, int parent, List<List<Integer>> graph, boolean[] seen) {\n    if (seen[node]) return true;\n    seen[node] = true;\n    for (int next : graph.get(node)) {\n      if (next == parent) continue;\n      if (hasCycle(next, node, graph, seen)) return true;\n    }\n    return false;\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V + E). BFS checks reachability after the edge count filter.",
+      "recursiveComplexity": "Time O(V + E); Space O(V + E). DFS detects parent-aware cycles and connectivity.",
+      "source": {
+        "label": "Graph Valid Tree - LeetCode 261",
+        "url": "https://leetcode.com/problems/graph-valid-tree/"
+      }
+    },
+    {
+      "name": "Number of Connected Components in an Undirected Graph",
+      "question": "Given n nodes and undirected edges, return the number of connected components in the graph.",
+      "constraints": "1 <= n <= 2000; 0 <= edges.length <= 5000; nodes are labeled from 0 to n - 1.",
+      "examples": [
+        {
+          "input": "n = 5, edges = [[0,1],[1,2],[3,4]]",
+          "output": "2",
+          "explanation": "Nodes 0,1,2 form one component and 3,4 form another."
+        },
+        {
+          "input": "n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]",
+          "output": "1",
+          "explanation": "All nodes are connected."
+        },
+        {
+          "input": "n = 3, edges = []",
+          "output": "3",
+          "explanation": "Each isolated node is its own component."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int countComponents(int n, int[][] edges) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());\n    for (int[] edge : edges) {\n      graph.get(edge[0]).add(edge[1]);\n      graph.get(edge[1]).add(edge[0]);\n    }\n\n    boolean[] seen = new boolean[n];\n    int components = 0;\n    for (int node = 0; node < n; node++) {\n      if (seen[node]) continue;\n      components++;\n      Deque<Integer> stack = new ArrayDeque<>();\n      stack.push(node);\n      seen[node] = true;\n      while (!stack.isEmpty()) {\n        int current = stack.pop();\n        for (int next : graph.get(current)) {\n          if (seen[next]) continue;\n          seen[next] = true;\n          stack.push(next);\n        }\n      }\n    }\n    return components;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int countComponents(int n, int[][] edges) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i < n; i++) graph.add(new ArrayList<>());\n    for (int[] edge : edges) {\n      graph.get(edge[0]).add(edge[1]);\n      graph.get(edge[1]).add(edge[0]);\n    }\n\n    boolean[] seen = new boolean[n];\n    int components = 0;\n    for (int node = 0; node < n; node++) {\n      if (!seen[node]) {\n        components++;\n        dfs(node, graph, seen);\n      }\n    }\n    return components;\n  }\n\n  private void dfs(int node, List<List<Integer>> graph, boolean[] seen) {\n    seen[node] = true;\n    for (int next : graph.get(node)) {\n      if (!seen[next]) dfs(next, graph, seen);\n    }\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V + E). Adjacency lists let each edge be processed once.",
+      "recursiveComplexity": "Time O(V + E); Space O(V + E). Recursive DFS visits every node and edge once.",
+      "source": {
+        "label": "Number of Connected Components - LeetCode 323",
+        "url": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/"
+      }
+    },
+    {
+      "name": "Redundant Connection",
+      "question": "Given edges of an undirected graph that started as a tree with one extra edge, return the edge that can be removed to make the graph a tree again.",
+      "constraints": "3 <= edges.length <= 1000; edges[i] = [ai, bi]; nodes are labeled from 1 to edges.length.",
+      "examples": [
+        {
+          "input": "edges = [[1,2],[1,3],[2,3]]",
+          "output": "[2,3]",
+          "explanation": "Nodes 2 and 3 are already connected through 1."
+        },
+        {
+          "input": "edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]",
+          "output": "[1,4]",
+          "explanation": "Adding [1,4] closes the cycle."
+        },
+        {
+          "input": "edges = [[1,2],[2,3],[3,1]]",
+          "output": "[3,1]",
+          "explanation": "The last edge completes the triangle."
+        }
+      ],
+      "optimizedCode": "class Solution {\n  public int[] findRedundantConnection(int[][] edges) {\n    int n = edges.length;\n    int[] parent = new int[n + 1];\n    int[] rank = new int[n + 1];\n    for (int i = 1; i <= n; i++) parent[i] = i;\n\n    for (int[] edge : edges) {\n      if (!union(edge[0], edge[1], parent, rank)) return edge;\n    }\n    return new int[0];\n  }\n\n  private boolean union(int a, int b, int[] parent, int[] rank) {\n    int rootA = find(a, parent);\n    int rootB = find(b, parent);\n    if (rootA == rootB) return false;\n    if (rank[rootA] < rank[rootB]) parent[rootA] = rootB;\n    else if (rank[rootA] > rank[rootB]) parent[rootB] = rootA;\n    else {\n      parent[rootB] = rootA;\n      rank[rootA]++;\n    }\n    return true;\n  }\n\n  private int find(int node, int[] parent) {\n    while (node != parent[node]) {\n      parent[node] = parent[parent[node]];\n      node = parent[node];\n    }\n    return node;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int[] findRedundantConnection(int[][] edges) {\n    Map<Integer, List<Integer>> graph = new HashMap<>();\n    for (int[] edge : edges) {\n      if (hasPath(edge[0], edge[1], graph, new HashSet<>())) return edge;\n      graph.computeIfAbsent(edge[0], unused -> new ArrayList<>()).add(edge[1]);\n      graph.computeIfAbsent(edge[1], unused -> new ArrayList<>()).add(edge[0]);\n    }\n    return new int[0];\n  }\n\n  private boolean hasPath(int node, int target, Map<Integer, List<Integer>> graph, Set<Integer> seen) {\n    if (node == target) return true;\n    if (!seen.add(node)) return false;\n    for (int next : graph.getOrDefault(node, Collections.emptyList())) {\n      if (hasPath(next, target, graph, seen)) return true;\n    }\n    return false;\n  }\n}",
+      "optimizedComplexity": "Time O(E alpha(V)); Space O(V). Union find detects the first same-component edge.",
+      "recursiveComplexity": "Time O(E(V + E)); Space O(V + E). Recursive DFS checks reachability before adding each edge.",
+      "source": {
+        "label": "Redundant Connection - LeetCode 684",
+        "url": "https://leetcode.com/problems/redundant-connection/"
+      }
+    },
+    {
+      "name": "Word Ladder",
+      "question": "Given beginWord, endWord, and a dictionary, return the length of the shortest transformation sequence where each step changes one character and every intermediate word is in the dictionary.",
+      "constraints": "1 <= wordList.length <= 5000; all words have the same length; words contain lowercase English letters.",
+      "examples": [
+        {
+          "input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+          "output": "5",
+          "explanation": "hit -> hot -> dot -> dog -> cog."
+        },
+        {
+          "input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]",
+          "output": "0",
+          "explanation": "The end word is not available."
+        },
+        {
+          "input": "beginWord = \"a\", endWord = \"c\", wordList = [\"a\",\"b\",\"c\"]",
+          "output": "2",
+          "explanation": "a can change directly to c."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int ladderLength(String beginWord, String endWord, List<String> wordList) {\n    Set<String> words = new HashSet<>(wordList);\n    if (!words.contains(endWord)) return 0;\n\n    Deque<String> queue = new ArrayDeque<>();\n    queue.offer(beginWord);\n    words.remove(beginWord);\n    int length = 1;\n\n    while (!queue.isEmpty()) {\n      int size = queue.size();\n      for (int s = 0; s < size; s++) {\n        String word = queue.poll();\n        if (word.equals(endWord)) return length;\n        char[] chars = word.toCharArray();\n        for (int i = 0; i < chars.length; i++) {\n          char original = chars[i];\n          for (char ch = 'a'; ch <= 'z'; ch++) {\n            chars[i] = ch;\n            String next = new String(chars);\n            if (words.remove(next)) queue.offer(next);\n          }\n          chars[i] = original;\n        }\n      }\n      length++;\n    }\n    return 0;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int ladderLength(String beginWord, String endWord, List<String> wordList) {\n    Set<String> words = new HashSet<>(wordList);\n    if (!words.contains(endWord)) return 0;\n    Set<String> frontier = new HashSet<>();\n    frontier.add(beginWord);\n    words.remove(beginWord);\n    return bfs(frontier, words, endWord, 1);\n  }\n\n  private int bfs(Set<String> frontier, Set<String> words, String endWord, int depth) {\n    if (frontier.isEmpty()) return 0;\n    Set<String> nextFrontier = new HashSet<>();\n    for (String word : frontier) {\n      if (word.equals(endWord)) return depth;\n      char[] chars = word.toCharArray();\n      for (int i = 0; i < chars.length; i++) {\n        char original = chars[i];\n        for (char ch = 'a'; ch <= 'z'; ch++) {\n          chars[i] = ch;\n          String next = new String(chars);\n          if (words.remove(next)) nextFrontier.add(next);\n        }\n        chars[i] = original;\n      }\n    }\n    return bfs(nextFrontier, words, endWord, depth + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(N * L * 26); Space O(N). BFS removes visited words once.",
+      "recursiveComplexity": "Time O(N * L * 26); Space O(N). Recursive BFS processes one frontier per depth.",
+      "source": {
+        "label": "Word Ladder - LeetCode 127",
+        "url": "https://leetcode.com/problems/word-ladder/"
+      }
+    },
+    {
+      "name": "Open the Lock",
+      "question": "Given deadends and a target lock combination, return the minimum wheel turns needed to reach target from 0000, or -1 if impossible.",
+      "constraints": "1 <= deadends.length <= 500; target has length 4; combinations contain digits 0 to 9.",
+      "examples": [
+        {
+          "input": "deadends = [\"0201\",\"0101\",\"0102\",\"1212\",\"2002\"], target = \"0202\"",
+          "output": "6",
+          "explanation": "The shortest safe route takes six turns."
+        },
+        {
+          "input": "deadends = [\"8888\"], target = \"0009\"",
+          "output": "1",
+          "explanation": "Turn the last wheel backward once."
+        },
+        {
+          "input": "deadends = [\"0000\"], target = \"8888\"",
+          "output": "-1",
+          "explanation": "The start state is blocked."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int openLock(String[] deadends, String target) {\n    Set<String> dead = new HashSet<>(Arrays.asList(deadends));\n    if (dead.contains(\"0000\")) return -1;\n\n    Deque<String> queue = new ArrayDeque<>();\n    Set<String> seen = new HashSet<>();\n    queue.offer(\"0000\");\n    seen.add(\"0000\");\n    int turns = 0;\n\n    while (!queue.isEmpty()) {\n      int size = queue.size();\n      for (int i = 0; i < size; i++) {\n        String state = queue.poll();\n        if (state.equals(target)) return turns;\n        for (String next : neighbors(state)) {\n          if (dead.contains(next) || !seen.add(next)) continue;\n          queue.offer(next);\n        }\n      }\n      turns++;\n    }\n    return -1;\n  }\n\n  private List<String> neighbors(String state) {\n    List<String> list = new ArrayList<>();\n    char[] chars = state.toCharArray();\n    for (int i = 0; i < 4; i++) {\n      char original = chars[i];\n      chars[i] = original == '9' ? '0' : (char) (original + 1);\n      list.add(new String(chars));\n      chars[i] = original == '0' ? '9' : (char) (original - 1);\n      list.add(new String(chars));\n      chars[i] = original;\n    }\n    return list;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int openLock(String[] deadends, String target) {\n    Set<String> dead = new HashSet<>(Arrays.asList(deadends));\n    if (dead.contains(\"0000\")) return -1;\n    Set<String> frontier = new HashSet<>();\n    Set<String> seen = new HashSet<>();\n    frontier.add(\"0000\");\n    seen.add(\"0000\");\n    return bfs(frontier, seen, dead, target, 0);\n  }\n\n  private int bfs(Set<String> frontier, Set<String> seen, Set<String> dead, String target, int turns) {\n    if (frontier.isEmpty()) return -1;\n    Set<String> nextLayer = new HashSet<>();\n    for (String state : frontier) {\n      if (state.equals(target)) return turns;\n      for (String next : neighbors(state)) {\n        if (!dead.contains(next) && seen.add(next)) nextLayer.add(next);\n      }\n    }\n    return bfs(nextLayer, seen, dead, target, turns + 1);\n  }\n\n  private List<String> neighbors(String state) {\n    List<String> list = new ArrayList<>();\n    char[] chars = state.toCharArray();\n    for (int i = 0; i < 4; i++) {\n      char original = chars[i];\n      chars[i] = original == '9' ? '0' : (char) (original + 1);\n      list.add(new String(chars));\n      chars[i] = original == '0' ? '9' : (char) (original - 1);\n      list.add(new String(chars));\n      chars[i] = original;\n    }\n    return list;\n  }\n}",
+      "optimizedComplexity": "Time O(10^4 * 8); Space O(10^4). BFS visits each combination at most once.",
+      "recursiveComplexity": "Time O(10^4 * 8); Space O(10^4). Recursive BFS advances one frontier layer per call.",
+      "source": {
+        "label": "Open the Lock - LeetCode 752",
+        "url": "https://leetcode.com/problems/open-the-lock/"
+      }
+    },
+    {
+      "name": "Shortest Path in Binary Matrix",
+      "question": "Given an n x n binary matrix, return the length of the shortest clear path from top-left to bottom-right moving in 8 directions, or -1 if none exists.",
+      "constraints": "1 <= n <= 100; grid[i][j] is 0 or 1.",
+      "examples": [
+        {
+          "input": "grid = [[0,1],[1,0]]",
+          "output": "2",
+          "explanation": "Move diagonally from start to target."
+        },
+        {
+          "input": "grid = [[0,0,0],[1,1,0],[1,1,0]]",
+          "output": "4",
+          "explanation": "The shortest path follows the right side."
+        },
+        {
+          "input": "grid = [[1,0,0],[1,1,0],[1,1,0]]",
+          "output": "-1",
+          "explanation": "The start cell is blocked."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int shortestPathBinaryMatrix(int[][] grid) {\n    int n = grid.length;\n    if (grid[0][0] == 1 || grid[n - 1][n - 1] == 1) return -1;\n\n    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1}};\n    Deque<int[]> queue = new ArrayDeque<>();\n    queue.offer(new int[] {0, 0, 1});\n    grid[0][0] = 1;\n\n    while (!queue.isEmpty()) {\n      int[] cell = queue.poll();\n      if (cell[0] == n - 1 && cell[1] == n - 1) return cell[2];\n      for (int[] d : dirs) {\n        int nr = cell[0] + d[0], nc = cell[1] + d[1];\n        if (nr < 0 || nc < 0 || nr == n || nc == n || grid[nr][nc] == 1) continue;\n        grid[nr][nc] = 1;\n        queue.offer(new int[] {nr, nc, cell[2] + 1});\n      }\n    }\n    return -1;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private final int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1},{1,1},{1,-1},{-1,1},{-1,-1}};\n\n  public int shortestPathBinaryMatrix(int[][] grid) {\n    int n = grid.length;\n    if (grid[0][0] == 1 || grid[n - 1][n - 1] == 1) return -1;\n    List<int[]> frontier = new ArrayList<>();\n    frontier.add(new int[] {0, 0});\n    grid[0][0] = 1;\n    return bfs(grid, frontier, 1);\n  }\n\n  private int bfs(int[][] grid, List<int[]> frontier, int distance) {\n    if (frontier.isEmpty()) return -1;\n    int n = grid.length;\n    List<int[]> nextLayer = new ArrayList<>();\n    for (int[] cell : frontier) {\n      if (cell[0] == n - 1 && cell[1] == n - 1) return distance;\n      for (int[] d : dirs) {\n        int nr = cell[0] + d[0], nc = cell[1] + d[1];\n        if (nr < 0 || nc < 0 || nr == n || nc == n || grid[nr][nc] == 1) continue;\n        grid[nr][nc] = 1;\n        nextLayer.add(new int[] {nr, nc});\n      }\n    }\n    return bfs(grid, nextLayer, distance + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(n^2); Space O(n^2). BFS visits each clear cell at most once.",
+      "recursiveComplexity": "Time O(n^2); Space O(n^2). Recursive frontier expansion follows BFS layers.",
+      "source": {
+        "label": "Shortest Path in Binary Matrix - LeetCode 1091",
+        "url": "https://leetcode.com/problems/shortest-path-in-binary-matrix/"
+      }
+    },
+    {
+      "name": "01 Matrix",
+      "question": "Given a binary matrix, return a matrix where each cell stores the distance to the nearest 0.",
+      "constraints": "1 <= rows, cols <= 10000 total cells; mat[i][j] is 0 or 1; at least one zero exists.",
+      "examples": [
+        {
+          "input": "mat = [[0,0,0],[0,1,0],[0,0,0]]",
+          "output": "[[0,0,0],[0,1,0],[0,0,0]]",
+          "explanation": "The center one is adjacent to a zero."
+        },
+        {
+          "input": "mat = [[0,0,0],[0,1,0],[1,1,1]]",
+          "output": "[[0,0,0],[0,1,0],[1,2,1]]",
+          "explanation": "Distances grow away from the nearest zero."
+        },
+        {
+          "input": "mat = [[1,0,1]]",
+          "output": "[[1,0,1]]",
+          "explanation": "Both one cells are one step from the zero."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int[][] updateMatrix(int[][] mat) {\n    int rows = mat.length, cols = mat[0].length;\n    int[][] dist = new int[rows][cols];\n    Deque<int[]> queue = new ArrayDeque<>();\n\n    for (int r = 0; r < rows; r++) {\n      Arrays.fill(dist[r], -1);\n      for (int c = 0; c < cols; c++) {\n        if (mat[r][c] == 0) {\n          dist[r][c] = 0;\n          queue.offer(new int[] {r, c});\n        }\n      }\n    }\n\n    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n    while (!queue.isEmpty()) {\n      int[] cell = queue.poll();\n      for (int[] d : dirs) {\n        int nr = cell[0] + d[0], nc = cell[1] + d[1];\n        if (nr < 0 || nc < 0 || nr == rows || nc == cols || dist[nr][nc] != -1) continue;\n        dist[nr][nc] = dist[cell[0]][cell[1]] + 1;\n        queue.offer(new int[] {nr, nc});\n      }\n    }\n    return dist;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private final int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n  public int[][] updateMatrix(int[][] mat) {\n    int rows = mat.length, cols = mat[0].length;\n    int[][] dist = new int[rows][cols];\n    for (int r = 0; r < rows; r++) Arrays.fill(dist[r], Integer.MAX_VALUE);\n\n    for (int r = 0; r < rows; r++) {\n      for (int c = 0; c < cols; c++) {\n        if (mat[r][c] == 0) relax(dist, r, c, 0);\n      }\n    }\n    return dist;\n  }\n\n  private void relax(int[][] dist, int r, int c, int value) {\n    if (r < 0 || c < 0 || r == dist.length || c == dist[0].length) return;\n    if (value >= dist[r][c]) return;\n    dist[r][c] = value;\n    for (int[] d : dirs) relax(dist, r + d[0], c + d[1], value + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(mn); Space O(mn). All zero cells expand together once.",
+      "recursiveComplexity": "Time O(mn); Space O(mn). Recursive relaxation updates a cell only when a shorter distance is found.",
+      "source": {
+        "label": "01 Matrix - LeetCode 542",
+        "url": "https://leetcode.com/problems/01-matrix/"
+      }
+    },
+    {
+      "name": "Is Graph Bipartite?",
+      "question": "Given an undirected graph as adjacency lists, determine whether its nodes can be split into two sets so every edge connects nodes in different sets.",
+      "constraints": "1 <= graph.length <= 100; 0 <= graph[u].length < graph.length; graph is undirected.",
+      "examples": [
+        {
+          "input": "graph = [[1,2,3],[0,2],[0,1,3],[0,2]]",
+          "output": "false",
+          "explanation": "Nodes 0,1,2 form an odd cycle conflict."
+        },
+        {
+          "input": "graph = [[1,3],[0,2],[1,3],[0,2]]",
+          "output": "true",
+          "explanation": "The graph can be split into {0,2} and {1,3}."
+        },
+        {
+          "input": "graph = [[],[2],[1]]",
+          "output": "true",
+          "explanation": "The isolated node does not affect coloring."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public boolean isBipartite(int[][] graph) {\n    int[] color = new int[graph.length];\n    for (int start = 0; start < graph.length; start++) {\n      if (color[start] != 0) continue;\n      Deque<Integer> queue = new ArrayDeque<>();\n      queue.offer(start);\n      color[start] = 1;\n\n      while (!queue.isEmpty()) {\n        int node = queue.poll();\n        for (int next : graph[node]) {\n          if (color[next] == color[node]) return false;\n          if (color[next] != 0) continue;\n          color[next] = -color[node];\n          queue.offer(next);\n        }\n      }\n    }\n    return true;\n  }\n}",
+      "recursiveCode": "class Solution {\n  public boolean isBipartite(int[][] graph) {\n    int[] color = new int[graph.length];\n    for (int node = 0; node < graph.length; node++) {\n      if (color[node] == 0 && !dfs(node, 1, graph, color)) return false;\n    }\n    return true;\n  }\n\n  private boolean dfs(int node, int paint, int[][] graph, int[] color) {\n    if (color[node] != 0) return color[node] == paint;\n    color[node] = paint;\n    for (int next : graph[node]) {\n      if (!dfs(next, -paint, graph, color)) return false;\n    }\n    return true;\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V). BFS coloring checks each edge once.",
+      "recursiveComplexity": "Time O(V + E); Space O(V). DFS coloring recurses through each component.",
+      "source": {
+        "label": "Is Graph Bipartite? - LeetCode 785",
+        "url": "https://leetcode.com/problems/is-graph-bipartite/"
+      }
+    },
+    {
+      "name": "Possible Bipartition",
+      "question": "Given n people and pairs of people who dislike each other, return true if everyone can be split into two groups so no pair in the same group dislikes each other.",
+      "constraints": "1 <= n <= 2000; 0 <= dislikes.length <= 10000; dislikes[i] = [a, b] with 1 <= a,b <= n.",
+      "examples": [
+        {
+          "input": "n = 4, dislikes = [[1,2],[1,3],[2,4]]",
+          "output": "true",
+          "explanation": "One valid split is {1,4} and {2,3}."
+        },
+        {
+          "input": "n = 3, dislikes = [[1,2],[1,3],[2,3]]",
+          "output": "false",
+          "explanation": "Three mutual conflicts form an odd cycle."
+        },
+        {
+          "input": "n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[1,5]]",
+          "output": "false",
+          "explanation": "The cycle of length five cannot be two-colored."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public boolean possibleBipartition(int n, int[][] dislikes) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i <= n; i++) graph.add(new ArrayList<>());\n    for (int[] edge : dislikes) {\n      graph.get(edge[0]).add(edge[1]);\n      graph.get(edge[1]).add(edge[0]);\n    }\n\n    int[] color = new int[n + 1];\n    for (int person = 1; person <= n; person++) {\n      if (color[person] != 0) continue;\n      Deque<Integer> queue = new ArrayDeque<>();\n      queue.offer(person);\n      color[person] = 1;\n      while (!queue.isEmpty()) {\n        int current = queue.poll();\n        for (int next : graph.get(current)) {\n          if (color[next] == color[current]) return false;\n          if (color[next] != 0) continue;\n          color[next] = -color[current];\n          queue.offer(next);\n        }\n      }\n    }\n    return true;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public boolean possibleBipartition(int n, int[][] dislikes) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i <= n; i++) graph.add(new ArrayList<>());\n    for (int[] edge : dislikes) {\n      graph.get(edge[0]).add(edge[1]);\n      graph.get(edge[1]).add(edge[0]);\n    }\n\n    int[] color = new int[n + 1];\n    for (int person = 1; person <= n; person++) {\n      if (color[person] == 0 && !dfs(person, 1, graph, color)) return false;\n    }\n    return true;\n  }\n\n  private boolean dfs(int person, int paint, List<List<Integer>> graph, int[] color) {\n    if (color[person] != 0) return color[person] == paint;\n    color[person] = paint;\n    for (int next : graph.get(person)) {\n      if (!dfs(next, -paint, graph, color)) return false;\n    }\n    return true;\n  }\n}",
+      "optimizedComplexity": "Time O(n + E); Space O(n + E). BFS coloring handles all components.",
+      "recursiveComplexity": "Time O(n + E); Space O(n + E). DFS coloring recurses through dislike components.",
+      "source": {
+        "label": "Possible Bipartition - LeetCode 886",
+        "url": "https://leetcode.com/problems/possible-bipartition/"
+      }
+    },
+    {
+      "name": "Find Eventual Safe States",
+      "question": "Given a directed graph, return all nodes that eventually lead only to terminal nodes and never enter a cycle.",
+      "constraints": "1 <= graph.length <= 10000; 0 <= graph[i].length <= graph.length; graph[i] lists outgoing edges.",
+      "examples": [
+        {
+          "input": "graph = [[1,2],[2,3],[5],[0],[5],[],[]]",
+          "output": "[2,4,5,6]",
+          "explanation": "These nodes cannot reach the cycle containing 0,1,3."
+        },
+        {
+          "input": "graph = [[1,2,3,4],[1,2],[3,4],[0,4],[]]",
+          "output": "[4]",
+          "explanation": "Only node 4 is terminal-safe."
+        },
+        {
+          "input": "graph = [[],[0],[0,1]]",
+          "output": "[0,1,2]",
+          "explanation": "Every path reaches terminal node 0."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public List<Integer> eventualSafeNodes(int[][] graph) {\n    int n = graph.length;\n    List<List<Integer>> reverse = new ArrayList<>();\n    for (int i = 0; i < n; i++) reverse.add(new ArrayList<>());\n    int[] outdegree = new int[n];\n\n    for (int node = 0; node < n; node++) {\n      outdegree[node] = graph[node].length;\n      for (int next : graph[node]) reverse.get(next).add(node);\n    }\n\n    Deque<Integer> queue = new ArrayDeque<>();\n    for (int node = 0; node < n; node++) {\n      if (outdegree[node] == 0) queue.offer(node);\n    }\n\n    boolean[] safe = new boolean[n];\n    while (!queue.isEmpty()) {\n      int node = queue.poll();\n      safe[node] = true;\n      for (int prev : reverse.get(node)) {\n        if (--outdegree[prev] == 0) queue.offer(prev);\n      }\n    }\n\n    List<Integer> answer = new ArrayList<>();\n    for (int node = 0; node < n; node++) if (safe[node]) answer.add(node);\n    return answer;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public List<Integer> eventualSafeNodes(int[][] graph) {\n    int[] state = new int[graph.length];\n    List<Integer> answer = new ArrayList<>();\n    for (int node = 0; node < graph.length; node++) {\n      if (safe(node, graph, state)) answer.add(node);\n    }\n    return answer;\n  }\n\n  private boolean safe(int node, int[][] graph, int[] state) {\n    if (state[node] != 0) return state[node] == 2;\n    state[node] = 1;\n    for (int next : graph[node]) {\n      if (!safe(next, graph, state)) return false;\n    }\n    state[node] = 2;\n    return true;\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V + E). Reverse graph BFS removes each outgoing edge once.",
+      "recursiveComplexity": "Time O(V + E); Space O(V). DFS coloring memoizes safe and unsafe states.",
+      "source": {
+        "label": "Find Eventual Safe States - LeetCode 802",
+        "url": "https://leetcode.com/problems/find-eventual-safe-states/"
+      }
+    },
+    {
+      "name": "Keys and Rooms",
+      "question": "Given rooms where each room contains keys to other rooms, return true if every room can be visited starting from room 0.",
+      "constraints": "2 <= rooms.length <= 1000; 0 <= rooms[i].length <= 1000; keys are room indexes.",
+      "examples": [
+        {
+          "input": "rooms = [[1],[2],[3],[]]",
+          "output": "true",
+          "explanation": "The keys unlock every room in order."
+        },
+        {
+          "input": "rooms = [[1,3],[3,0,1],[2],[0]]",
+          "output": "false",
+          "explanation": "Room 2 is never reached."
+        },
+        {
+          "input": "rooms = [[]]",
+          "output": "true",
+          "explanation": "The only room is already visited."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public boolean canVisitAllRooms(List<List<Integer>> rooms) {\n    boolean[] visited = new boolean[rooms.size()];\n    Deque<Integer> stack = new ArrayDeque<>();\n    stack.push(0);\n    visited[0] = true;\n    int count = 0;\n\n    while (!stack.isEmpty()) {\n      int room = stack.pop();\n      count++;\n      for (int key : rooms.get(room)) {\n        if (visited[key]) continue;\n        visited[key] = true;\n        stack.push(key);\n      }\n    }\n    return count == rooms.size();\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public boolean canVisitAllRooms(List<List<Integer>> rooms) {\n    boolean[] visited = new boolean[rooms.size()];\n    dfs(0, rooms, visited);\n    for (boolean room : visited) if (!room) return false;\n    return true;\n  }\n\n  private void dfs(int room, List<List<Integer>> rooms, boolean[] visited) {\n    if (visited[room]) return;\n    visited[room] = true;\n    for (int key : rooms.get(room)) {\n      dfs(key, rooms, visited);\n    }\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V). Stack traversal processes each key edge once.",
+      "recursiveComplexity": "Time O(V + E); Space O(V). DFS visits each reachable room once.",
+      "source": {
+        "label": "Keys and Rooms - LeetCode 841",
+        "url": "https://leetcode.com/problems/keys-and-rooms/"
+      }
+    }
+  ]
+}

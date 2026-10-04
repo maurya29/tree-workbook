@@ -1,0 +1,508 @@
+{
+  "id": "advanced-graphs",
+  "name": "Advanced Graphs",
+  "sourceUrl": "https://maurya29.github.io/DSA-Pattern-Workbook/pages/advanced-graphs.html",
+  "retrievedOn": "2026-10-04",
+  "problems": [
+    {
+      "name": "Network Delay Time",
+      "question": "Given directed weighted edges times[i] = [u,v,w], n nodes labeled 1..n, and source k, return the time for all nodes to receive the signal, or -1 if any node is unreachable.",
+      "constraints": "1 <= n <= 100; edge weights are positive; node labels are 1-based.",
+      "examples": [
+        {
+          "input": "times=[[2,1,1],[2,3,1],[3,4,1]], n=4, k=2",
+          "output": "2",
+          "explanation": "Node 4 receives after path 2->3->4."
+        },
+        {
+          "input": "times=[[1,2,1]], n=2, k=2",
+          "output": "-1",
+          "explanation": "Node 1 is unreachable from 2."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int networkDelayTime(int[][] times, int n, int k) {\n    List<int[]>[] graph = new ArrayList[n + 1];\n    for (int node = 1; node <= n; node++) graph[node] = new ArrayList<>();\n    for (int[] edge : times) graph[edge[0]].add(new int[] {edge[1], edge[2]});\n\n    int[] dist = new int[n + 1];\n    Arrays.fill(dist, Integer.MAX_VALUE);\n    dist[k] = 0;\n    PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));\n    heap.offer(new int[] {k, 0});\n\n    while (!heap.isEmpty()) {\n      int[] current = heap.poll();\n      int node = current[0], distance = current[1];\n      if (distance != dist[node]) continue;\n      for (int[] edge : graph[node]) {\n        int next = edge[0], nextDistance = distance + edge[1];\n        if (nextDistance < dist[next]) {\n          dist[next] = nextDistance;\n          heap.offer(new int[] {next, nextDistance});\n        }\n      }\n    }\n\n    int answer = 0;\n    for (int node = 1; node <= n; node++) {\n      if (dist[node] == Integer.MAX_VALUE) return -1;\n      answer = Math.max(answer, dist[node]);\n    }\n    return answer;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int networkDelayTime(int[][] times, int n, int k) {\n    List<int[]>[] graph = new ArrayList[n + 1];\n    for (int node = 1; node <= n; node++) graph[node] = new ArrayList<>();\n    for (int[] edge : times) graph[edge[0]].add(new int[] {edge[1], edge[2]});\n    for (List<int[]> edges : graph) {\n      if (edges != null) edges.sort(Comparator.comparingInt(a -> a[1]));\n    }\n\n    int[] dist = new int[n + 1];\n    Arrays.fill(dist, Integer.MAX_VALUE);\n    dfs(k, 0, graph, dist);\n\n    int answer = 0;\n    for (int node = 1; node <= n; node++) {\n      if (dist[node] == Integer.MAX_VALUE) return -1;\n      answer = Math.max(answer, dist[node]);\n    }\n    return answer;\n  }\n\n  private void dfs(int node, int time, List<int[]>[] graph, int[] dist) {\n    if (time >= dist[node]) return;\n    dist[node] = time;\n    for (int[] edge : graph[node]) dfs(edge[0], time + edge[1], graph, dist);\n  }\n}",
+      "optimizedComplexity": "Time O((n + E) log n); Space O(n + E). Dijkstra uses a min-heap adjacency list.",
+      "recursiveComplexity": "Time O(number of explored walks with pruning); Space O(n + E + recursion depth). DFS prunes states not improving distance.",
+      "source": {
+        "label": "LeetCode 743 - Network Delay Time",
+        "url": "https://leetcode.com/problems/network-delay-time/"
+      }
+    },
+    {
+      "name": "Cheapest Flights Within K Stops",
+      "question": "Given flights [from,to,price], find the cheapest price from src to dst using at most k stops, or -1 if no route satisfies the stop limit.",
+      "constraints": "n <= 100; prices are positive; at most k + 1 edges may be used.",
+      "examples": [
+        {
+          "input": "n=4, flights=[[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src=0, dst=3, k=1",
+          "output": "700",
+          "explanation": "0->1->3 uses one stop."
+        },
+        {
+          "input": "n=3, flights=[[0,1,100],[1,2,100],[0,2,500]], src=0, dst=2, k=1",
+          "output": "200",
+          "explanation": "The one-stop path is cheaper than direct."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n    final int INF = 1_000_000_000;\n    int[] cost = new int[n];\n    Arrays.fill(cost, INF);\n    cost[src] = 0;\n\n    for (int edges = 0; edges <= k; edges++) {\n      int[] next = cost.clone();\n      for (int[] flight : flights) {\n        if (cost[flight[0]] == INF) continue;\n        next[flight[1]] = Math.min(next[flight[1]], cost[flight[0]] + flight[2]);\n      }\n      cost = next;\n    }\n    return cost[dst] == INF ? -1 : cost[dst];\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static final int INF = 1_000_000_000;\n  private List<int[]>[] graph;\n  private int[][] memo;\n  private int dst;\n\n  public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n    this.dst = dst;\n    graph = new ArrayList[n];\n    for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();\n    for (int[] flight : flights) graph[flight[0]].add(new int[] {flight[1], flight[2]});\n    memo = new int[n][k + 2];\n    for (int[] row : memo) Arrays.fill(row, -2);\n    int answer = solve(src, k + 1);\n    return answer >= INF ? -1 : answer;\n  }\n\n  private int solve(int node, int edgesLeft) {\n    if (node == dst) return 0;\n    if (edgesLeft == 0) return INF;\n    if (memo[node][edgesLeft] != -2) return memo[node][edgesLeft];\n    int best = INF;\n    for (int[] edge : graph[node]) {\n      int suffix = solve(edge[0], edgesLeft - 1);\n      if (suffix != INF) best = Math.min(best, edge[1] + suffix);\n    }\n    return memo[node][edgesLeft] = best;\n  }\n}",
+      "optimizedComplexity": "Time O((k + 1)E); Space O(n). Bellman-Ford layers prevent same-round reuse.",
+      "recursiveComplexity": "Time O((k + 1)(n + E)) with memoization; Space O((k + 1)n + recursion depth).",
+      "source": {
+        "label": "LeetCode 787 - Cheapest Flights Within K Stops",
+        "url": "https://leetcode.com/problems/cheapest-flights-within-k-stops/"
+      }
+    },
+    {
+      "name": "Path With Minimum Effort",
+      "question": "Given a heights grid, move 4-directionally from top-left to bottom-right while minimizing the maximum absolute height difference along the path.",
+      "constraints": "Grid size up to 100x100; height differences fit in int.",
+      "examples": [
+        {
+          "input": "heights=[[1,2,2],[3,8,2],[5,3,5]]",
+          "output": "2",
+          "explanation": "A route exists where every step differs by at most 2."
+        },
+        {
+          "input": "heights=[[1,2,3],[3,8,4],[5,3,5]]",
+          "output": "1",
+          "explanation": "The right-side route keeps max effort 1."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private final int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n  public int minimumEffortPath(int[][] heights) {\n    int rows = heights.length, cols = heights[0].length;\n    int[][] effort = new int[rows][cols];\n    for (int[] row : effort) Arrays.fill(row, Integer.MAX_VALUE);\n    effort[0][0] = 0;\n    PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a[2]));\n    heap.offer(new int[] {0, 0, 0});\n\n    while (!heap.isEmpty()) {\n      int[] current = heap.poll();\n      int row = current[0], col = current[1], cost = current[2];\n      if (row == rows - 1 && col == cols - 1) return cost;\n      if (cost != effort[row][col]) continue;\n      for (int[] dir : dirs) {\n        int nr = row + dir[0], nc = col + dir[1];\n        if (nr < 0 || nc < 0 || nr >= rows || nc >= cols) continue;\n        int next = Math.max(cost, Math.abs(heights[row][col] - heights[nr][nc]));\n        if (next < effort[nr][nc]) {\n          effort[nr][nc] = next;\n          heap.offer(new int[] {nr, nc, next});\n        }\n      }\n    }\n    return 0;\n  }\n}",
+      "recursiveCode": "class Solution {\n  private final int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n  public int minimumEffortPath(int[][] heights) {\n    int left = 0, right = 1_000_000;\n    while (left < right) {\n      int mid = left + (right - left) / 2;\n      boolean[][] seen = new boolean[heights.length][heights[0].length];\n      if (canReach(0, 0, mid, heights, seen)) right = mid;\n      else left = mid + 1;\n    }\n    return left;\n  }\n\n  private boolean canReach(int row, int col, int limit, int[][] heights, boolean[][] seen) {\n    int rows = heights.length, cols = heights[0].length;\n    if (row == rows - 1 && col == cols - 1) return true;\n    seen[row][col] = true;\n    for (int[] dir : dirs) {\n      int nr = row + dir[0], nc = col + dir[1];\n      if (nr < 0 || nc < 0 || nr >= rows || nc >= cols || seen[nr][nc]) continue;\n      if (Math.abs(heights[row][col] - heights[nr][nc]) <= limit && canReach(nr, nc, limit, heights, seen)) return true;\n    }\n    return false;\n  }\n}",
+      "optimizedComplexity": "Time O(mn log(mn)); Space O(mn). Dijkstra over grid cells with minimax relaxation.",
+      "recursiveComplexity": "Time O(mn log W); Space O(mn). Binary search effort and recursive DFS reachability check.",
+      "source": {
+        "label": "LeetCode 1631 - Path With Minimum Effort",
+        "url": "https://leetcode.com/problems/path-with-minimum-effort/"
+      }
+    },
+    {
+      "name": "Swim in Rising Water",
+      "question": "Given an n x n grid where grid[r][c] is the time that cell becomes passable, return the earliest time when a path exists from top-left to bottom-right.",
+      "constraints": "n <= 50; values are unique from 0 to n^2 - 1 in the original LeetCode problem.",
+      "examples": [
+        {
+          "input": "grid=[[0,2],[1,3]]",
+          "output": "3",
+          "explanation": "The destination opens at time 3."
+        },
+        {
+          "input": "grid=[[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]]",
+          "output": "16",
+          "explanation": "The snake path is feasible when time reaches 16."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private final int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n  public int swimInWater(int[][] grid) {\n    int n = grid.length;\n    boolean[][] seen = new boolean[n][n];\n    PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a[2]));\n    heap.offer(new int[] {0, 0, grid[0][0]});\n    seen[0][0] = true;\n\n    while (!heap.isEmpty()) {\n      int[] current = heap.poll();\n      int row = current[0], col = current[1], time = current[2];\n      if (row == n - 1 && col == n - 1) return time;\n      for (int[] dir : dirs) {\n        int nr = row + dir[0], nc = col + dir[1];\n        if (nr < 0 || nc < 0 || nr >= n || nc >= n || seen[nr][nc]) continue;\n        seen[nr][nc] = true;\n        heap.offer(new int[] {nr, nc, Math.max(time, grid[nr][nc])});\n      }\n    }\n    return -1;\n  }\n}",
+      "recursiveCode": "class Solution {\n  private final int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n  public int swimInWater(int[][] grid) {\n    int n = grid.length;\n    int left = Math.max(grid[0][0], grid[n - 1][n - 1]);\n    int right = n * n - 1;\n    while (left < right) {\n      int mid = left + (right - left) / 2;\n      if (canReach(0, 0, mid, grid, new boolean[n][n])) right = mid;\n      else left = mid + 1;\n    }\n    return left;\n  }\n\n  private boolean canReach(int row, int col, int time, int[][] grid, boolean[][] seen) {\n    int n = grid.length;\n    if (row < 0 || col < 0 || row >= n || col >= n || seen[row][col] || grid[row][col] > time) return false;\n    if (row == n - 1 && col == n - 1) return true;\n    seen[row][col] = true;\n    for (int[] dir : dirs) if (canReach(row + dir[0], col + dir[1], time, grid, seen)) return true;\n    return false;\n  }\n}",
+      "optimizedComplexity": "Time O(n^2 log n); Space O(n^2). Dijkstra minimizes the maximum grid value seen so far.",
+      "recursiveComplexity": "Time O(n^2 log W); Space O(n^2). Binary search the time and use recursive DFS for feasibility.",
+      "source": {
+        "label": "LeetCode 778 - Swim in Rising Water",
+        "url": "https://leetcode.com/problems/swim-in-rising-water/"
+      }
+    },
+    {
+      "name": "Find Critical and Pseudo-Critical Edges in MST",
+      "question": "Given an undirected weighted connected graph, return which edge indices are critical for every MST and which can appear in at least one MST.",
+      "constraints": "n <= 100 and edges <= 200 in the LeetCode problem; O(E^2 alpha(V)) classification is acceptable.",
+      "examples": [
+        {
+          "input": "n=5, edges=[[0,1,1],[1,2,1],[2,3,2],[0,3,2],[0,4,3],[3,4,3],[1,4,6]]",
+          "output": "[[0,1],[2,3,4,5]]",
+          "explanation": "Edges 0 and 1 are required in every MST."
+        },
+        {
+          "input": "n=4, edges=[[0,1,1],[1,2,1],[2,3,1],[0,3,1]]",
+          "output": "[[],[0,1,2,3]]",
+          "explanation": "Any three cycle edges can form an MST."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public List<List<Integer>> findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {\n    int m = edges.length;\n    int[][] indexed = new int[m][4];\n    for (int i = 0; i < m; i++) indexed[i] = new int[] {edges[i][0], edges[i][1], edges[i][2], i};\n    Arrays.sort(indexed, Comparator.comparingInt(a -> a[2]));\n    int base = mst(n, indexed, -1, -1);\n    List<Integer> critical = new ArrayList<>();\n    List<Integer> pseudo = new ArrayList<>();\n\n    for (int i = 0; i < m; i++) {\n      if (mst(n, indexed, i, -1) > base) critical.add(indexed[i][3]);\n      else if (mst(n, indexed, -1, i) == base) pseudo.add(indexed[i][3]);\n    }\n    return Arrays.asList(critical, pseudo);\n  }\n\n  private int mst(int n, int[][] edges, int skip, int force) {\n    DSU dsu = new DSU(n);\n    int cost = 0, used = 0;\n    if (force != -1) {\n      dsu.union(edges[force][0], edges[force][1]);\n      cost += edges[force][2];\n      used++;\n    }\n    for (int i = 0; i < edges.length; i++) {\n      if (i == skip) continue;\n      if (dsu.union(edges[i][0], edges[i][1])) {\n        cost += edges[i][2];\n        used++;\n        if (used == n - 1) break;\n      }\n    }\n    return used == n - 1 ? cost : Integer.MAX_VALUE;\n  }\n\n  private static class DSU {\n    int[] parent;\n    int[] rank;\n    DSU(int n) { parent = new int[n]; rank = new int[n]; for (int i = 0; i < n; i++) parent[i] = i; }\n    int find(int x) { while (x != parent[x]) { parent[x] = parent[parent[x]]; x = parent[x]; } return x; }\n    boolean union(int a, int b) {\n      int pa = find(a), pb = find(b);\n      if (pa == pb) return false;\n      if (rank[pa] < rank[pb]) parent[pa] = pb;\n      else if (rank[pa] > rank[pb]) parent[pb] = pa;\n      else { parent[pb] = pa; rank[pa]++; }\n      return true;\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public List<List<Integer>> findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {\n    int m = edges.length;\n    int[][] indexed = new int[m][4];\n    for (int i = 0; i < m; i++) indexed[i] = new int[] {edges[i][0], edges[i][1], edges[i][2], i};\n    Arrays.sort(indexed, Comparator.comparingInt(a -> a[2]));\n    int base = mst(n, indexed, -1, -1);\n    List<Integer> critical = new ArrayList<>();\n    List<Integer> pseudo = new ArrayList<>();\n    classify(0, n, indexed, base, critical, pseudo);\n    return Arrays.asList(critical, pseudo);\n  }\n\n  private void classify(int index, int n, int[][] edges, int base, List<Integer> critical, List<Integer> pseudo) {\n    if (index == edges.length) return;\n    if (mst(n, edges, index, -1) > base) critical.add(edges[index][3]);\n    else if (mst(n, edges, -1, index) == base) pseudo.add(edges[index][3]);\n    classify(index + 1, n, edges, base, critical, pseudo);\n  }\n\n  private int mst(int n, int[][] edges, int skip, int force) {\n    DSU dsu = new DSU(n);\n    int cost = 0, used = 0;\n    if (force != -1 && dsu.union(edges[force][0], edges[force][1])) { cost += edges[force][2]; used++; }\n    for (int i = 0; i < edges.length; i++) {\n      if (i != skip && dsu.union(edges[i][0], edges[i][1])) { cost += edges[i][2]; used++; }\n    }\n    return used == n - 1 ? cost : Integer.MAX_VALUE;\n  }\n\n  private static class DSU {\n    int[] parent;\n    DSU(int n) { parent = new int[n]; for (int i = 0; i < n; i++) parent[i] = i; }\n    int find(int x) { if (parent[x] != x) parent[x] = find(parent[x]); return parent[x]; }\n    boolean union(int a, int b) { int pa = find(a), pb = find(b); if (pa == pb) return false; parent[pa] = pb; return true; }\n  }\n}",
+      "optimizedComplexity": "Time O(E^2 alpha(V) + E log E); Space O(E + V). Sorted Kruskal classification with DSU.",
+      "recursiveComplexity": "Time O(E^2 alpha(V)); Space O(E + V). Recursive DSU find supports the same classification checks.",
+      "source": {
+        "label": "LeetCode 1489 - Find Critical and Pseudo-Critical Edges in MST",
+        "url": "https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/"
+      }
+    },
+    {
+      "name": "Min Cost to Connect All Points",
+      "question": "Given points on a plane, connect all points with minimum total Manhattan distance cost.",
+      "constraints": "n <= 1000; complete graph has O(n^2) implicit edges.",
+      "examples": [
+        {
+          "input": "points=[[0,0],[2,2],[3,10],[5,2],[7,0]]",
+          "output": "20",
+          "explanation": "The minimum spanning tree has total cost 20."
+        },
+        {
+          "input": "points=[[3,12],[-2,5],[-4,1]]",
+          "output": "18",
+          "explanation": "Connect all three points with two cheapest useful edges."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int minCostConnectPoints(int[][] points) {\n    int n = points.length;\n    boolean[] used = new boolean[n];\n    int[] min = new int[n];\n    Arrays.fill(min, Integer.MAX_VALUE);\n    min[0] = 0;\n    int answer = 0;\n\n    for (int step = 0; step < n; step++) {\n      int node = -1;\n      for (int i = 0; i < n; i++) if (!used[i] && (node == -1 || min[i] < min[node])) node = i;\n      used[node] = true;\n      answer += min[node];\n      for (int next = 0; next < n; next++) if (!used[next]) min[next] = Math.min(min[next], distance(points, node, next));\n    }\n    return answer;\n  }\n\n  private int distance(int[][] points, int a, int b) {\n    return Math.abs(points[a][0] - points[b][0]) + Math.abs(points[a][1] - points[b][1]);\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int minCostConnectPoints(int[][] points) {\n    boolean[] used = new boolean[points.length];\n    int[] min = new int[points.length];\n    Arrays.fill(min, Integer.MAX_VALUE);\n    min[0] = 0;\n    return prim(points, used, min, 0, 0);\n  }\n\n  private int prim(int[][] points, boolean[] used, int[] min, int chosen, int total) {\n    if (chosen == points.length) return total;\n    int node = -1;\n    for (int i = 0; i < points.length; i++) if (!used[i] && (node == -1 || min[i] < min[node])) node = i;\n    used[node] = true;\n    for (int next = 0; next < points.length; next++) if (!used[next]) min[next] = Math.min(min[next], distance(points, node, next));\n    return prim(points, used, min, chosen + 1, total + min[node]);\n  }\n\n  private int distance(int[][] points, int a, int b) {\n    return Math.abs(points[a][0] - points[b][0]) + Math.abs(points[a][1] - points[b][1]);\n  }\n}",
+      "optimizedComplexity": "Time O(n^2); Space O(n). Dense Prim keeps the best current connection for every outside point.",
+      "recursiveComplexity": "Time O(n^2); Space O(n + recursion depth). Recursive Prim adds one point per call.",
+      "source": {
+        "label": "LeetCode 1584 - Min Cost to Connect All Points",
+        "url": "https://leetcode.com/problems/min-cost-to-connect-all-points/"
+      }
+    },
+    {
+      "name": "Optimize Water Distribution in a Village",
+      "question": "Given well costs for each house and pipe costs between houses, return the minimum cost to supply water to every house.",
+      "constraints": "n can be large enough that MST modeling is required; all costs are positive.",
+      "examples": [
+        {
+          "input": "n=3, wells=[1,2,2], pipes=[[1,2,1],[2,3,1]]",
+          "output": "3",
+          "explanation": "Build well at house 1 and connect 1-2 and 2-3."
+        },
+        {
+          "input": "n=2, wells=[5,5], pipes=[[1,2,1]]",
+          "output": "6",
+          "explanation": "One well plus one pipe is cheapest."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {\n    List<int[]>[] graph = new ArrayList[n + 1];\n    for (int i = 0; i <= n; i++) graph[i] = new ArrayList<>();\n    for (int house = 1; house <= n; house++) {\n      graph[0].add(new int[] {house, wells[house - 1]});\n      graph[house].add(new int[] {0, wells[house - 1]});\n    }\n    for (int[] pipe : pipes) {\n      graph[pipe[0]].add(new int[] {pipe[1], pipe[2]});\n      graph[pipe[1]].add(new int[] {pipe[0], pipe[2]});\n    }\n    boolean[] used = new boolean[n + 1];\n    PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));\n    heap.offer(new int[] {0, 0});\n    int cost = 0, count = 0;\n    while (!heap.isEmpty() && count <= n) {\n      int[] current = heap.poll();\n      int node = current[0];\n      if (used[node]) continue;\n      used[node] = true;\n      cost += current[1];\n      count++;\n      for (int[] edge : graph[node]) if (!used[edge[0]]) heap.offer(edge);\n    }\n    return cost;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {\n    List<int[]> edges = new ArrayList<>();\n    for (int house = 1; house <= n; house++) edges.add(new int[] {0, house, wells[house - 1]});\n    for (int[] pipe : pipes) edges.add(pipe);\n    edges.sort(Comparator.comparingInt(a -> a[2]));\n    return kruskal(0, n, edges, new DSU(n + 1), 0, 0);\n  }\n\n  private int kruskal(int index, int n, List<int[]> edges, DSU dsu, int used, int cost) {\n    if (used == n) return cost;\n    int[] edge = edges.get(index);\n    if (dsu.union(edge[0], edge[1])) return kruskal(index + 1, n, edges, dsu, used + 1, cost + edge[2]);\n    return kruskal(index + 1, n, edges, dsu, used, cost);\n  }\n\n  private static class DSU {\n    int[] parent;\n    DSU(int n) { parent = new int[n]; for (int i = 0; i < n; i++) parent[i] = i; }\n    int find(int x) { if (parent[x] != x) parent[x] = find(parent[x]); return parent[x]; }\n    boolean union(int a, int b) { int pa = find(a), pb = find(b); if (pa == pb) return false; parent[pa] = pb; return true; }\n  }\n}",
+      "optimizedComplexity": "Time O((n + p) log n); Space O(n + p). Prim starts from virtual source and chooses cheapest frontier edge.",
+      "recursiveComplexity": "Time O((n + p) log(n + p)); Space O(n + p). Recursive DSU find inside Kruskal.",
+      "source": {
+        "label": "LeetCode 1168 - Optimize Water Distribution in a Village",
+        "url": "https://leetcode.com/problems/optimize-water-distribution-in-a-village/"
+      }
+    },
+    {
+      "name": "Reconstruct Itinerary",
+      "question": "Given airline tickets [from,to], reconstruct the lexicographically smallest itinerary that starts at JFK and uses every ticket exactly once.",
+      "constraints": "All tickets belong to at least one valid itinerary in the LeetCode problem.",
+      "examples": [
+        {
+          "input": "tickets=[[JFK,SFO],[JFK,ATL],[SFO,ATL],[ATL,JFK],[ATL,SFO]]",
+          "output": "[JFK, ATL, JFK, SFO, ATL, SFO]",
+          "explanation": "ATL is chosen before SFO lexicographically."
+        },
+        {
+          "input": "tickets=[[JFK,KUL],[JFK,NRT],[NRT,JFK]]",
+          "output": "[JFK, NRT, JFK, KUL]",
+          "explanation": "Postorder handles the KUL dead end correctly."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public List<String> findItinerary(List<List<String>> tickets) {\n    Map<String, PriorityQueue<String>> graph = new HashMap<>();\n    for (List<String> ticket : tickets) graph.computeIfAbsent(ticket.get(0), key -> new PriorityQueue<>()).offer(ticket.get(1));\n    Deque<String> stack = new ArrayDeque<>();\n    LinkedList<String> route = new LinkedList<>();\n    stack.push(\"JFK\");\n    while (!stack.isEmpty()) {\n      String airport = stack.peek();\n      PriorityQueue<String> next = graph.get(airport);\n      if (next != null && !next.isEmpty()) stack.push(next.poll());\n      else route.addFirst(stack.pop());\n    }\n    return route;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private final Map<String, PriorityQueue<String>> graph = new HashMap<>();\n  private final LinkedList<String> route = new LinkedList<>();\n\n  public List<String> findItinerary(List<List<String>> tickets) {\n    for (List<String> ticket : tickets) graph.computeIfAbsent(ticket.get(0), key -> new PriorityQueue<>()).offer(ticket.get(1));\n    dfs(\"JFK\");\n    return route;\n  }\n\n  private void dfs(String airport) {\n    PriorityQueue<String> next = graph.get(airport);\n    while (next != null && !next.isEmpty()) dfs(next.poll());\n    route.addFirst(airport);\n  }\n}",
+      "optimizedComplexity": "Time O(E log E); Space O(E). Iterative Hierholzer uses min-heaps per airport and a stack.",
+      "recursiveComplexity": "Time O(E log E); Space O(E). Recursive Hierholzer adds airports on postorder unwind.",
+      "source": {
+        "label": "LeetCode 332 - Reconstruct Itinerary",
+        "url": "https://leetcode.com/problems/reconstruct-itinerary/"
+      }
+    },
+    {
+      "name": "Alien Dictionary",
+      "question": "Given sorted words from an alien language, return one valid character order, or empty string if the order is invalid.",
+      "constraints": "Characters are lowercase English letters in the common LeetCode version.",
+      "examples": [
+        {
+          "input": "words=[wrt,wrf,er,ett,rftt]",
+          "output": "wertf",
+          "explanation": "Constraints imply w before e, e before r, r before t, t before f."
+        },
+        {
+          "input": "words=[z,x,z]",
+          "output": "",
+          "explanation": "The constraints create a cycle."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public String alienOrder(String[] words) {\n    List<Integer>[] graph = new ArrayList[26];\n    for (int i = 0; i < 26; i++) graph[i] = new ArrayList<>();\n    int[] indegree = new int[26];\n    boolean[] exists = new boolean[26];\n    boolean[][] edge = new boolean[26][26];\n    int count = 0;\n    for (String word : words) for (char ch : word.toCharArray()) if (!exists[ch - 'a']) { exists[ch - 'a'] = true; count++; }\n    for (int i = 0; i + 1 < words.length; i++) {\n      String a = words[i], b = words[i + 1];\n      if (a.length() > b.length() && a.startsWith(b)) return \"\";\n      int j = 0;\n      while (j < a.length() && j < b.length() && a.charAt(j) == b.charAt(j)) j++;\n      if (j < a.length() && j < b.length()) {\n        int from = a.charAt(j) - 'a', to = b.charAt(j) - 'a';\n        if (!edge[from][to]) { edge[from][to] = true; graph[from].add(to); indegree[to]++; }\n      }\n    }\n    Queue<Integer> queue = new ArrayDeque<>();\n    for (int c = 0; c < 26; c++) if (exists[c] && indegree[c] == 0) queue.offer(c);\n    StringBuilder order = new StringBuilder();\n    while (!queue.isEmpty()) {\n      int current = queue.poll();\n      order.append((char) ('a' + current));\n      for (int next : graph[current]) if (--indegree[next] == 0) queue.offer(next);\n    }\n    return order.length() == count ? order.toString() : \"\";\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private List<Integer>[] graph;\n  private boolean[] exists;\n  private int[] color;\n  private StringBuilder order;\n\n  public String alienOrder(String[] words) {\n    graph = new ArrayList[26];\n    for (int i = 0; i < 26; i++) graph[i] = new ArrayList<>();\n    exists = new boolean[26];\n    boolean[][] edge = new boolean[26][26];\n    for (String word : words) for (char ch : word.toCharArray()) exists[ch - 'a'] = true;\n    for (int i = 0; i + 1 < words.length; i++) {\n      String a = words[i], b = words[i + 1];\n      if (a.length() > b.length() && a.startsWith(b)) return \"\";\n      int j = 0;\n      while (j < a.length() && j < b.length() && a.charAt(j) == b.charAt(j)) j++;\n      if (j < a.length() && j < b.length()) {\n        int from = a.charAt(j) - 'a', to = b.charAt(j) - 'a';\n        if (!edge[from][to]) { edge[from][to] = true; graph[from].add(to); }\n      }\n    }\n    color = new int[26];\n    order = new StringBuilder();\n    for (int c = 0; c < 26; c++) if (exists[c] && color[c] == 0 && !dfs(c)) return \"\";\n    return order.reverse().toString();\n  }\n\n  private boolean dfs(int node) {\n    color[node] = 1;\n    for (int next : graph[node]) {\n      if (color[next] == 1) return false;\n      if (color[next] == 0 && !dfs(next)) return false;\n    }\n    color[node] = 2;\n    order.append((char) ('a' + node));\n    return true;\n  }\n}",
+      "optimizedComplexity": "Time O(total characters + V + E); Space O(V + E). Kahn queue processes zero-indegree characters.",
+      "recursiveComplexity": "Time O(total characters + V + E); Space O(V + E). DFS color states detect cycles and build reverse postorder.",
+      "source": {
+        "label": "LeetCode 269 - Alien Dictionary",
+        "url": "https://leetcode.com/problems/alien-dictionary/"
+      }
+    },
+    {
+      "name": "Course Schedule II",
+      "question": "Given numCourses and prerequisites [course, prerequisite], return an order to finish all courses or an empty array if impossible.",
+      "constraints": "Courses are labeled 0..numCourses-1; any valid topological order is accepted.",
+      "examples": [
+        {
+          "input": "numCourses=2, prerequisites=[[1,0]]",
+          "output": "[0,1]",
+          "explanation": "Course 0 must come before 1."
+        },
+        {
+          "input": "numCourses=2, prerequisites=[[1,0],[0,1]]",
+          "output": "[]",
+          "explanation": "The prerequisites form a cycle."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int[] findOrder(int numCourses, int[][] prerequisites) {\n    List<Integer>[] graph = new ArrayList[numCourses];\n    for (int i = 0; i < numCourses; i++) graph[i] = new ArrayList<>();\n    int[] indegree = new int[numCourses];\n    for (int[] edge : prerequisites) { graph[edge[1]].add(edge[0]); indegree[edge[0]]++; }\n    Queue<Integer> queue = new ArrayDeque<>();\n    for (int course = 0; course < numCourses; course++) if (indegree[course] == 0) queue.offer(course);\n    int[] order = new int[numCourses];\n    int size = 0;\n    while (!queue.isEmpty()) {\n      int course = queue.poll();\n      order[size++] = course;\n      for (int next : graph[course]) if (--indegree[next] == 0) queue.offer(next);\n    }\n    return size == numCourses ? order : new int[0];\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private List<Integer>[] graph;\n  private int[] color;\n  private int[] order;\n  private int index;\n\n  public int[] findOrder(int numCourses, int[][] prerequisites) {\n    graph = new ArrayList[numCourses];\n    for (int i = 0; i < numCourses; i++) graph[i] = new ArrayList<>();\n    for (int[] edge : prerequisites) graph[edge[1]].add(edge[0]);\n    color = new int[numCourses];\n    order = new int[numCourses];\n    index = numCourses - 1;\n    for (int course = 0; course < numCourses; course++) if (color[course] == 0 && !dfs(course)) return new int[0];\n    return order;\n  }\n\n  private boolean dfs(int course) {\n    color[course] = 1;\n    for (int next : graph[course]) {\n      if (color[next] == 1) return false;\n      if (color[next] == 0 && !dfs(next)) return false;\n    }\n    color[course] = 2;\n    order[index--] = course;\n    return true;\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V + E). Kahn queue emits zero-indegree courses.",
+      "recursiveComplexity": "Time O(V + E); Space O(V + E). DFS colors detect cycles and produce reverse postorder.",
+      "source": {
+        "label": "LeetCode 210 - Course Schedule II",
+        "url": "https://leetcode.com/problems/course-schedule-ii/"
+      }
+    },
+    {
+      "name": "Shortest Path Visiting All Nodes",
+      "question": "Given an undirected connected graph, return the shortest number of edges needed to visit every node at least once.",
+      "constraints": "n <= 12 in the LeetCode problem, making bitmask states feasible.",
+      "examples": [
+        {
+          "input": "graph=[[1,2,3],[0],[0],[0]]",
+          "output": "4",
+          "explanation": "Start at a leaf, visit center and the other leaves."
+        },
+        {
+          "input": "graph=[[1],[0,2,4],[1,3,4],[2],[1,2]]",
+          "output": "4",
+          "explanation": "A shortest walk can cover all nodes in four edges."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int shortestPathLength(int[][] graph) {\n    int n = graph.length;\n    int target = (1 << n) - 1;\n    Queue<int[]> queue = new ArrayDeque<>();\n    boolean[][] seen = new boolean[n][1 << n];\n    for (int node = 0; node < n; node++) {\n      int mask = 1 << node;\n      queue.offer(new int[] {node, mask, 0});\n      seen[node][mask] = true;\n    }\n    while (!queue.isEmpty()) {\n      int[] state = queue.poll();\n      if (state[1] == target) return state[2];\n      for (int next : graph[state[0]]) {\n        int nextMask = state[1] | (1 << next);\n        if (!seen[next][nextMask]) {\n          seen[next][nextMask] = true;\n          queue.offer(new int[] {next, nextMask, state[2] + 1});\n        }\n      }\n    }\n    return 0;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private int[][] dist;\n  private int[][] memo;\n  private int target;\n\n  public int shortestPathLength(int[][] graph) {\n    int n = graph.length;\n    target = (1 << n) - 1;\n    dist = new int[n][n];\n    for (int i = 0; i < n; i++) {\n      Arrays.fill(dist[i], 1_000_000);\n      dist[i][i] = 0;\n      for (int next : graph[i]) dist[i][next] = 1;\n    }\n    for (int k = 0; k < n; k++) for (int i = 0; i < n; i++) for (int j = 0; j < n; j++) dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);\n    memo = new int[n][1 << n];\n    for (int[] row : memo) Arrays.fill(row, -1);\n    int best = Integer.MAX_VALUE;\n    for (int start = 0; start < n; start++) best = Math.min(best, solve(start, 1 << start));\n    return best;\n  }\n\n  private int solve(int node, int mask) {\n    if (mask == target) return 0;\n    if (memo[node][mask] != -1) return memo[node][mask];\n    int best = 1_000_000;\n    for (int next = 0; next < dist.length; next++) {\n      if ((mask & (1 << next)) == 0) best = Math.min(best, dist[node][next] + solve(next, mask | (1 << next)));\n    }\n    return memo[node][mask] = best;\n  }\n}",
+      "optimizedComplexity": "Time O(n * 2^n + E * 2^n); Space O(n * 2^n). BFS over (node, visitedMask).",
+      "recursiveComplexity": "Time O(n^3 + n^2 * 2^n); Space O(n * 2^n). Floyd distances plus recursive TSP memo.",
+      "source": {
+        "label": "LeetCode 847 - Shortest Path Visiting All Nodes",
+        "url": "https://leetcode.com/problems/shortest-path-visiting-all-nodes/"
+      }
+    },
+    {
+      "name": "Minimum Cost to Reach Destination in Time",
+      "question": "Given maxTime, undirected edges [u,v,time], and passingFees per city, return the minimum fee to reach city n-1 within maxTime or -1.",
+      "constraints": "maxTime <= 1000 in the LeetCode problem, so time-layer DP is feasible.",
+      "examples": [
+        {
+          "input": "maxTime=30, edges=[[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], fees=[5,1,2,20,20,3]",
+          "output": "11",
+          "explanation": "Path 0-1-2-5 reaches in 30 with fee 11."
+        },
+        {
+          "input": "maxTime=29 with the same graph",
+          "output": "48",
+          "explanation": "The cheaper path is too slow, so another route is needed."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int minCost(int maxTime, int[][] edges, int[] passingFees) {\n    int n = passingFees.length;\n    int[][] dp = new int[maxTime + 1][n];\n    for (int[] row : dp) Arrays.fill(row, 1_000_000_000);\n    dp[0][0] = passingFees[0];\n    for (int time = 1; time <= maxTime; time++) {\n      for (int[] edge : edges) {\n        int a = edge[0], b = edge[1], t = edge[2];\n        if (time >= t) {\n          dp[time][a] = Math.min(dp[time][a], dp[time - t][b] + passingFees[a]);\n          dp[time][b] = Math.min(dp[time][b], dp[time - t][a] + passingFees[b]);\n        }\n      }\n    }\n    int answer = 1_000_000_000;\n    for (int time = 0; time <= maxTime; time++) answer = Math.min(answer, dp[time][n - 1]);\n    return answer == 1_000_000_000 ? -1 : answer;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private List<int[]>[] graph;\n  private int[] fees;\n  private int[][] memo;\n  private static final int INF = 1_000_000_000;\n\n  public int minCost(int maxTime, int[][] edges, int[] passingFees) {\n    fees = passingFees;\n    graph = new ArrayList[fees.length];\n    for (int i = 0; i < fees.length; i++) graph[i] = new ArrayList<>();\n    for (int[] edge : edges) { graph[edge[0]].add(new int[] {edge[1], edge[2]}); graph[edge[1]].add(new int[] {edge[0], edge[2]}); }\n    memo = new int[fees.length][maxTime + 1];\n    for (int[] row : memo) Arrays.fill(row, -1);\n    int suffix = dfs(0, maxTime);\n    return suffix >= INF ? -1 : suffix;\n  }\n\n  private int dfs(int node, int timeLeft) {\n    if (timeLeft < 0) return INF;\n    if (node == fees.length - 1) return fees[node];\n    if (memo[node][timeLeft] != -1) return memo[node][timeLeft];\n    int best = INF;\n    for (int[] edge : graph[node]) {\n      int next = dfs(edge[0], timeLeft - edge[1]);\n      if (next < INF) best = Math.min(best, fees[node] + next);\n    }\n    return memo[node][timeLeft] = best;\n  }\n}",
+      "optimizedComplexity": "Time O(maxTime * E); Space O(maxTime * V). DP relaxes every edge between adjacent time layers.",
+      "recursiveComplexity": "Time O(V * maxTime + E * maxTime); Space O(V * maxTime). Memoized DFS chooses outgoing edges under remaining time.",
+      "source": {
+        "label": "LeetCode 1928 - Minimum Cost to Reach Destination in Time",
+        "url": "https://leetcode.com/problems/minimum-cost-to-reach-destination-in-time/"
+      }
+    },
+    {
+      "name": "Find the City With the Smallest Number of Neighbors",
+      "question": "Given weighted undirected edges and a distance threshold, return the city with the fewest reachable cities within the threshold, breaking ties by larger city index.",
+      "constraints": "n <= 100 in the LeetCode problem; O(n^3) Floyd-Warshall is acceptable.",
+      "examples": [
+        {
+          "input": "n=4, edges=[[0,1,3],[1,2,1],[1,3,4],[2,3,1]], threshold=4",
+          "output": "3",
+          "explanation": "City 3 has the smallest reachable count after tie-breaking."
+        },
+        {
+          "input": "n=5, edges=[[0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,1],[3,4,1]], threshold=2",
+          "output": "0",
+          "explanation": "City 0 reaches only city 1 within threshold."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int findTheCity(int n, int[][] edges, int distanceThreshold) {\n    int[][] dist = new int[n][n];\n    for (int[] row : dist) Arrays.fill(row, 1_000_000_000);\n    for (int i = 0; i < n; i++) dist[i][i] = 0;\n    for (int[] edge : edges) {\n      dist[edge[0]][edge[1]] = Math.min(dist[edge[0]][edge[1]], edge[2]);\n      dist[edge[1]][edge[0]] = Math.min(dist[edge[1]][edge[0]], edge[2]);\n    }\n    for (int mid = 0; mid < n; mid++) for (int from = 0; from < n; from++) for (int to = 0; to < n; to++) {\n      dist[from][to] = Math.min(dist[from][to], dist[from][mid] + dist[mid][to]);\n    }\n    int answer = -1, bestCount = Integer.MAX_VALUE;\n    for (int city = 0; city < n; city++) {\n      int count = 0;\n      for (int other = 0; other < n; other++) if (other != city && dist[city][other] <= distanceThreshold) count++;\n      if (count <= bestCount) { bestCount = count; answer = city; }\n    }\n    return answer;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private int[][][] memo;\n  private int n;\n\n  public int findTheCity(int n, int[][] edges, int distanceThreshold) {\n    this.n = n;\n    memo = new int[n][n][n + 1];\n    for (int[][] layer : memo) for (int[] row : layer) Arrays.fill(row, -1);\n    int[][] direct = new int[n][n];\n    for (int[] row : direct) Arrays.fill(row, 1_000_000_000);\n    for (int i = 0; i < n; i++) direct[i][i] = 0;\n    for (int[] edge : edges) { direct[edge[0]][edge[1]] = Math.min(direct[edge[0]][edge[1]], edge[2]); direct[edge[1]][edge[0]] = Math.min(direct[edge[1]][edge[0]], edge[2]); }\n    this.direct = direct;\n    int answer = -1, best = Integer.MAX_VALUE;\n    for (int city = 0; city < n; city++) {\n      int count = 0;\n      for (int other = 0; other < n; other++) if (other != city && shortest(city, other, n) <= distanceThreshold) count++;\n      if (count <= best) { best = count; answer = city; }\n    }\n    return answer;\n  }\n\n  private int[][] direct;\n\n  private int shortest(int from, int to, int k) {\n    if (k == 0) return direct[from][to];\n    if (memo[from][to][k] != -1) return memo[from][to][k];\n    int without = shortest(from, to, k - 1);\n    int through = shortest(from, k - 1, k - 1) + shortest(k - 1, to, k - 1);\n    return memo[from][to][k] = Math.min(without, through);\n  }\n}",
+      "optimizedComplexity": "Time O(n^3); Space O(n^2). Floyd-Warshall computes all-pairs distances.",
+      "recursiveComplexity": "Time O(n^3); Space O(n^3). Recursive shortest(i,j,k) memoizes allowed intermediate nodes.",
+      "source": {
+        "label": "LeetCode 1334 - Find the City With the Smallest Number of Neighbors",
+        "url": "https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/"
+      }
+    },
+    {
+      "name": "Critical Connections in a Network",
+      "question": "Given an undirected connected network, return all critical connections whose removal disconnects the graph.",
+      "constraints": "n up to 1e5; O(V + E) low-link traversal is required.",
+      "examples": [
+        {
+          "input": "n=4, connections=[[0,1],[1,2],[2,0],[1,3]]",
+          "output": "[[1,3]]",
+          "explanation": "Removing 1-3 isolates node 3."
+        },
+        {
+          "input": "n=2, connections=[[0,1]]",
+          "output": "[[0,1]]",
+          "explanation": "The only edge is a bridge."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private List<Integer>[] graph;\n  private int[] disc;\n  private int[] low;\n  private int time;\n  private List<List<Integer>> bridges;\n\n  public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {\n    graph = new ArrayList[n];\n    for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();\n    for (List<Integer> edge : connections) { graph[edge.get(0)].add(edge.get(1)); graph[edge.get(1)].add(edge.get(0)); }\n    disc = new int[n]; low = new int[n]; bridges = new ArrayList<>();\n    dfs(0, -1);\n    return bridges;\n  }\n\n  private void dfs(int node, int parent) {\n    disc[node] = low[node] = ++time;\n    for (int next : graph[node]) {\n      if (next == parent) continue;\n      if (disc[next] == 0) {\n        dfs(next, node);\n        low[node] = Math.min(low[node], low[next]);\n        if (low[next] > disc[node]) bridges.add(Arrays.asList(node, next));\n      } else {\n        low[node] = Math.min(low[node], disc[next]);\n      }\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private List<Integer>[] graph;\n  private int[] disc;\n  private int[] low;\n  private int time;\n  private List<List<Integer>> answer;\n\n  public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {\n    graph = new ArrayList[n];\n    for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();\n    for (List<Integer> edge : connections) { graph[edge.get(0)].add(edge.get(1)); graph[edge.get(1)].add(edge.get(0)); }\n    disc = new int[n];\n    low = new int[n];\n    answer = new ArrayList<>();\n    dfs(0, -1);\n    return answer;\n  }\n\n  private void dfs(int node, int parent) {\n    disc[node] = low[node] = ++time;\n    for (int next : graph[node]) {\n      if (next == parent) continue;\n      if (disc[next] == 0) {\n        dfs(next, node);\n        low[node] = Math.min(low[node], low[next]);\n        if (low[next] > disc[node]) answer.add(Arrays.asList(node, next));\n      } else low[node] = Math.min(low[node], disc[next]);\n    }\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V + E). Tarjan low-link finds all bridges in one DFS.",
+      "recursiveComplexity": "Time O(V + E); Space O(V + E). Recursive DFS maintains discovery and low times.",
+      "source": {
+        "label": "LeetCode 1192 - Critical Connections in a Network",
+        "url": "https://leetcode.com/problems/critical-connections-in-a-network/"
+      }
+    },
+    {
+      "name": "Number of Connected Components in an Undirected Graph",
+      "question": "Given n nodes and undirected edges, return the number of connected components.",
+      "constraints": "Nodes are labeled 0..n-1; DSU gives near-constant edge processing.",
+      "examples": [
+        {
+          "input": "n=5, edges=[[0,1],[1,2],[3,4]]",
+          "output": "2",
+          "explanation": "Components are {0,1,2} and {3,4}."
+        },
+        {
+          "input": "n=5, edges=[[0,1],[1,2],[2,3],[3,4]]",
+          "output": "1",
+          "explanation": "All nodes are connected."
+        }
+      ],
+      "optimizedCode": "class Solution {\n  public int countComponents(int n, int[][] edges) {\n    DSU dsu = new DSU(n);\n    int components = n;\n    for (int[] edge : edges) if (dsu.union(edge[0], edge[1])) components--;\n    return components;\n  }\n\n  private static class DSU {\n    int[] parent;\n    int[] rank;\n    DSU(int n) { parent = new int[n]; rank = new int[n]; for (int i = 0; i < n; i++) parent[i] = i; }\n    int find(int x) { while (x != parent[x]) { parent[x] = parent[parent[x]]; x = parent[x]; } return x; }\n    boolean union(int a, int b) {\n      int pa = find(a), pb = find(b);\n      if (pa == pb) return false;\n      if (rank[pa] < rank[pb]) parent[pa] = pb;\n      else if (rank[pa] > rank[pb]) parent[pb] = pa;\n      else { parent[pb] = pa; rank[pa]++; }\n      return true;\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int countComponents(int n, int[][] edges) {\n    List<Integer>[] graph = new ArrayList[n];\n    for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();\n    for (int[] edge : edges) { graph[edge[0]].add(edge[1]); graph[edge[1]].add(edge[0]); }\n    boolean[] seen = new boolean[n];\n    int count = 0;\n    for (int node = 0; node < n; node++) {\n      if (!seen[node]) {\n        count++;\n        dfs(node, graph, seen);\n      }\n    }\n    return count;\n  }\n\n  private void dfs(int node, List<Integer>[] graph, boolean[] seen) {\n    seen[node] = true;\n    for (int next : graph[node]) if (!seen[next]) dfs(next, graph, seen);\n  }\n}",
+      "optimizedComplexity": "Time O(E alpha(V)); Space O(V). Union-Find maintains component count.",
+      "recursiveComplexity": "Time O(V + E); Space O(V + E). Recursive DFS counts components.",
+      "source": {
+        "label": "LeetCode 323 - Number of Connected Components in an Undirected Graph",
+        "url": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/"
+      }
+    },
+    {
+      "name": "Kosaraju SCC Count",
+      "question": "Given a directed graph with n nodes and edges [u,v], return the number of strongly connected components.",
+      "constraints": "Use O(V + E) graph traversals; nodes are labeled 0..n-1.",
+      "examples": [
+        {
+          "input": "n=5, edges=[[1,0],[0,2],[2,1],[0,3],[3,4]]",
+          "output": "3",
+          "explanation": "{0,1,2}, {3}, and {4} are SCCs."
+        },
+        {
+          "input": "n=3, edges=[[0,1],[1,2],[2,0]]",
+          "output": "1",
+          "explanation": "Every node reaches every other node."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int countSCC(int n, int[][] edges) {\n    List<Integer>[] graph = build(n, edges, false);\n    List<Integer>[] reverse = build(n, edges, true);\n    boolean[] seen = new boolean[n];\n    List<Integer> order = new ArrayList<>();\n    for (int node = 0; node < n; node++) if (!seen[node]) dfsOrder(node, graph, seen, order);\n    Arrays.fill(seen, false);\n    int count = 0;\n    for (int i = order.size() - 1; i >= 0; i--) {\n      int node = order.get(i);\n      if (!seen[node]) {\n        count++;\n        mark(node, reverse, seen);\n      }\n    }\n    return count;\n  }\n\n  private void dfsOrder(int node, List<Integer>[] graph, boolean[] seen, List<Integer> order) {\n    seen[node] = true;\n    for (int next : graph[node]) if (!seen[next]) dfsOrder(next, graph, seen, order);\n    order.add(node);\n  }\n\n  private void mark(int start, List<Integer>[] graph, boolean[] seen) {\n    Deque<Integer> stack = new ArrayDeque<>();\n    stack.push(start); seen[start] = true;\n    while (!stack.isEmpty()) for (int next : graph[stack.pop()]) if (!seen[next]) { seen[next] = true; stack.push(next); }\n  }\n\n  private List<Integer>[] build(int n, int[][] edges, boolean rev) {\n    List<Integer>[] graph = new ArrayList[n];\n    for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();\n    for (int[] edge : edges) graph[rev ? edge[1] : edge[0]].add(rev ? edge[0] : edge[1]);\n    return graph;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int countSCC(int n, int[][] edges) {\n    List<Integer>[] graph = build(n, edges, false);\n    List<Integer>[] reverse = build(n, edges, true);\n    boolean[] seen = new boolean[n];\n    List<Integer> order = new ArrayList<>();\n    for (int node = 0; node < n; node++) if (!seen[node]) finish(node, graph, seen, order);\n    Arrays.fill(seen, false);\n    return collect(order.size() - 1, order, reverse, seen, 0);\n  }\n\n  private int collect(int index, List<Integer> order, List<Integer>[] reverse, boolean[] seen, int count) {\n    if (index < 0) return count;\n    int node = order.get(index);\n    if (!seen[node]) {\n      mark(node, reverse, seen);\n      return collect(index - 1, order, reverse, seen, count + 1);\n    }\n    return collect(index - 1, order, reverse, seen, count);\n  }\n\n  private void finish(int node, List<Integer>[] graph, boolean[] seen, List<Integer> order) {\n    seen[node] = true;\n    for (int next : graph[node]) if (!seen[next]) finish(next, graph, seen, order);\n    order.add(node);\n  }\n\n  private void mark(int node, List<Integer>[] graph, boolean[] seen) {\n    seen[node] = true;\n    for (int next : graph[node]) if (!seen[next]) mark(next, graph, seen);\n  }\n\n  private List<Integer>[] build(int n, int[][] edges, boolean rev) {\n    List<Integer>[] graph = new ArrayList[n];\n    for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();\n    for (int[] edge : edges) graph[rev ? edge[1] : edge[0]].add(rev ? edge[0] : edge[1]);\n    return graph;\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V + E). Kosaraju uses finish order and reverse graph.",
+      "recursiveComplexity": "Time O(V + E); Space O(V + E). Recursive DFS performs both passes.",
+      "source": {
+        "label": "Kosaraju Algorithm - GeeksforGeeks",
+        "url": "https://www.geeksforgeeks.org/kosarajus-algorithm-in-java/"
+      }
+    },
+    {
+      "name": "Tarjan SCC Count",
+      "question": "Given a directed graph, count strongly connected components using one DFS pass with low-link values.",
+      "constraints": "O(V + E) time and space with nodes labeled 0..n-1.",
+      "examples": [
+        {
+          "input": "n=5, edges=[[1,0],[0,2],[2,1],[0,3],[3,4]]",
+          "output": "3",
+          "explanation": "{0,1,2}, {3}, and {4} are SCCs."
+        },
+        {
+          "input": "n=4, edges=[[0,1],[1,2],[2,3]]",
+          "output": "4",
+          "explanation": "A DAG has each node as its own SCC."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private List<Integer>[] graph;\n  private int[] disc;\n  private int[] low;\n  private boolean[] inStack;\n  private Deque<Integer> stack;\n  private int time;\n  private int count;\n\n  public int countSCC(int n, int[][] edges) {\n    graph = new ArrayList[n];\n    for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();\n    for (int[] edge : edges) graph[edge[0]].add(edge[1]);\n    disc = new int[n]; low = new int[n]; inStack = new boolean[n]; stack = new ArrayDeque<>(); time = 0; count = 0;\n    for (int node = 0; node < n; node++) if (disc[node] == 0) dfs(node);\n    return count;\n  }\n\n  private void dfs(int node) {\n    disc[node] = low[node] = ++time;\n    stack.push(node);\n    inStack[node] = true;\n    for (int next : graph[node]) {\n      if (disc[next] == 0) { dfs(next); low[node] = Math.min(low[node], low[next]); }\n      else if (inStack[next]) low[node] = Math.min(low[node], disc[next]);\n    }\n    if (low[node] == disc[node]) {\n      while (true) {\n        int top = stack.pop();\n        inStack[top] = false;\n        if (top == node) break;\n      }\n      count++;\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private List<Integer>[] graph;\n  private int[] disc;\n  private int[] low;\n  private boolean[] active;\n  private Deque<Integer> stack;\n  private int time;\n  private int count;\n\n  public int countSCC(int n, int[][] edges) {\n    graph = new ArrayList[n];\n    for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();\n    for (int[] edge : edges) graph[edge[0]].add(edge[1]);\n    disc = new int[n]; low = new int[n]; active = new boolean[n]; stack = new ArrayDeque<>(); time = 0; count = 0;\n    for (int node = 0; node < n; node++) if (disc[node] == 0) dfs(node);\n    return count;\n  }\n\n  private void dfs(int node) {\n    disc[node] = low[node] = ++time;\n    stack.push(node);\n    active[node] = true;\n    for (int next : graph[node]) {\n      if (disc[next] == 0) {\n        dfs(next);\n        low[node] = Math.min(low[node], low[next]);\n      } else if (active[next]) low[node] = Math.min(low[node], disc[next]);\n    }\n    if (low[node] == disc[node]) popComponent(node);\n  }\n\n  private void popComponent(int root) {\n    int top = stack.pop();\n    active[top] = false;\n    if (top != root) popComponent(root);\n    else count++;\n  }\n}",
+      "optimizedComplexity": "Time O(V + E); Space O(V + E). Tarjan low-link processes SCCs in one DFS.",
+      "recursiveComplexity": "Time O(V + E); Space O(V + E). Recursive low-link stack extraction.",
+      "source": {
+        "label": "Tarjan SCC Algorithm - GeeksforGeeks",
+        "url": "https://www.geeksforgeeks.org/tarjan-algorithm-find-strongly-connected-components/"
+      }
+    },
+    {
+      "name": "Minimum Spanning Tree Kruskal",
+      "question": "Given n nodes and undirected weighted edges [u,v,w], return the minimum spanning tree weight, or -1 if the graph is disconnected.",
+      "constraints": "Kruskal is O(E log E) and works when edges are given explicitly.",
+      "examples": [
+        {
+          "input": "n=4, edges=[[0,1,1],[1,2,2],[2,3,3],[0,3,10]]",
+          "output": "6",
+          "explanation": "Choose the first three edges."
+        },
+        {
+          "input": "n=3, edges=[[0,1,5]]",
+          "output": "-1",
+          "explanation": "Node 2 is disconnected."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int minimumSpanningTree(int n, int[][] edges) {\n    Arrays.sort(edges, Comparator.comparingInt(a -> a[2]));\n    DSU dsu = new DSU(n);\n    int cost = 0, used = 0;\n    for (int[] edge : edges) {\n      if (dsu.union(edge[0], edge[1])) {\n        cost += edge[2];\n        if (++used == n - 1) return cost;\n      }\n    }\n    return n == 1 ? 0 : -1;\n  }\n\n  private static class DSU {\n    int[] parent;\n    int[] rank;\n    DSU(int n) { parent = new int[n]; rank = new int[n]; for (int i = 0; i < n; i++) parent[i] = i; }\n    int find(int x) { while (x != parent[x]) { parent[x] = parent[parent[x]]; x = parent[x]; } return x; }\n    boolean union(int a, int b) {\n      int pa = find(a), pb = find(b);\n      if (pa == pb) return false;\n      if (rank[pa] < rank[pb]) parent[pa] = pb;\n      else if (rank[pa] > rank[pb]) parent[pb] = pa;\n      else { parent[pb] = pa; rank[pa]++; }\n      return true;\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int minimumSpanningTree(int n, int[][] edges) {\n    Arrays.sort(edges, Comparator.comparingInt(a -> a[2]));\n    int cost = scan(0, 0, 0, n, edges, new DSU(n));\n    return cost == Integer.MAX_VALUE ? -1 : cost;\n  }\n\n  private int scan(int index, int used, int cost, int n, int[][] edges, DSU dsu) {\n    if (n == 1) return 0;\n    if (used == n - 1) return cost;\n    if (index == edges.length) return Integer.MAX_VALUE;\n    int[] edge = edges[index];\n    if (dsu.union(edge[0], edge[1])) return scan(index + 1, used + 1, cost + edge[2], n, edges, dsu);\n    return scan(index + 1, used, cost, n, edges, dsu);\n  }\n\n  private static class DSU {\n    int[] parent;\n    DSU(int n) { parent = new int[n]; for (int i = 0; i < n; i++) parent[i] = i; }\n    int find(int x) { if (parent[x] != x) parent[x] = find(parent[x]); return parent[x]; }\n    boolean union(int a, int b) { int pa = find(a), pb = find(b); if (pa == pb) return false; parent[pa] = pb; return true; }\n  }\n}",
+      "optimizedComplexity": "Time O(E log E); Space O(V). Kruskal sorts once and uses DSU.",
+      "recursiveComplexity": "Time O(E log E); Space O(V + E). Recursive scan accepts sorted edges with DSU.",
+      "source": {
+        "label": "Kruskal MST - CP Algorithms",
+        "url": "https://cp-algorithms.com/graph/mst_kruskal.html"
+      }
+    },
+    {
+      "name": "Minimum Spanning Tree Prim",
+      "question": "Given n nodes and undirected weighted edges, return the MST weight using Prim-style frontier expansion, or -1 if disconnected.",
+      "constraints": "Prim with adjacency heap runs in O(E log V).",
+      "examples": [
+        {
+          "input": "n=4, edges=[[0,1,1],[1,2,2],[2,3,3],[0,3,10]]",
+          "output": "6",
+          "explanation": "The frontier picks weights 1, 2, and 3."
+        },
+        {
+          "input": "n=3, edges=[[0,1,5]]",
+          "output": "-1",
+          "explanation": "Node 2 never enters the tree."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  public int minimumSpanningTree(int n, int[][] edges) {\n    if (n == 1) return 0;\n    List<int[]>[] graph = new ArrayList[n];\n    for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();\n    for (int[] edge : edges) { graph[edge[0]].add(new int[] {edge[1], edge[2]}); graph[edge[1]].add(new int[] {edge[0], edge[2]}); }\n    boolean[] used = new boolean[n];\n    PriorityQueue<int[]> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));\n    heap.offer(new int[] {0, 0});\n    int cost = 0, count = 0;\n    while (!heap.isEmpty()) {\n      int[] current = heap.poll();\n      int node = current[0];\n      if (used[node]) continue;\n      used[node] = true;\n      cost += current[1];\n      count++;\n      for (int[] edge : graph[node]) if (!used[edge[0]]) heap.offer(edge);\n    }\n    return count == n ? cost : -1;\n  }\n}",
+      "recursiveCode": "class Solution {\n  public int minimumSpanningTree(int n, int[][] edges) {\n    if (n == 1) return 0;\n    boolean[] used = new boolean[n];\n    used[0] = true;\n    return addNext(1, 0, used, edges, n);\n  }\n\n  private int addNext(int count, int cost, boolean[] used, int[][] edges, int n) {\n    if (count == n) return cost;\n    int best = -1;\n    for (int i = 0; i < edges.length; i++) {\n      if ((used[edges[i][0]] ^ used[edges[i][1]]) && (best == -1 || edges[i][2] < edges[best][2])) best = i;\n    }\n    if (best == -1) return -1;\n    used[edges[best][0]] = true;\n    used[edges[best][1]] = true;\n    return addNext(count + 1, cost + edges[best][2], used, edges, n);\n  }\n}",
+      "optimizedComplexity": "Time O(E log V); Space O(V + E). Heap-based Prim tracks frontier edges.",
+      "recursiveComplexity": "Time O(VE); Space O(V + recursion depth). Recursive dense Prim adds one node per call.",
+      "source": {
+        "label": "Prim MST - CP Algorithms",
+        "url": "https://cp-algorithms.com/graph/mst_prim.html"
+      }
+    },
+    {
+      "name": "Minimum Obstacle Removal to Reach Corner",
+      "question": "Given a grid of 0 empty cells and 1 obstacles, return the minimum obstacles to remove to travel from top-left to bottom-right.",
+      "constraints": "Grid can be large; O(mn) 0-1 BFS is better than heap Dijkstra.",
+      "examples": [
+        {
+          "input": "grid=[[0,1,1],[1,1,0],[1,1,0]]",
+          "output": "2",
+          "explanation": "Remove two obstacles along the best route."
+        },
+        {
+          "input": "grid=[[0,1,0,0,0],[0,1,0,1,0],[0,0,0,1,0]]",
+          "output": "0",
+          "explanation": "A zero-obstacle path exists."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private final int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n\n  public int minimumObstacles(int[][] grid) {\n    int rows = grid.length, cols = grid[0].length;\n    int[][] dist = new int[rows][cols];\n    for (int[] row : dist) Arrays.fill(row, Integer.MAX_VALUE);\n    Deque<int[]> deque = new ArrayDeque<>();\n    dist[0][0] = 0;\n    deque.offerFirst(new int[] {0, 0});\n    while (!deque.isEmpty()) {\n      int[] current = deque.pollFirst();\n      int row = current[0], col = current[1];\n      for (int[] dir : dirs) {\n        int nr = row + dir[0], nc = col + dir[1];\n        if (nr < 0 || nc < 0 || nr >= rows || nc >= cols) continue;\n        int next = dist[row][col] + grid[nr][nc];\n        if (next < dist[nr][nc]) {\n          dist[nr][nc] = next;\n          if (grid[nr][nc] == 0) deque.offerFirst(new int[] {nr, nc});\n          else deque.offerLast(new int[] {nr, nc});\n        }\n      }\n    }\n    return dist[rows - 1][cols - 1];\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private final int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n  private int[][] dist;\n\n  public int minimumObstacles(int[][] grid) {\n    dist = new int[grid.length][grid[0].length];\n    for (int[] row : dist) Arrays.fill(row, Integer.MAX_VALUE);\n    relax(0, 0, 0, grid);\n    return dist[grid.length - 1][grid[0].length - 1];\n  }\n\n  private void relax(int row, int col, int cost, int[][] grid) {\n    if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || cost >= dist[row][col]) return;\n    dist[row][col] = cost;\n    for (int[] dir : dirs) {\n      int nr = row + dir[0], nc = col + dir[1];\n      if (nr >= 0 && nc >= 0 && nr < grid.length && nc < grid[0].length) relax(nr, nc, cost + grid[nr][nc], grid);\n    }\n  }\n}",
+      "optimizedComplexity": "Time O(mn); Space O(mn). 0-1 BFS processes each directed grid edge a constant number of times.",
+      "recursiveComplexity": "Time O(mn * improvements); Space O(mn). Recursive relaxation prunes non-improving costs.",
+      "source": {
+        "label": "LeetCode 2290 - Minimum Obstacle Removal to Reach Corner",
+        "url": "https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/"
+      }
+    }
+  ]
+}

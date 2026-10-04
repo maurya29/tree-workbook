@@ -1,0 +1,7114 @@
+[
+  {
+    "id": "trees-1-optimized",
+    "className": "TreesBasic$Q01Optimized",
+    "method": "maxDepth",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "trees-1-recursive",
+    "className": "TreesBasic$Q01Recursive",
+    "method": "maxDepth",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "trees-2-optimized",
+    "className": "TreesBasic$Q02Optimized",
+    "method": "isSameTree",
+    "args": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-2-recursive",
+    "className": "TreesBasic$Q02Recursive",
+    "method": "isSameTree",
+    "args": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-3-optimized",
+    "className": "TreesBasic$Q03Optimized",
+    "method": "invertTree",
+    "args": [
+      [
+        4,
+        2,
+        7,
+        1,
+        3,
+        6,
+        9
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      4,
+      7,
+      2,
+      9,
+      6,
+      3,
+      1
+    ]
+  },
+  {
+    "id": "trees-3-recursive",
+    "className": "TreesBasic$Q03Recursive",
+    "method": "invertTree",
+    "args": [
+      [
+        4,
+        2,
+        7,
+        1,
+        3,
+        6,
+        9
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      4,
+      7,
+      2,
+      9,
+      6,
+      3,
+      1
+    ]
+  },
+  {
+    "id": "trees-4-optimized",
+    "className": "TreesBasic$Q04Optimized",
+    "method": "levelOrder",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        3
+      ],
+      [
+        9,
+        20
+      ],
+      [
+        15,
+        7
+      ]
+    ]
+  },
+  {
+    "id": "trees-4-recursive",
+    "className": "TreesBasic$Q04Recursive",
+    "method": "levelOrder",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        3
+      ],
+      [
+        9,
+        20
+      ],
+      [
+        15,
+        7
+      ]
+    ]
+  },
+  {
+    "id": "trees-5-optimized",
+    "className": "TreesBasic$Q05Optimized",
+    "method": "rightSideView",
+    "args": [
+      [
+        1,
+        2,
+        3,
+        null,
+        5,
+        null,
+        4
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      1,
+      3,
+      4
+    ]
+  },
+  {
+    "id": "trees-5-recursive",
+    "className": "TreesBasic$Q05Recursive",
+    "method": "rightSideView",
+    "args": [
+      [
+        1,
+        2,
+        3,
+        null,
+        5,
+        null,
+        4
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      1,
+      3,
+      4
+    ]
+  },
+  {
+    "id": "trees-6-optimized",
+    "className": "TreesBasic$Q06Optimized",
+    "method": "diameterOfBinaryTree",
+    "args": [
+      [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "trees-6-recursive",
+    "className": "TreesBasic$Q06Recursive",
+    "method": "diameterOfBinaryTree",
+    "args": [
+      [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "trees-7-optimized",
+    "className": "TreesBasic$Q07Optimized",
+    "method": "isBalanced",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-7-recursive",
+    "className": "TreesBasic$Q07Recursive",
+    "method": "isBalanced",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-8-optimized",
+    "className": "TreesBasic$Q08Optimized",
+    "method": "isSubtree",
+    "args": [
+      [
+        3,
+        4,
+        5,
+        1,
+        2
+      ],
+      [
+        4,
+        1,
+        2
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-8-recursive",
+    "className": "TreesBasic$Q08Recursive",
+    "method": "isSubtree",
+    "args": [
+      [
+        3,
+        4,
+        5,
+        1,
+        2
+      ],
+      [
+        4,
+        1,
+        2
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-9-optimized",
+    "className": "TreesBasic$Q09Optimized",
+    "method": "lowestCommonAncestor",
+    "args": [
+      [
+        3,
+        5,
+        1,
+        6,
+        2,
+        0,
+        8,
+        null,
+        null,
+        7,
+        4
+      ],
+      5,
+      1
+    ],
+    "mode": "lca",
+    "expected": 3
+  },
+  {
+    "id": "trees-9-recursive",
+    "className": "TreesBasic$Q09Recursive",
+    "method": "lowestCommonAncestor",
+    "args": [
+      [
+        3,
+        5,
+        1,
+        6,
+        2,
+        0,
+        8,
+        null,
+        null,
+        7,
+        4
+      ],
+      5,
+      1
+    ],
+    "mode": "lca",
+    "expected": 3
+  },
+  {
+    "id": "trees-10-optimized",
+    "className": "TreesBasic$Q10Optimized",
+    "method": "maxPathSum",
+    "args": [
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "trees-10-recursive",
+    "className": "TreesBasic$Q10Recursive",
+    "method": "maxPathSum",
+    "args": [
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "trees-11-optimized",
+    "className": "TreesBasic$Q11Optimized",
+    "method": "hasPathSum",
+    "args": [
+      [
+        5,
+        4,
+        8,
+        11,
+        null,
+        13,
+        4,
+        7,
+        2,
+        null,
+        null,
+        null,
+        1
+      ],
+      22
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-11-recursive",
+    "className": "TreesBasic$Q11Recursive",
+    "method": "hasPathSum",
+    "args": [
+      [
+        5,
+        4,
+        8,
+        11,
+        null,
+        13,
+        4,
+        7,
+        2,
+        null,
+        null,
+        null,
+        1
+      ],
+      22
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-12-optimized",
+    "className": "TreesBasic$Q12Optimized",
+    "method": "pathSum",
+    "args": [
+      [
+        5,
+        4,
+        8,
+        11,
+        null,
+        13,
+        4,
+        7,
+        2,
+        null,
+        null,
+        5,
+        1
+      ],
+      22
+    ],
+    "mode": "unordered",
+    "expected": [
+      [
+        5,
+        4,
+        11,
+        2
+      ],
+      [
+        5,
+        8,
+        4,
+        5
+      ]
+    ]
+  },
+  {
+    "id": "trees-12-recursive",
+    "className": "TreesBasic$Q12Recursive",
+    "method": "pathSum",
+    "args": [
+      [
+        5,
+        4,
+        8,
+        11,
+        null,
+        13,
+        4,
+        7,
+        2,
+        null,
+        null,
+        5,
+        1
+      ],
+      22
+    ],
+    "mode": "unordered",
+    "expected": [
+      [
+        5,
+        4,
+        11,
+        2
+      ],
+      [
+        5,
+        8,
+        4,
+        5
+      ]
+    ]
+  },
+  {
+    "id": "trees-13-optimized",
+    "className": "TreesModerate$Q13Optimized",
+    "method": "sumNumbers",
+    "args": [
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": 25
+  },
+  {
+    "id": "trees-13-recursive",
+    "className": "TreesModerate$Q13Recursive",
+    "method": "sumNumbers",
+    "args": [
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": 25
+  },
+  {
+    "id": "trees-14-optimized",
+    "className": "TreesModerate$Q14Optimized",
+    "method": "goodNodes",
+    "args": [
+      [
+        3,
+        1,
+        4,
+        3,
+        null,
+        1,
+        5
+      ]
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "trees-14-recursive",
+    "className": "TreesModerate$Q14Recursive",
+    "method": "goodNodes",
+    "args": [
+      [
+        3,
+        1,
+        4,
+        3,
+        null,
+        1,
+        5
+      ]
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "trees-15-optimized",
+    "className": "TreesModerate$Q15Optimized",
+    "method": "isValidBST",
+    "args": [
+      [
+        2,
+        1,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-15-recursive",
+    "className": "TreesModerate$Q15Recursive",
+    "method": "isValidBST",
+    "args": [
+      [
+        2,
+        1,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "trees-16-optimized",
+    "className": "TreesModerate$Q16Optimized",
+    "method": "kthSmallest",
+    "args": [
+      [
+        3,
+        1,
+        4,
+        null,
+        2
+      ],
+      1
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "trees-16-recursive",
+    "className": "TreesModerate$Q16Recursive",
+    "method": "kthSmallest",
+    "args": [
+      [
+        3,
+        1,
+        4,
+        null,
+        2
+      ],
+      1
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "trees-17-optimized",
+    "className": "TreesModerate$Q17Optimized",
+    "method": "buildTree",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        15,
+        7
+      ],
+      [
+        9,
+        3,
+        15,
+        20,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      3,
+      9,
+      20,
+      null,
+      null,
+      15,
+      7
+    ]
+  },
+  {
+    "id": "trees-17-recursive",
+    "className": "TreesModerate$Q17Recursive",
+    "method": "buildTree",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        15,
+        7
+      ],
+      [
+        9,
+        3,
+        15,
+        20,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      3,
+      9,
+      20,
+      null,
+      null,
+      15,
+      7
+    ]
+  },
+  {
+    "id": "trees-18-optimized",
+    "className": "TreesModerate$Q18Optimized",
+    "method": "serialize",
+    "args": [
+      [
+        1,
+        2,
+        3,
+        null,
+        null,
+        4,
+        5
+      ]
+    ],
+    "mode": "roundTrip",
+    "expected": [
+      1,
+      2,
+      3,
+      null,
+      null,
+      4,
+      5
+    ]
+  },
+  {
+    "id": "trees-18-recursive",
+    "className": "TreesModerate$Q18Recursive",
+    "method": "serialize",
+    "args": [
+      [
+        1,
+        2,
+        3,
+        null,
+        null,
+        4,
+        5
+      ]
+    ],
+    "mode": "roundTrip",
+    "expected": [
+      1,
+      2,
+      3,
+      null,
+      null,
+      4,
+      5
+    ]
+  },
+  {
+    "id": "trees-19-optimized",
+    "className": "TreesModerate$Q19Optimized",
+    "method": "flatten",
+    "args": [
+      [
+        1,
+        2,
+        5,
+        3,
+        4,
+        null,
+        6
+      ]
+    ],
+    "mode": "mutated",
+    "expected": [
+      1,
+      null,
+      2,
+      null,
+      3,
+      null,
+      4,
+      null,
+      5,
+      null,
+      6
+    ]
+  },
+  {
+    "id": "trees-19-recursive",
+    "className": "TreesModerate$Q19Recursive",
+    "method": "flatten",
+    "args": [
+      [
+        1,
+        2,
+        5,
+        3,
+        4,
+        null,
+        6
+      ]
+    ],
+    "mode": "mutated",
+    "expected": [
+      1,
+      null,
+      2,
+      null,
+      3,
+      null,
+      4,
+      null,
+      5,
+      null,
+      6
+    ]
+  },
+  {
+    "id": "trees-20-optimized",
+    "className": "TreesModerate$Q20Optimized",
+    "method": "zigzagLevelOrder",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        3
+      ],
+      [
+        20,
+        9
+      ],
+      [
+        15,
+        7
+      ]
+    ]
+  },
+  {
+    "id": "trees-20-recursive",
+    "className": "TreesModerate$Q20Recursive",
+    "method": "zigzagLevelOrder",
+    "args": [
+      [
+        3,
+        9,
+        20,
+        null,
+        null,
+        15,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        3
+      ],
+      [
+        20,
+        9
+      ],
+      [
+        15,
+        7
+      ]
+    ]
+  },
+  {
+    "id": "bst-1-optimized",
+    "className": "BinarySearchTreeBasic$Q01Optimized",
+    "method": "searchBST",
+    "args": [
+      [
+        4,
+        2,
+        7,
+        1,
+        3
+      ],
+      2
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      1,
+      3
+    ]
+  },
+  {
+    "id": "bst-1-recursive",
+    "className": "BinarySearchTreeBasic$Q01Recursive",
+    "method": "searchBST",
+    "args": [
+      [
+        4,
+        2,
+        7,
+        1,
+        3
+      ],
+      2
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      1,
+      3
+    ]
+  },
+  {
+    "id": "bst-2-optimized",
+    "className": "BinarySearchTreeBasic$Q02Optimized",
+    "method": "insertIntoBST",
+    "args": [
+      [
+        4,
+        2,
+        7,
+        1,
+        3
+      ],
+      5
+    ],
+    "mode": "equal",
+    "expected": [
+      4,
+      2,
+      7,
+      1,
+      3,
+      5
+    ]
+  },
+  {
+    "id": "bst-2-recursive",
+    "className": "BinarySearchTreeBasic$Q02Recursive",
+    "method": "insertIntoBST",
+    "args": [
+      [
+        4,
+        2,
+        7,
+        1,
+        3
+      ],
+      5
+    ],
+    "mode": "equal",
+    "expected": [
+      4,
+      2,
+      7,
+      1,
+      3,
+      5
+    ]
+  },
+  {
+    "id": "bst-3-optimized",
+    "className": "BinarySearchTreeBasic$Q03Optimized",
+    "method": "deleteNode",
+    "args": [
+      [
+        5,
+        3,
+        6,
+        2,
+        4,
+        null,
+        7
+      ],
+      3
+    ],
+    "mode": "equal",
+    "expected": [
+      5,
+      4,
+      6,
+      2,
+      null,
+      null,
+      7
+    ]
+  },
+  {
+    "id": "bst-3-recursive",
+    "className": "BinarySearchTreeBasic$Q03Recursive",
+    "method": "deleteNode",
+    "args": [
+      [
+        5,
+        3,
+        6,
+        2,
+        4,
+        null,
+        7
+      ],
+      3
+    ],
+    "mode": "equal",
+    "expected": [
+      5,
+      4,
+      6,
+      2,
+      null,
+      null,
+      7
+    ]
+  },
+  {
+    "id": "bst-4-optimized",
+    "className": "BinarySearchTreeBasic$Q04Optimized",
+    "method": "isValidBST",
+    "args": [
+      [
+        2,
+        1,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "bst-4-recursive",
+    "className": "BinarySearchTreeBasic$Q04Recursive",
+    "method": "isValidBST",
+    "args": [
+      [
+        2,
+        1,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "bst-5-optimized",
+    "className": "BinarySearchTreeBasic$Q05Optimized",
+    "method": "kthSmallest",
+    "args": [
+      [
+        3,
+        1,
+        4,
+        null,
+        2
+      ],
+      1
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "bst-5-recursive",
+    "className": "BinarySearchTreeBasic$Q05Recursive",
+    "method": "kthSmallest",
+    "args": [
+      [
+        3,
+        1,
+        4,
+        null,
+        2
+      ],
+      1
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "bst-6-optimized",
+    "className": "BinarySearchTreeBasic$Q06Optimized",
+    "method": "lowestCommonAncestor",
+    "args": [
+      [
+        6,
+        2,
+        8,
+        0,
+        4,
+        7,
+        9,
+        null,
+        null,
+        3,
+        5
+      ],
+      2,
+      8
+    ],
+    "mode": "lca",
+    "expected": 6
+  },
+  {
+    "id": "bst-6-recursive",
+    "className": "BinarySearchTreeBasic$Q06Recursive",
+    "method": "lowestCommonAncestor",
+    "args": [
+      [
+        6,
+        2,
+        8,
+        0,
+        4,
+        7,
+        9,
+        null,
+        null,
+        3,
+        5
+      ],
+      2,
+      8
+    ],
+    "mode": "lca",
+    "expected": 6
+  },
+  {
+    "id": "bst-7-optimized",
+    "className": "BinarySearchTreeBasic$Q07Optimized",
+    "method": "sortedArrayToBST",
+    "args": [
+      [
+        -10,
+        -3,
+        0,
+        5,
+        9
+      ]
+    ],
+    "mode": "balanced",
+    "expected": [
+      -10,
+      -3,
+      0,
+      5,
+      9
+    ]
+  },
+  {
+    "id": "bst-7-recursive",
+    "className": "BinarySearchTreeBasic$Q07Recursive",
+    "method": "sortedArrayToBST",
+    "args": [
+      [
+        -10,
+        -3,
+        0,
+        5,
+        9
+      ]
+    ],
+    "mode": "balanced",
+    "expected": [
+      -10,
+      -3,
+      0,
+      5,
+      9
+    ]
+  },
+  {
+    "id": "bst-8-optimized",
+    "className": "BinarySearchTreeBasic$Q08Optimized",
+    "method": "findTarget",
+    "args": [
+      [
+        5,
+        3,
+        6,
+        2,
+        4,
+        null,
+        7
+      ],
+      9
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "bst-8-recursive",
+    "className": "BinarySearchTreeBasic$Q08Recursive",
+    "method": "findTarget",
+    "args": [
+      [
+        5,
+        3,
+        6,
+        2,
+        4,
+        null,
+        7
+      ],
+      9
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "bst-9-optimized",
+    "className": "BinarySearchTreeBasic$Q09Optimized",
+    "method": "getMinimumDifference",
+    "args": [
+      [
+        4,
+        2,
+        6,
+        1,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "bst-9-recursive",
+    "className": "BinarySearchTreeBasic$Q09Recursive",
+    "method": "getMinimumDifference",
+    "args": [
+      [
+        4,
+        2,
+        6,
+        1,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "bst-10-optimized",
+    "className": "BinarySearchTreeBasic$Q10Optimized",
+    "method": "rangeSumBST",
+    "args": [
+      [
+        10,
+        5,
+        15,
+        3,
+        7,
+        null,
+        18
+      ],
+      7,
+      15
+    ],
+    "mode": "equal",
+    "expected": 32
+  },
+  {
+    "id": "bst-10-recursive",
+    "className": "BinarySearchTreeBasic$Q10Recursive",
+    "method": "rangeSumBST",
+    "args": [
+      [
+        10,
+        5,
+        15,
+        3,
+        7,
+        null,
+        18
+      ],
+      7,
+      15
+    ],
+    "mode": "equal",
+    "expected": 32
+  },
+  {
+    "id": "bst-11-optimized",
+    "className": "BinarySearchTreeBasic$Q11Optimized",
+    "method": "increasingBST",
+    "args": [
+      [
+        5,
+        3,
+        6,
+        2,
+        4,
+        null,
+        8,
+        1,
+        null,
+        null,
+        null,
+        7,
+        9
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      1,
+      null,
+      2,
+      null,
+      3,
+      null,
+      4,
+      null,
+      5,
+      null,
+      6,
+      null,
+      7,
+      null,
+      8,
+      null,
+      9
+    ]
+  },
+  {
+    "id": "bst-11-recursive",
+    "className": "BinarySearchTreeBasic$Q11Recursive",
+    "method": "increasingBST",
+    "args": [
+      [
+        5,
+        3,
+        6,
+        2,
+        4,
+        null,
+        8,
+        1,
+        null,
+        null,
+        null,
+        7,
+        9
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      1,
+      null,
+      2,
+      null,
+      3,
+      null,
+      4,
+      null,
+      5,
+      null,
+      6,
+      null,
+      7,
+      null,
+      8,
+      null,
+      9
+    ]
+  },
+  {
+    "id": "bst-12-optimized",
+    "className": "BinarySearchTreeBasic$Q12Optimized",
+    "method": "recoverTree",
+    "args": [
+      [
+        1,
+        3,
+        null,
+        null,
+        2
+      ]
+    ],
+    "mode": "mutated",
+    "expected": [
+      3,
+      1,
+      null,
+      null,
+      2
+    ]
+  },
+  {
+    "id": "bst-12-recursive",
+    "className": "BinarySearchTreeBasic$Q12Recursive",
+    "method": "recoverTree",
+    "args": [
+      [
+        1,
+        3,
+        null,
+        null,
+        2
+      ]
+    ],
+    "mode": "mutated",
+    "expected": [
+      3,
+      1,
+      null,
+      null,
+      2
+    ]
+  },
+  {
+    "id": "bst-13-optimized",
+    "className": "BinarySearchTreeModerate$Q13Optimized",
+    "method": "balanceBST",
+    "args": [
+      [
+        1,
+        null,
+        2,
+        null,
+        3,
+        null,
+        4
+      ]
+    ],
+    "mode": "balanced",
+    "expected": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": "bst-13-recursive",
+    "className": "BinarySearchTreeModerate$Q13Recursive",
+    "method": "balanceBST",
+    "args": [
+      [
+        1,
+        null,
+        2,
+        null,
+        3,
+        null,
+        4
+      ]
+    ],
+    "mode": "balanced",
+    "expected": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": "bst-14-optimized",
+    "className": "BinarySearchTreeModerate$Q14Optimized",
+    "method": "trimBST",
+    "args": [
+      [
+        1,
+        0,
+        2
+      ],
+      1,
+      2
+    ],
+    "mode": "equal",
+    "expected": [
+      1,
+      null,
+      2
+    ]
+  },
+  {
+    "id": "bst-14-recursive",
+    "className": "BinarySearchTreeModerate$Q14Recursive",
+    "method": "trimBST",
+    "args": [
+      [
+        1,
+        0,
+        2
+      ],
+      1,
+      2
+    ],
+    "mode": "equal",
+    "expected": [
+      1,
+      null,
+      2
+    ]
+  },
+  {
+    "id": "bst-15-optimized",
+    "className": "BinarySearchTreeModerate$Q15Optimized",
+    "method": "bstFromPreorder",
+    "args": [
+      [
+        8,
+        5,
+        1,
+        7,
+        10,
+        12
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      8,
+      5,
+      10,
+      1,
+      7,
+      null,
+      12
+    ]
+  },
+  {
+    "id": "bst-15-recursive",
+    "className": "BinarySearchTreeModerate$Q15Recursive",
+    "method": "bstFromPreorder",
+    "args": [
+      [
+        8,
+        5,
+        1,
+        7,
+        10,
+        12
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      8,
+      5,
+      10,
+      1,
+      7,
+      null,
+      12
+    ]
+  },
+  {
+    "id": "bst-16-optimized",
+    "className": "BinarySearchTreeModerate$Q16Optimized",
+    "method": "numTrees",
+    "args": [
+      3
+    ],
+    "mode": "equal",
+    "expected": 5
+  },
+  {
+    "id": "bst-16-recursive",
+    "className": "BinarySearchTreeModerate$Q16Recursive",
+    "method": "numTrees",
+    "args": [
+      3
+    ],
+    "mode": "equal",
+    "expected": 5
+  },
+  {
+    "id": "bst-17-optimized",
+    "className": "BinarySearchTreeModerate$Q17Optimized",
+    "method": "generateTrees",
+    "args": [
+      3
+    ],
+    "mode": "uniqueTrees",
+    "expected": 5
+  },
+  {
+    "id": "bst-17-recursive",
+    "className": "BinarySearchTreeModerate$Q17Recursive",
+    "method": "generateTrees",
+    "args": [
+      3
+    ],
+    "mode": "uniqueTrees",
+    "expected": 5
+  },
+  {
+    "id": "bst-18-optimized",
+    "className": "BinarySearchTreeModerate$Q18Optimized",
+    "method": "closestValue",
+    "args": [
+      [
+        4,
+        2,
+        5,
+        1,
+        3
+      ],
+      3.714286
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "bst-18-recursive",
+    "className": "BinarySearchTreeModerate$Q18Recursive",
+    "method": "closestValue",
+    "args": [
+      [
+        4,
+        2,
+        5,
+        1,
+        3
+      ],
+      3.714286
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "bst-19-optimized",
+    "className": "BinarySearchTreeModerate$Q19Optimized",
+    "method": "closestKValues",
+    "args": [
+      [
+        4,
+        2,
+        5,
+        1,
+        3
+      ],
+      3.714286,
+      2
+    ],
+    "mode": "unordered",
+    "expected": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": "bst-19-recursive",
+    "className": "BinarySearchTreeModerate$Q19Recursive",
+    "method": "closestKValues",
+    "args": [
+      [
+        4,
+        2,
+        5,
+        1,
+        3
+      ],
+      3.714286,
+      2
+    ],
+    "mode": "unordered",
+    "expected": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": "bst-20-optimized",
+    "className": "BinarySearchTreeModerate$Q20Optimized",
+    "constructorArgs": [
+      [
+        7,
+        3,
+        15,
+        null,
+        null,
+        9,
+        20
+      ]
+    ],
+    "operations": [
+      {
+        "method": "next",
+        "args": [],
+        "expected": 3
+      },
+      {
+        "method": "next",
+        "args": [],
+        "expected": 7
+      },
+      {
+        "method": "hasNext",
+        "args": [],
+        "expected": true
+      },
+      {
+        "method": "next",
+        "args": [],
+        "expected": 9
+      },
+      {
+        "method": "next",
+        "args": [],
+        "expected": 15
+      },
+      {
+        "method": "next",
+        "args": [],
+        "expected": 20
+      },
+      {
+        "method": "hasNext",
+        "args": [],
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "bst-20-recursive",
+    "className": "BinarySearchTreeModerate$Q20Recursive",
+    "constructorArgs": [
+      [
+        7,
+        3,
+        15,
+        null,
+        null,
+        9,
+        20
+      ]
+    ],
+    "operations": [
+      {
+        "method": "next",
+        "args": [],
+        "expected": 3
+      },
+      {
+        "method": "next",
+        "args": [],
+        "expected": 7
+      },
+      {
+        "method": "hasNext",
+        "args": [],
+        "expected": true
+      },
+      {
+        "method": "next",
+        "args": [],
+        "expected": 9
+      },
+      {
+        "method": "next",
+        "args": [],
+        "expected": 15
+      },
+      {
+        "method": "next",
+        "args": [],
+        "expected": 20
+      },
+      {
+        "method": "hasNext",
+        "args": [],
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "tries-1-optimized",
+    "className": "TrieBasic$Q01Optimized",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "insert",
+        "args": [
+          "apple"
+        ],
+        "expected": null
+      },
+      {
+        "method": "search",
+        "args": [
+          "apple"
+        ],
+        "expected": true
+      },
+      {
+        "method": "search",
+        "args": [
+          "app"
+        ],
+        "expected": false
+      },
+      {
+        "method": "startsWith",
+        "args": [
+          "app"
+        ],
+        "expected": true
+      },
+      {
+        "method": "insert",
+        "args": [
+          "app"
+        ],
+        "expected": null
+      },
+      {
+        "method": "search",
+        "args": [
+          "app"
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "tries-1-recursive",
+    "className": "TrieBasic$Q01Recursive",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "insert",
+        "args": [
+          "apple"
+        ],
+        "expected": null
+      },
+      {
+        "method": "search",
+        "args": [
+          "apple"
+        ],
+        "expected": true
+      },
+      {
+        "method": "search",
+        "args": [
+          "app"
+        ],
+        "expected": false
+      },
+      {
+        "method": "startsWith",
+        "args": [
+          "app"
+        ],
+        "expected": true
+      },
+      {
+        "method": "insert",
+        "args": [
+          "app"
+        ],
+        "expected": null
+      },
+      {
+        "method": "search",
+        "args": [
+          "app"
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "tries-2-optimized",
+    "className": "TrieBasic$Q02Optimized",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "addWord",
+        "args": [
+          "bad"
+        ],
+        "expected": null
+      },
+      {
+        "method": "addWord",
+        "args": [
+          "dad"
+        ],
+        "expected": null
+      },
+      {
+        "method": "search",
+        "args": [
+          "pad"
+        ],
+        "expected": false
+      },
+      {
+        "method": "search",
+        "args": [
+          ".ad"
+        ],
+        "expected": true
+      },
+      {
+        "method": "search",
+        "args": [
+          "b.."
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "tries-2-recursive",
+    "className": "TrieBasic$Q02Recursive",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "addWord",
+        "args": [
+          "bad"
+        ],
+        "expected": null
+      },
+      {
+        "method": "addWord",
+        "args": [
+          "dad"
+        ],
+        "expected": null
+      },
+      {
+        "method": "search",
+        "args": [
+          "pad"
+        ],
+        "expected": false
+      },
+      {
+        "method": "search",
+        "args": [
+          ".ad"
+        ],
+        "expected": true
+      },
+      {
+        "method": "search",
+        "args": [
+          "b.."
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "tries-3-optimized",
+    "className": "TrieBasic$Q03Optimized",
+    "method": "findWords",
+    "args": [
+      [
+        [
+          "o",
+          "a",
+          "a",
+          "n"
+        ],
+        [
+          "e",
+          "t",
+          "a",
+          "e"
+        ],
+        [
+          "i",
+          "h",
+          "k",
+          "r"
+        ],
+        [
+          "i",
+          "f",
+          "l",
+          "v"
+        ]
+      ],
+      [
+        "oath",
+        "pea",
+        "eat",
+        "rain"
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      "oath",
+      "eat"
+    ]
+  },
+  {
+    "id": "tries-3-recursive",
+    "className": "TrieBasic$Q03Recursive",
+    "method": "findWords",
+    "args": [
+      [
+        [
+          "o",
+          "a",
+          "a",
+          "n"
+        ],
+        [
+          "e",
+          "t",
+          "a",
+          "e"
+        ],
+        [
+          "i",
+          "h",
+          "k",
+          "r"
+        ],
+        [
+          "i",
+          "f",
+          "l",
+          "v"
+        ]
+      ],
+      [
+        "oath",
+        "pea",
+        "eat",
+        "rain"
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      "oath",
+      "eat"
+    ]
+  },
+  {
+    "id": "tries-4-optimized",
+    "className": "TrieBasic$Q04Optimized",
+    "method": "replaceWords",
+    "args": [
+      [
+        "cat",
+        "bat",
+        "rat"
+      ],
+      "the cattle was rattled by the battery"
+    ],
+    "mode": "equal",
+    "expected": "the cat was rat by the bat"
+  },
+  {
+    "id": "tries-4-recursive",
+    "className": "TrieBasic$Q04Recursive",
+    "method": "replaceWords",
+    "args": [
+      [
+        "cat",
+        "bat",
+        "rat"
+      ],
+      "the cattle was rattled by the battery"
+    ],
+    "mode": "equal",
+    "expected": "the cat was rat by the bat"
+  },
+  {
+    "id": "tries-5-optimized",
+    "className": "TrieBasic$Q05Optimized",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "insert",
+        "args": [
+          "apple",
+          3
+        ],
+        "expected": null
+      },
+      {
+        "method": "sum",
+        "args": [
+          "ap"
+        ],
+        "expected": 3
+      },
+      {
+        "method": "insert",
+        "args": [
+          "app",
+          2
+        ],
+        "expected": null
+      },
+      {
+        "method": "sum",
+        "args": [
+          "ap"
+        ],
+        "expected": 5
+      },
+      {
+        "method": "insert",
+        "args": [
+          "apple",
+          4
+        ],
+        "expected": null
+      },
+      {
+        "method": "sum",
+        "args": [
+          "ap"
+        ],
+        "expected": 6
+      }
+    ]
+  },
+  {
+    "id": "tries-5-recursive",
+    "className": "TrieBasic$Q05Recursive",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "insert",
+        "args": [
+          "apple",
+          3
+        ],
+        "expected": null
+      },
+      {
+        "method": "sum",
+        "args": [
+          "ap"
+        ],
+        "expected": 3
+      },
+      {
+        "method": "insert",
+        "args": [
+          "app",
+          2
+        ],
+        "expected": null
+      },
+      {
+        "method": "sum",
+        "args": [
+          "ap"
+        ],
+        "expected": 5
+      },
+      {
+        "method": "insert",
+        "args": [
+          "apple",
+          4
+        ],
+        "expected": null
+      },
+      {
+        "method": "sum",
+        "args": [
+          "ap"
+        ],
+        "expected": 6
+      }
+    ]
+  },
+  {
+    "id": "tries-6-optimized",
+    "className": "TrieBasic$Q06Optimized",
+    "method": "longestWord",
+    "args": [
+      [
+        "w",
+        "wo",
+        "wor",
+        "worl",
+        "world"
+      ]
+    ],
+    "mode": "equal",
+    "expected": "world"
+  },
+  {
+    "id": "tries-6-recursive",
+    "className": "TrieBasic$Q06Recursive",
+    "method": "longestWord",
+    "args": [
+      [
+        "w",
+        "wo",
+        "wor",
+        "worl",
+        "world"
+      ]
+    ],
+    "mode": "equal",
+    "expected": "world"
+  },
+  {
+    "id": "tries-7-optimized",
+    "className": "TrieBasic$Q07Optimized",
+    "constructorArgs": [
+      [
+        "cd",
+        "f",
+        "kl"
+      ]
+    ],
+    "operations": [
+      {
+        "method": "query",
+        "args": [
+          "a"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "b"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "c"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "d"
+        ],
+        "expected": true
+      },
+      {
+        "method": "query",
+        "args": [
+          "e"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "f"
+        ],
+        "expected": true
+      },
+      {
+        "method": "query",
+        "args": [
+          "g"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "h"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "i"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "j"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "k"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "l"
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "tries-7-recursive",
+    "className": "TrieBasic$Q07Recursive",
+    "constructorArgs": [
+      [
+        "cd",
+        "f",
+        "kl"
+      ]
+    ],
+    "operations": [
+      {
+        "method": "query",
+        "args": [
+          "a"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "b"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "c"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "d"
+        ],
+        "expected": true
+      },
+      {
+        "method": "query",
+        "args": [
+          "e"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "f"
+        ],
+        "expected": true
+      },
+      {
+        "method": "query",
+        "args": [
+          "g"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "h"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "i"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "j"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "k"
+        ],
+        "expected": false
+      },
+      {
+        "method": "query",
+        "args": [
+          "l"
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "tries-8-optimized",
+    "className": "TrieBasic$Q08Optimized",
+    "method": "suggestedProducts",
+    "args": [
+      [
+        "mobile",
+        "mouse",
+        "moneypot",
+        "monitor",
+        "mousepad"
+      ],
+      "mouse"
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        "mobile",
+        "moneypot",
+        "monitor"
+      ],
+      [
+        "mobile",
+        "moneypot",
+        "monitor"
+      ],
+      [
+        "mouse",
+        "mousepad"
+      ],
+      [
+        "mouse",
+        "mousepad"
+      ],
+      [
+        "mouse",
+        "mousepad"
+      ]
+    ]
+  },
+  {
+    "id": "tries-8-recursive",
+    "className": "TrieBasic$Q08Recursive",
+    "method": "suggestedProducts",
+    "args": [
+      [
+        "mobile",
+        "mouse",
+        "moneypot",
+        "monitor",
+        "mousepad"
+      ],
+      "mouse"
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        "mobile",
+        "moneypot",
+        "monitor"
+      ],
+      [
+        "mobile",
+        "moneypot",
+        "monitor"
+      ],
+      [
+        "mouse",
+        "mousepad"
+      ],
+      [
+        "mouse",
+        "mousepad"
+      ],
+      [
+        "mouse",
+        "mousepad"
+      ]
+    ]
+  },
+  {
+    "id": "tries-9-optimized",
+    "className": "TrieBasic$Q09Optimized",
+    "method": "findMaximumXOR",
+    "args": [
+      [
+        3,
+        10,
+        5,
+        25,
+        2,
+        8
+      ]
+    ],
+    "mode": "equal",
+    "expected": 28
+  },
+  {
+    "id": "tries-9-recursive",
+    "className": "TrieBasic$Q09Recursive",
+    "method": "findMaximumXOR",
+    "args": [
+      [
+        3,
+        10,
+        5,
+        25,
+        2,
+        8
+      ]
+    ],
+    "mode": "equal",
+    "expected": 28
+  },
+  {
+    "id": "tries-10-optimized",
+    "className": "TrieBasic$Q10Optimized",
+    "method": "palindromePairs",
+    "args": [
+      [
+        "abcd",
+        "dcba",
+        "lls",
+        "s",
+        "sssll"
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "id": "tries-10-recursive",
+    "className": "TrieBasic$Q10Recursive",
+    "method": "palindromePairs",
+    "args": [
+      [
+        "abcd",
+        "dcba",
+        "lls",
+        "s",
+        "sssll"
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "id": "tries-11-optimized",
+    "className": "TrieBasic$Q11Optimized",
+    "method": "findAllConcatenatedWordsInADict",
+    "args": [
+      [
+        "cat",
+        "cats",
+        "catsdogcats",
+        "dog",
+        "dogcatsdog",
+        "hippopotamuses",
+        "rat",
+        "ratcatdogcat"
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      "catsdogcats",
+      "dogcatsdog",
+      "ratcatdogcat"
+    ]
+  },
+  {
+    "id": "tries-11-recursive",
+    "className": "TrieBasic$Q11Recursive",
+    "method": "findAllConcatenatedWordsInADict",
+    "args": [
+      [
+        "cat",
+        "cats",
+        "catsdogcats",
+        "dog",
+        "dogcatsdog",
+        "hippopotamuses",
+        "rat",
+        "ratcatdogcat"
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      "catsdogcats",
+      "dogcatsdog",
+      "ratcatdogcat"
+    ]
+  },
+  {
+    "id": "tries-12-optimized",
+    "className": "TrieBasic$Q12Optimized",
+    "method": "wordSquares",
+    "args": [
+      [
+        "area",
+        "lead",
+        "wall",
+        "lady",
+        "ball"
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      [
+        "wall",
+        "area",
+        "lead",
+        "lady"
+      ],
+      [
+        "ball",
+        "area",
+        "lead",
+        "lady"
+      ]
+    ]
+  },
+  {
+    "id": "tries-12-recursive",
+    "className": "TrieBasic$Q12Recursive",
+    "method": "wordSquares",
+    "args": [
+      [
+        "area",
+        "lead",
+        "wall",
+        "lady",
+        "ball"
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      [
+        "wall",
+        "area",
+        "lead",
+        "lady"
+      ],
+      [
+        "ball",
+        "area",
+        "lead",
+        "lady"
+      ]
+    ]
+  },
+  {
+    "id": "tries-13-optimized",
+    "className": "TrieModerate$Q13Optimized",
+    "method": "indexPairs",
+    "args": [
+      "thestoryofleetcodeandme",
+      [
+        "story",
+        "fleet",
+        "leetcode"
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        3,
+        7
+      ],
+      [
+        9,
+        13
+      ],
+      [
+        10,
+        17
+      ]
+    ]
+  },
+  {
+    "id": "tries-13-recursive",
+    "className": "TrieModerate$Q13Recursive",
+    "method": "indexPairs",
+    "args": [
+      "thestoryofleetcodeandme",
+      [
+        "story",
+        "fleet",
+        "leetcode"
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        3,
+        7
+      ],
+      [
+        9,
+        13
+      ],
+      [
+        10,
+        17
+      ]
+    ]
+  },
+  {
+    "id": "tries-14-optimized",
+    "className": "TrieModerate$Q14Optimized",
+    "constructorArgs": [
+      [
+        "apple"
+      ]
+    ],
+    "operations": [
+      {
+        "method": "f",
+        "args": [
+          "a",
+          "e"
+        ],
+        "expected": 0
+      },
+      {
+        "method": "f",
+        "args": [
+          "b",
+          "e"
+        ],
+        "expected": -1
+      }
+    ]
+  },
+  {
+    "id": "tries-14-recursive",
+    "className": "TrieModerate$Q14Recursive",
+    "constructorArgs": [
+      [
+        "apple"
+      ]
+    ],
+    "operations": [
+      {
+        "method": "f",
+        "args": [
+          "a",
+          "e"
+        ],
+        "expected": 0
+      },
+      {
+        "method": "f",
+        "args": [
+          "b",
+          "e"
+        ],
+        "expected": -1
+      }
+    ]
+  },
+  {
+    "id": "tries-15-optimized",
+    "className": "TrieModerate$Q15Optimized",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "buildDict",
+        "args": [
+          [
+            "hello",
+            "leetcode"
+          ]
+        ],
+        "expected": null
+      },
+      {
+        "method": "search",
+        "args": [
+          "hello"
+        ],
+        "expected": false
+      },
+      {
+        "method": "search",
+        "args": [
+          "hhllo"
+        ],
+        "expected": true
+      },
+      {
+        "method": "search",
+        "args": [
+          "hell"
+        ],
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "tries-15-recursive",
+    "className": "TrieModerate$Q15Recursive",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "buildDict",
+        "args": [
+          [
+            "hello",
+            "leetcode"
+          ]
+        ],
+        "expected": null
+      },
+      {
+        "method": "search",
+        "args": [
+          "hello"
+        ],
+        "expected": false
+      },
+      {
+        "method": "search",
+        "args": [
+          "hhllo"
+        ],
+        "expected": true
+      },
+      {
+        "method": "search",
+        "args": [
+          "hell"
+        ],
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "tries-16-optimized",
+    "className": "TrieModerate$Q16Optimized",
+    "method": "countPairs",
+    "args": [
+      [
+        1,
+        4,
+        2,
+        7
+      ],
+      2,
+      6
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "tries-16-recursive",
+    "className": "TrieModerate$Q16Recursive",
+    "method": "countPairs",
+    "args": [
+      [
+        1,
+        4,
+        2,
+        7
+      ],
+      2,
+      6
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "tries-17-optimized",
+    "className": "TrieModerate$Q17Optimized",
+    "method": "sumPrefixScores",
+    "args": [
+      [
+        "abc",
+        "ab",
+        "bc",
+        "b"
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      5,
+      4,
+      3,
+      2
+    ]
+  },
+  {
+    "id": "tries-17-recursive",
+    "className": "TrieModerate$Q17Recursive",
+    "method": "sumPrefixScores",
+    "args": [
+      [
+        "abc",
+        "ab",
+        "bc",
+        "b"
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      5,
+      4,
+      3,
+      2
+    ]
+  },
+  {
+    "id": "tries-18-optimized",
+    "className": "TrieModerate$Q18Optimized",
+    "method": "minimumLengthEncoding",
+    "args": [
+      [
+        "time",
+        "me",
+        "bell"
+      ]
+    ],
+    "mode": "equal",
+    "expected": 10
+  },
+  {
+    "id": "tries-18-recursive",
+    "className": "TrieModerate$Q18Recursive",
+    "method": "minimumLengthEncoding",
+    "args": [
+      [
+        "time",
+        "me",
+        "bell"
+      ]
+    ],
+    "mode": "equal",
+    "expected": 10
+  },
+  {
+    "id": "tries-19-optimized",
+    "className": "TrieModerate$Q19Optimized",
+    "method": "wordBreak",
+    "args": [
+      "leetcode",
+      [
+        "leet",
+        "code"
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "tries-19-recursive",
+    "className": "TrieModerate$Q19Recursive",
+    "method": "wordBreak",
+    "args": [
+      "leetcode",
+      [
+        "leet",
+        "code"
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "tries-20-optimized",
+    "className": "TrieModerate$Q20Optimized",
+    "constructorArgs": [
+      [
+        "i love you",
+        "island",
+        "iroman",
+        "i love leetcode"
+      ],
+      [
+        5,
+        3,
+        2,
+        2
+      ]
+    ],
+    "operations": [
+      {
+        "method": "input",
+        "args": [
+          "i"
+        ],
+        "expected": [
+          "i love you",
+          "island",
+          "i love leetcode"
+        ]
+      },
+      {
+        "method": "input",
+        "args": [
+          " "
+        ],
+        "expected": [
+          "i love you",
+          "i love leetcode"
+        ]
+      },
+      {
+        "method": "input",
+        "args": [
+          "a"
+        ],
+        "expected": []
+      },
+      {
+        "method": "input",
+        "args": [
+          "#"
+        ],
+        "expected": []
+      },
+      {
+        "method": "input",
+        "args": [
+          "i"
+        ],
+        "expected": [
+          "i love you",
+          "island",
+          "i love leetcode"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tries-20-recursive",
+    "className": "TrieModerate$Q20Recursive",
+    "constructorArgs": [
+      [
+        "i love you",
+        "island",
+        "iroman",
+        "i love leetcode"
+      ],
+      [
+        5,
+        3,
+        2,
+        2
+      ]
+    ],
+    "operations": [
+      {
+        "method": "input",
+        "args": [
+          "i"
+        ],
+        "expected": [
+          "i love you",
+          "island",
+          "i love leetcode"
+        ]
+      },
+      {
+        "method": "input",
+        "args": [
+          " "
+        ],
+        "expected": [
+          "i love you",
+          "i love leetcode"
+        ]
+      },
+      {
+        "method": "input",
+        "args": [
+          "a"
+        ],
+        "expected": []
+      },
+      {
+        "method": "input",
+        "args": [
+          "#"
+        ],
+        "expected": []
+      },
+      {
+        "method": "input",
+        "args": [
+          "i"
+        ],
+        "expected": [
+          "i love you",
+          "island",
+          "i love leetcode"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "graphs-1-optimized",
+    "className": "GraphsBasic$Q01Optimized",
+    "method": "numIslands",
+    "args": [
+      [
+        [
+          "1",
+          "1",
+          "1",
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "1",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "graphs-1-recursive",
+    "className": "GraphsBasic$Q01Recursive",
+    "method": "numIslands",
+    "args": [
+      [
+        [
+          "1",
+          "1",
+          "1",
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "1",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "1",
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "graphs-2-optimized",
+    "className": "GraphsBasic$Q02Optimized",
+    "method": "cloneGraph",
+    "args": [
+      [
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    ],
+    "mode": "cloneGraph",
+    "expected": [
+      [
+        2,
+        4
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        1,
+        3
+      ]
+    ]
+  },
+  {
+    "id": "graphs-2-recursive",
+    "className": "GraphsBasic$Q02Recursive",
+    "method": "cloneGraph",
+    "args": [
+      [
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    ],
+    "mode": "cloneGraph",
+    "expected": [
+      [
+        2,
+        4
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        1,
+        3
+      ]
+    ]
+  },
+  {
+    "id": "graphs-3-optimized",
+    "className": "GraphsBasic$Q03Optimized",
+    "method": "maxAreaOfIsland",
+    "args": [
+      [
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "graphs-3-recursive",
+    "className": "GraphsBasic$Q03Recursive",
+    "method": "maxAreaOfIsland",
+    "args": [
+      [
+        [
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "graphs-4-optimized",
+    "className": "GraphsBasic$Q04Optimized",
+    "method": "pacificAtlantic",
+    "args": [
+      [
+        [
+          1,
+          2,
+          2,
+          3,
+          5
+        ],
+        [
+          3,
+          2,
+          3,
+          4,
+          4
+        ],
+        [
+          2,
+          4,
+          5,
+          3,
+          1
+        ],
+        [
+          6,
+          7,
+          1,
+          4,
+          5
+        ],
+        [
+          5,
+          1,
+          1,
+          2,
+          4
+        ]
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        0
+      ]
+    ]
+  },
+  {
+    "id": "graphs-4-recursive",
+    "className": "GraphsBasic$Q04Recursive",
+    "method": "pacificAtlantic",
+    "args": [
+      [
+        [
+          1,
+          2,
+          2,
+          3,
+          5
+        ],
+        [
+          3,
+          2,
+          3,
+          4,
+          4
+        ],
+        [
+          2,
+          4,
+          5,
+          3,
+          1
+        ],
+        [
+          6,
+          7,
+          1,
+          4,
+          5
+        ],
+        [
+          5,
+          1,
+          1,
+          2,
+          4
+        ]
+      ]
+    ],
+    "mode": "unordered",
+    "expected": [
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        0
+      ]
+    ]
+  },
+  {
+    "id": "graphs-5-optimized",
+    "className": "GraphsBasic$Q05Optimized",
+    "method": "solve",
+    "args": [
+      [
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "O",
+          "O",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "O",
+          "X"
+        ],
+        [
+          "X",
+          "O",
+          "X",
+          "X"
+        ]
+      ]
+    ],
+    "mode": "mutated",
+    "expected": [
+      [
+        "X",
+        "X",
+        "X",
+        "X"
+      ],
+      [
+        "X",
+        "X",
+        "X",
+        "X"
+      ],
+      [
+        "X",
+        "X",
+        "X",
+        "X"
+      ],
+      [
+        "X",
+        "O",
+        "X",
+        "X"
+      ]
+    ]
+  },
+  {
+    "id": "graphs-5-recursive",
+    "className": "GraphsBasic$Q05Recursive",
+    "method": "solve",
+    "args": [
+      [
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "O",
+          "O",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "O",
+          "X"
+        ],
+        [
+          "X",
+          "O",
+          "X",
+          "X"
+        ]
+      ]
+    ],
+    "mode": "mutated",
+    "expected": [
+      [
+        "X",
+        "X",
+        "X",
+        "X"
+      ],
+      [
+        "X",
+        "X",
+        "X",
+        "X"
+      ],
+      [
+        "X",
+        "X",
+        "X",
+        "X"
+      ],
+      [
+        "X",
+        "O",
+        "X",
+        "X"
+      ]
+    ]
+  },
+  {
+    "id": "graphs-6-optimized",
+    "className": "GraphsBasic$Q06Optimized",
+    "method": "orangesRotting",
+    "args": [
+      [
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "graphs-6-recursive",
+    "className": "GraphsBasic$Q06Recursive",
+    "method": "orangesRotting",
+    "args": [
+      [
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "graphs-7-optimized",
+    "className": "GraphsBasic$Q07Optimized",
+    "method": "wallsAndGates",
+    "args": [
+      [
+        [
+          2147483647,
+          -1,
+          0,
+          2147483647
+        ],
+        [
+          2147483647,
+          2147483647,
+          2147483647,
+          -1
+        ],
+        [
+          2147483647,
+          -1,
+          2147483647,
+          -1
+        ],
+        [
+          0,
+          -1,
+          2147483647,
+          2147483647
+        ]
+      ]
+    ],
+    "mode": "mutated",
+    "expected": [
+      [
+        3,
+        -1,
+        0,
+        1
+      ],
+      [
+        2,
+        2,
+        1,
+        -1
+      ],
+      [
+        1,
+        -1,
+        2,
+        -1
+      ],
+      [
+        0,
+        -1,
+        3,
+        4
+      ]
+    ]
+  },
+  {
+    "id": "graphs-7-recursive",
+    "className": "GraphsBasic$Q07Recursive",
+    "method": "wallsAndGates",
+    "args": [
+      [
+        [
+          2147483647,
+          -1,
+          0,
+          2147483647
+        ],
+        [
+          2147483647,
+          2147483647,
+          2147483647,
+          -1
+        ],
+        [
+          2147483647,
+          -1,
+          2147483647,
+          -1
+        ],
+        [
+          0,
+          -1,
+          2147483647,
+          2147483647
+        ]
+      ]
+    ],
+    "mode": "mutated",
+    "expected": [
+      [
+        3,
+        -1,
+        0,
+        1
+      ],
+      [
+        2,
+        2,
+        1,
+        -1
+      ],
+      [
+        1,
+        -1,
+        2,
+        -1
+      ],
+      [
+        0,
+        -1,
+        3,
+        4
+      ]
+    ]
+  },
+  {
+    "id": "graphs-8-optimized",
+    "className": "GraphsBasic$Q08Optimized",
+    "method": "canFinish",
+    "args": [
+      2,
+      [
+        [
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "graphs-8-recursive",
+    "className": "GraphsBasic$Q08Recursive",
+    "method": "canFinish",
+    "args": [
+      2,
+      [
+        [
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "graphs-9-optimized",
+    "className": "GraphsBasic$Q09Optimized",
+    "method": "findOrder",
+    "args": [
+      2,
+      [
+        [
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "topological",
+    "expected": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "graphs-9-recursive",
+    "className": "GraphsBasic$Q09Recursive",
+    "method": "findOrder",
+    "args": [
+      2,
+      [
+        [
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "topological",
+    "expected": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "graphs-10-optimized",
+    "className": "GraphsBasic$Q10Optimized",
+    "method": "validTree",
+    "args": [
+      5,
+      [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "graphs-10-recursive",
+    "className": "GraphsBasic$Q10Recursive",
+    "method": "validTree",
+    "args": [
+      5,
+      [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "graphs-11-optimized",
+    "className": "GraphsBasic$Q11Optimized",
+    "method": "countComponents",
+    "args": [
+      5,
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "graphs-11-recursive",
+    "className": "GraphsBasic$Q11Recursive",
+    "method": "countComponents",
+    "args": [
+      5,
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "graphs-12-optimized",
+    "className": "GraphsBasic$Q12Optimized",
+    "method": "findRedundantConnection",
+    "args": [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "graphs-12-recursive",
+    "className": "GraphsBasic$Q12Recursive",
+    "method": "findRedundantConnection",
+    "args": [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "graphs-13-optimized",
+    "className": "GraphsModerate$Q13Optimized",
+    "method": "ladderLength",
+    "args": [
+      "hit",
+      "cog",
+      [
+        "hot",
+        "dot",
+        "dog",
+        "lot",
+        "log",
+        "cog"
+      ]
+    ],
+    "mode": "equal",
+    "expected": 5
+  },
+  {
+    "id": "graphs-13-recursive",
+    "className": "GraphsModerate$Q13Recursive",
+    "method": "ladderLength",
+    "args": [
+      "hit",
+      "cog",
+      [
+        "hot",
+        "dot",
+        "dog",
+        "lot",
+        "log",
+        "cog"
+      ]
+    ],
+    "mode": "equal",
+    "expected": 5
+  },
+  {
+    "id": "graphs-14-optimized",
+    "className": "GraphsModerate$Q14Optimized",
+    "method": "openLock",
+    "args": [
+      [
+        "0201",
+        "0101",
+        "0102",
+        "1212",
+        "2002"
+      ],
+      "0202"
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "graphs-14-recursive",
+    "className": "GraphsModerate$Q14Recursive",
+    "method": "openLock",
+    "args": [
+      [
+        "0201",
+        "0101",
+        "0102",
+        "1212",
+        "2002"
+      ],
+      "0202"
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "graphs-15-optimized",
+    "className": "GraphsModerate$Q15Optimized",
+    "method": "shortestPathBinaryMatrix",
+    "args": [
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "graphs-15-recursive",
+    "className": "GraphsModerate$Q15Recursive",
+    "method": "shortestPathBinaryMatrix",
+    "args": [
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "graphs-16-optimized",
+    "className": "GraphsModerate$Q16Optimized",
+    "method": "updateMatrix",
+    "args": [
+      [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": "graphs-16-recursive",
+    "className": "GraphsModerate$Q16Recursive",
+    "method": "updateMatrix",
+    "args": [
+      [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": "graphs-17-optimized",
+    "className": "GraphsModerate$Q17Optimized",
+    "method": "isBipartite",
+    "args": [
+      [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": false
+  },
+  {
+    "id": "graphs-17-recursive",
+    "className": "GraphsModerate$Q17Recursive",
+    "method": "isBipartite",
+    "args": [
+      [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": false
+  },
+  {
+    "id": "graphs-18-optimized",
+    "className": "GraphsModerate$Q18Optimized",
+    "method": "possibleBipartition",
+    "args": [
+      4,
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "graphs-18-recursive",
+    "className": "GraphsModerate$Q18Recursive",
+    "method": "possibleBipartition",
+    "args": [
+      4,
+      [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "graphs-19-optimized",
+    "className": "GraphsModerate$Q19Optimized",
+    "method": "eventualSafeNodes",
+    "args": [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          5
+        ],
+        [
+          0
+        ],
+        [
+          5
+        ],
+        [],
+        []
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "id": "graphs-19-recursive",
+    "className": "GraphsModerate$Q19Recursive",
+    "method": "eventualSafeNodes",
+    "args": [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          5
+        ],
+        [
+          0
+        ],
+        [
+          5
+        ],
+        [],
+        []
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "id": "graphs-20-optimized",
+    "className": "GraphsModerate$Q20Optimized",
+    "method": "canVisitAllRooms",
+    "args": [
+      [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        []
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "graphs-20-recursive",
+    "className": "GraphsModerate$Q20Recursive",
+    "method": "canVisitAllRooms",
+    "args": [
+      [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        []
+      ]
+    ],
+    "mode": "equal",
+    "expected": true
+  },
+  {
+    "id": "segment-tree-1-optimized",
+    "className": "SegmentTreeFenwickBasic$Q01Optimized",
+    "constructorArgs": [
+      [
+        1,
+        3,
+        5
+      ]
+    ],
+    "operations": [
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          2
+        ],
+        "expected": 9
+      },
+      {
+        "method": "update",
+        "args": [
+          1,
+          2
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          2
+        ],
+        "expected": 8
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-1-recursive",
+    "className": "SegmentTreeFenwickBasic$Q01Recursive",
+    "constructorArgs": [
+      [
+        1,
+        3,
+        5
+      ]
+    ],
+    "operations": [
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          2
+        ],
+        "expected": 9
+      },
+      {
+        "method": "update",
+        "args": [
+          1,
+          2
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          2
+        ],
+        "expected": 8
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-2-optimized",
+    "className": "SegmentTreeFenwickBasic$Q02Optimized",
+    "constructorArgs": [
+      [
+        [
+          3,
+          0,
+          1,
+          4,
+          2
+        ],
+        [
+          5,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          5
+        ],
+        [
+          4,
+          1,
+          0,
+          1,
+          7
+        ],
+        [
+          1,
+          0,
+          3,
+          0,
+          5
+        ]
+      ]
+    ],
+    "operations": [
+      {
+        "method": "sumRegion",
+        "args": [
+          2,
+          1,
+          4,
+          3
+        ],
+        "expected": 8
+      },
+      {
+        "method": "update",
+        "args": [
+          3,
+          2,
+          2
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRegion",
+        "args": [
+          2,
+          1,
+          4,
+          3
+        ],
+        "expected": 10
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-2-recursive",
+    "className": "SegmentTreeFenwickBasic$Q02Recursive",
+    "constructorArgs": [
+      [
+        [
+          3,
+          0,
+          1,
+          4,
+          2
+        ],
+        [
+          5,
+          6,
+          3,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          5
+        ],
+        [
+          4,
+          1,
+          0,
+          1,
+          7
+        ],
+        [
+          1,
+          0,
+          3,
+          0,
+          5
+        ]
+      ]
+    ],
+    "operations": [
+      {
+        "method": "sumRegion",
+        "args": [
+          2,
+          1,
+          4,
+          3
+        ],
+        "expected": 8
+      },
+      {
+        "method": "update",
+        "args": [
+          3,
+          2,
+          2
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRegion",
+        "args": [
+          2,
+          1,
+          4,
+          3
+        ],
+        "expected": 10
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-3-optimized",
+    "className": "SegmentTreeFenwickBasic$Q03Optimized",
+    "method": "countSmaller",
+    "args": [
+      [
+        5,
+        2,
+        6,
+        1
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "id": "segment-tree-3-recursive",
+    "className": "SegmentTreeFenwickBasic$Q03Recursive",
+    "method": "countSmaller",
+    "args": [
+      [
+        5,
+        2,
+        6,
+        1
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "id": "segment-tree-4-optimized",
+    "className": "SegmentTreeFenwickBasic$Q04Optimized",
+    "method": "reversePairs",
+    "args": [
+      [
+        1,
+        3,
+        2,
+        3,
+        1
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "segment-tree-4-recursive",
+    "className": "SegmentTreeFenwickBasic$Q04Recursive",
+    "method": "reversePairs",
+    "args": [
+      [
+        1,
+        3,
+        2,
+        3,
+        1
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "segment-tree-5-optimized",
+    "className": "SegmentTreeFenwickBasic$Q05Optimized",
+    "method": "createSortedArray",
+    "args": [
+      [
+        1,
+        5,
+        6,
+        2
+      ]
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "segment-tree-5-recursive",
+    "className": "SegmentTreeFenwickBasic$Q05Recursive",
+    "method": "createSortedArray",
+    "args": [
+      [
+        1,
+        5,
+        6,
+        2
+      ]
+    ],
+    "mode": "equal",
+    "expected": 1
+  },
+  {
+    "id": "segment-tree-6-optimized",
+    "className": "SegmentTreeFenwickBasic$Q06Optimized",
+    "method": "countRangeSum",
+    "args": [
+      [
+        -2,
+        5,
+        -1
+      ],
+      -2,
+      2
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "segment-tree-6-recursive",
+    "className": "SegmentTreeFenwickBasic$Q06Recursive",
+    "method": "countRangeSum",
+    "args": [
+      [
+        -2,
+        5,
+        -1
+      ],
+      -2,
+      2
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "segment-tree-7-optimized",
+    "className": "SegmentTreeFenwickBasic$Q07Optimized",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "addRange",
+        "args": [
+          10,
+          20
+        ],
+        "expected": null
+      },
+      {
+        "method": "removeRange",
+        "args": [
+          14,
+          16
+        ],
+        "expected": null
+      },
+      {
+        "method": "queryRange",
+        "args": [
+          10,
+          14
+        ],
+        "expected": true
+      },
+      {
+        "method": "queryRange",
+        "args": [
+          13,
+          15
+        ],
+        "expected": false
+      },
+      {
+        "method": "queryRange",
+        "args": [
+          16,
+          17
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-7-recursive",
+    "className": "SegmentTreeFenwickBasic$Q07Recursive",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "addRange",
+        "args": [
+          10,
+          20
+        ],
+        "expected": null
+      },
+      {
+        "method": "removeRange",
+        "args": [
+          14,
+          16
+        ],
+        "expected": null
+      },
+      {
+        "method": "queryRange",
+        "args": [
+          10,
+          14
+        ],
+        "expected": true
+      },
+      {
+        "method": "queryRange",
+        "args": [
+          13,
+          15
+        ],
+        "expected": false
+      },
+      {
+        "method": "queryRange",
+        "args": [
+          16,
+          17
+        ],
+        "expected": true
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-8-optimized",
+    "className": "SegmentTreeFenwickBasic$Q08Optimized",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "book",
+        "args": [
+          10,
+          20
+        ],
+        "expected": 1
+      },
+      {
+        "method": "book",
+        "args": [
+          50,
+          60
+        ],
+        "expected": 1
+      },
+      {
+        "method": "book",
+        "args": [
+          10,
+          40
+        ],
+        "expected": 2
+      },
+      {
+        "method": "book",
+        "args": [
+          5,
+          15
+        ],
+        "expected": 3
+      },
+      {
+        "method": "book",
+        "args": [
+          5,
+          10
+        ],
+        "expected": 3
+      },
+      {
+        "method": "book",
+        "args": [
+          25,
+          55
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-8-recursive",
+    "className": "SegmentTreeFenwickBasic$Q08Recursive",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "book",
+        "args": [
+          10,
+          20
+        ],
+        "expected": 1
+      },
+      {
+        "method": "book",
+        "args": [
+          50,
+          60
+        ],
+        "expected": 1
+      },
+      {
+        "method": "book",
+        "args": [
+          10,
+          40
+        ],
+        "expected": 2
+      },
+      {
+        "method": "book",
+        "args": [
+          5,
+          15
+        ],
+        "expected": 3
+      },
+      {
+        "method": "book",
+        "args": [
+          5,
+          10
+        ],
+        "expected": 3
+      },
+      {
+        "method": "book",
+        "args": [
+          25,
+          55
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-9-optimized",
+    "className": "SegmentTreeFenwickBasic$Q09Optimized",
+    "method": "fallingSquares",
+    "args": [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      5,
+      5
+    ]
+  },
+  {
+    "id": "segment-tree-9-recursive",
+    "className": "SegmentTreeFenwickBasic$Q09Recursive",
+    "method": "fallingSquares",
+    "args": [
+      [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      2,
+      5,
+      5
+    ]
+  },
+  {
+    "id": "segment-tree-10-optimized",
+    "className": "SegmentTreeFenwickBasic$Q10Optimized",
+    "method": "lengthOfLIS",
+    "args": [
+      [
+        4,
+        2,
+        1,
+        4,
+        3,
+        4,
+        5,
+        8,
+        15
+      ],
+      3
+    ],
+    "mode": "equal",
+    "expected": 5
+  },
+  {
+    "id": "segment-tree-10-recursive",
+    "className": "SegmentTreeFenwickBasic$Q10Recursive",
+    "method": "lengthOfLIS",
+    "args": [
+      [
+        4,
+        2,
+        1,
+        4,
+        3,
+        4,
+        5,
+        8,
+        15
+      ],
+      3
+    ],
+    "mode": "equal",
+    "expected": 5
+  },
+  {
+    "id": "segment-tree-11-optimized",
+    "className": "SegmentTreeFenwickBasic$Q11Optimized",
+    "method": "findNumberOfLIS",
+    "args": [
+      [
+        1,
+        3,
+        5,
+        4,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "segment-tree-11-recursive",
+    "className": "SegmentTreeFenwickBasic$Q11Recursive",
+    "method": "findNumberOfLIS",
+    "args": [
+      [
+        1,
+        3,
+        5,
+        4,
+        7
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "segment-tree-12-optimized",
+    "className": "SegmentTreeFenwickBasic$Q12Optimized",
+    "method": "handleQuery",
+    "args": [
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      3
+    ]
+  },
+  {
+    "id": "segment-tree-12-recursive",
+    "className": "SegmentTreeFenwickBasic$Q12Recursive",
+    "method": "handleQuery",
+    "args": [
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          3,
+          0,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      3
+    ]
+  },
+  {
+    "id": "segment-tree-13-optimized",
+    "className": "SegmentTreeFenwickModerate$Q13Optimized",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "add",
+        "args": [
+          2,
+          3
+        ],
+        "expected": null
+      },
+      {
+        "method": "add",
+        "args": [
+          7,
+          10
+        ],
+        "expected": null
+      },
+      {
+        "method": "count",
+        "args": [],
+        "expected": 6
+      },
+      {
+        "method": "add",
+        "args": [
+          5,
+          8
+        ],
+        "expected": null
+      },
+      {
+        "method": "count",
+        "args": [],
+        "expected": 8
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-13-recursive",
+    "className": "SegmentTreeFenwickModerate$Q13Recursive",
+    "constructorArgs": [],
+    "operations": [
+      {
+        "method": "add",
+        "args": [
+          2,
+          3
+        ],
+        "expected": null
+      },
+      {
+        "method": "add",
+        "args": [
+          7,
+          10
+        ],
+        "expected": null
+      },
+      {
+        "method": "count",
+        "args": [],
+        "expected": 6
+      },
+      {
+        "method": "add",
+        "args": [
+          5,
+          8
+        ],
+        "expected": null
+      },
+      {
+        "method": "count",
+        "args": [],
+        "expected": 8
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-14-optimized",
+    "className": "SegmentTreeFenwickModerate$Q14Optimized",
+    "method": "countOfPeaks",
+    "args": [
+      [
+        3,
+        1,
+        4,
+        2,
+        5
+      ],
+      [
+        [
+          1,
+          0,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      1
+    ]
+  },
+  {
+    "id": "segment-tree-14-recursive",
+    "className": "SegmentTreeFenwickModerate$Q14Recursive",
+    "method": "countOfPeaks",
+    "args": [
+      [
+        3,
+        1,
+        4,
+        2,
+        5
+      ],
+      [
+        [
+          1,
+          0,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      1
+    ]
+  },
+  {
+    "id": "segment-tree-15-optimized",
+    "className": "SegmentTreeFenwickModerate$Q15Optimized",
+    "constructorArgs": [
+      2,
+      5
+    ],
+    "operations": [
+      {
+        "method": "gather",
+        "args": [
+          4,
+          0
+        ],
+        "expected": [
+          0,
+          0
+        ]
+      },
+      {
+        "method": "gather",
+        "args": [
+          2,
+          0
+        ],
+        "expected": []
+      },
+      {
+        "method": "scatter",
+        "args": [
+          5,
+          1
+        ],
+        "expected": true
+      },
+      {
+        "method": "scatter",
+        "args": [
+          5,
+          1
+        ],
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-15-recursive",
+    "className": "SegmentTreeFenwickModerate$Q15Recursive",
+    "constructorArgs": [
+      2,
+      5
+    ],
+    "operations": [
+      {
+        "method": "gather",
+        "args": [
+          4,
+          0
+        ],
+        "expected": [
+          0,
+          0
+        ]
+      },
+      {
+        "method": "gather",
+        "args": [
+          2,
+          0
+        ],
+        "expected": []
+      },
+      {
+        "method": "scatter",
+        "args": [
+          5,
+          1
+        ],
+        "expected": true
+      },
+      {
+        "method": "scatter",
+        "args": [
+          5,
+          1
+        ],
+        "expected": false
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-16-optimized",
+    "className": "SegmentTreeFenwickModerate$Q16Optimized",
+    "constructorArgs": [
+      [
+        12,
+        33,
+        4,
+        56,
+        22,
+        2,
+        34,
+        33,
+        22,
+        12,
+        34,
+        56
+      ]
+    ],
+    "operations": [
+      {
+        "method": "query",
+        "args": [
+          1,
+          2,
+          4
+        ],
+        "expected": 1
+      },
+      {
+        "method": "query",
+        "args": [
+          0,
+          11,
+          33
+        ],
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-16-recursive",
+    "className": "SegmentTreeFenwickModerate$Q16Recursive",
+    "constructorArgs": [
+      [
+        12,
+        33,
+        4,
+        56,
+        22,
+        2,
+        34,
+        33,
+        22,
+        12,
+        34,
+        56
+      ]
+    ],
+    "operations": [
+      {
+        "method": "query",
+        "args": [
+          1,
+          2,
+          4
+        ],
+        "expected": 1
+      },
+      {
+        "method": "query",
+        "args": [
+          0,
+          11,
+          33
+        ],
+        "expected": 2
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-17-optimized",
+    "className": "SegmentTreeFenwickModerate$Q17Optimized",
+    "constructorArgs": [
+      [
+        5,
+        2,
+        7,
+        3
+      ]
+    ],
+    "operations": [
+      {
+        "method": "rangeMin",
+        "args": [
+          1,
+          3
+        ],
+        "expected": 2
+      },
+      {
+        "method": "update",
+        "args": [
+          1,
+          8
+        ],
+        "expected": null
+      },
+      {
+        "method": "rangeMin",
+        "args": [
+          1,
+          3
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-17-recursive",
+    "className": "SegmentTreeFenwickModerate$Q17Recursive",
+    "constructorArgs": [
+      [
+        5,
+        2,
+        7,
+        3
+      ]
+    ],
+    "operations": [
+      {
+        "method": "rangeMin",
+        "args": [
+          1,
+          3
+        ],
+        "expected": 2
+      },
+      {
+        "method": "update",
+        "args": [
+          1,
+          8
+        ],
+        "expected": null
+      },
+      {
+        "method": "rangeMin",
+        "args": [
+          1,
+          3
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-18-optimized",
+    "className": "SegmentTreeFenwickModerate$Q18Optimized",
+    "constructorArgs": [
+      [
+        5,
+        2,
+        7,
+        3
+      ]
+    ],
+    "operations": [
+      {
+        "method": "rangeMax",
+        "args": [
+          1,
+          3
+        ],
+        "expected": 7
+      },
+      {
+        "method": "update",
+        "args": [
+          2,
+          1
+        ],
+        "expected": null
+      },
+      {
+        "method": "rangeMax",
+        "args": [
+          1,
+          3
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-18-recursive",
+    "className": "SegmentTreeFenwickModerate$Q18Recursive",
+    "constructorArgs": [
+      [
+        5,
+        2,
+        7,
+        3
+      ]
+    ],
+    "operations": [
+      {
+        "method": "rangeMax",
+        "args": [
+          1,
+          3
+        ],
+        "expected": 7
+      },
+      {
+        "method": "update",
+        "args": [
+          2,
+          1
+        ],
+        "expected": null
+      },
+      {
+        "method": "rangeMax",
+        "args": [
+          1,
+          3
+        ],
+        "expected": 3
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-19-optimized",
+    "className": "SegmentTreeFenwickModerate$Q19Optimized",
+    "constructorArgs": [
+      [
+        1,
+        2,
+        3,
+        4
+      ]
+    ],
+    "operations": [
+      {
+        "method": "addRange",
+        "args": [
+          1,
+          3,
+          2
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          3
+        ],
+        "expected": 16
+      },
+      {
+        "method": "addRange",
+        "args": [
+          0,
+          1,
+          -1
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          3
+        ],
+        "expected": 14
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-19-recursive",
+    "className": "SegmentTreeFenwickModerate$Q19Recursive",
+    "constructorArgs": [
+      [
+        1,
+        2,
+        3,
+        4
+      ]
+    ],
+    "operations": [
+      {
+        "method": "addRange",
+        "args": [
+          1,
+          3,
+          2
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          3
+        ],
+        "expected": 16
+      },
+      {
+        "method": "addRange",
+        "args": [
+          0,
+          1,
+          -1
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          3
+        ],
+        "expected": 14
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-20-optimized",
+    "className": "SegmentTreeFenwickModerate$Q20Optimized",
+    "constructorArgs": [
+      [
+        1,
+        2,
+        3,
+        4
+      ]
+    ],
+    "operations": [
+      {
+        "method": "assignRange",
+        "args": [
+          1,
+          2,
+          5
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          3
+        ],
+        "expected": 15
+      },
+      {
+        "method": "assignRange",
+        "args": [
+          0,
+          3,
+          0
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          3
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "segment-tree-20-recursive",
+    "className": "SegmentTreeFenwickModerate$Q20Recursive",
+    "constructorArgs": [
+      [
+        1,
+        2,
+        3,
+        4
+      ]
+    ],
+    "operations": [
+      {
+        "method": "assignRange",
+        "args": [
+          1,
+          2,
+          5
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          3
+        ],
+        "expected": 15
+      },
+      {
+        "method": "assignRange",
+        "args": [
+          0,
+          3,
+          0
+        ],
+        "expected": null
+      },
+      {
+        "method": "sumRange",
+        "args": [
+          0,
+          3
+        ],
+        "expected": 0
+      }
+    ]
+  },
+  {
+    "id": "advanced-graphs-1-optimized",
+    "className": "AdvancedGraphsBasic$Q01Optimized",
+    "method": "networkDelayTime",
+    "args": [
+      [
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          3,
+          1
+        ],
+        [
+          3,
+          4,
+          1
+        ]
+      ],
+      4,
+      2
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "advanced-graphs-1-recursive",
+    "className": "AdvancedGraphsBasic$Q01Recursive",
+    "method": "networkDelayTime",
+    "args": [
+      [
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          3,
+          1
+        ],
+        [
+          3,
+          4,
+          1
+        ]
+      ],
+      4,
+      2
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "advanced-graphs-2-optimized",
+    "className": "AdvancedGraphsBasic$Q02Optimized",
+    "method": "findCheapestPrice",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1,
+          100
+        ],
+        [
+          1,
+          2,
+          100
+        ],
+        [
+          2,
+          0,
+          100
+        ],
+        [
+          1,
+          3,
+          600
+        ],
+        [
+          2,
+          3,
+          200
+        ]
+      ],
+      0,
+      3,
+      1
+    ],
+    "mode": "equal",
+    "expected": 700
+  },
+  {
+    "id": "advanced-graphs-2-recursive",
+    "className": "AdvancedGraphsBasic$Q02Recursive",
+    "method": "findCheapestPrice",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1,
+          100
+        ],
+        [
+          1,
+          2,
+          100
+        ],
+        [
+          2,
+          0,
+          100
+        ],
+        [
+          1,
+          3,
+          600
+        ],
+        [
+          2,
+          3,
+          200
+        ]
+      ],
+      0,
+      3,
+      1
+    ],
+    "mode": "equal",
+    "expected": 700
+  },
+  {
+    "id": "advanced-graphs-3-optimized",
+    "className": "AdvancedGraphsBasic$Q03Optimized",
+    "method": "minimumEffortPath",
+    "args": [
+      [
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          3,
+          8,
+          2
+        ],
+        [
+          5,
+          3,
+          5
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "advanced-graphs-3-recursive",
+    "className": "AdvancedGraphsBasic$Q03Recursive",
+    "method": "minimumEffortPath",
+    "args": [
+      [
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          3,
+          8,
+          2
+        ],
+        [
+          5,
+          3,
+          5
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "advanced-graphs-4-optimized",
+    "className": "AdvancedGraphsBasic$Q04Optimized",
+    "method": "swimInWater",
+    "args": [
+      [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-4-recursive",
+    "className": "AdvancedGraphsBasic$Q04Recursive",
+    "method": "swimInWater",
+    "args": [
+      [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-5-optimized",
+    "className": "AdvancedGraphsBasic$Q05Optimized",
+    "method": "findCriticalAndPseudoCriticalEdges",
+    "args": [
+      5,
+      [
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          2,
+          3,
+          2
+        ],
+        [
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          4,
+          3
+        ],
+        [
+          3,
+          4,
+          3
+        ],
+        [
+          1,
+          4,
+          6
+        ]
+      ]
+    ],
+    "mode": "innerSets",
+    "expected": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3,
+        4,
+        5
+      ]
+    ]
+  },
+  {
+    "id": "advanced-graphs-5-recursive",
+    "className": "AdvancedGraphsBasic$Q05Recursive",
+    "method": "findCriticalAndPseudoCriticalEdges",
+    "args": [
+      5,
+      [
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          2,
+          3,
+          2
+        ],
+        [
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          4,
+          3
+        ],
+        [
+          3,
+          4,
+          3
+        ],
+        [
+          1,
+          4,
+          6
+        ]
+      ]
+    ],
+    "mode": "innerSets",
+    "expected": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3,
+        4,
+        5
+      ]
+    ]
+  },
+  {
+    "id": "advanced-graphs-6-optimized",
+    "className": "AdvancedGraphsBasic$Q06Optimized",
+    "method": "minCostConnectPoints",
+    "args": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          7,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 20
+  },
+  {
+    "id": "advanced-graphs-6-recursive",
+    "className": "AdvancedGraphsBasic$Q06Recursive",
+    "method": "minCostConnectPoints",
+    "args": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          7,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 20
+  },
+  {
+    "id": "advanced-graphs-7-optimized",
+    "className": "AdvancedGraphsBasic$Q07Optimized",
+    "method": "minCostToSupplyWater",
+    "args": [
+      3,
+      [
+        1,
+        2,
+        2
+      ],
+      [
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          2,
+          3,
+          1
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-7-recursive",
+    "className": "AdvancedGraphsBasic$Q07Recursive",
+    "method": "minCostToSupplyWater",
+    "args": [
+      3,
+      [
+        1,
+        2,
+        2
+      ],
+      [
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          2,
+          3,
+          1
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-8-optimized",
+    "className": "AdvancedGraphsBasic$Q08Optimized",
+    "method": "findItinerary",
+    "args": [
+      [
+        [
+          "JFK",
+          "SFO"
+        ],
+        [
+          "JFK",
+          "ATL"
+        ],
+        [
+          "SFO",
+          "ATL"
+        ],
+        [
+          "ATL",
+          "JFK"
+        ],
+        [
+          "ATL",
+          "SFO"
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      "JFK",
+      "ATL",
+      "JFK",
+      "SFO",
+      "ATL",
+      "SFO"
+    ]
+  },
+  {
+    "id": "advanced-graphs-8-recursive",
+    "className": "AdvancedGraphsBasic$Q08Recursive",
+    "method": "findItinerary",
+    "args": [
+      [
+        [
+          "JFK",
+          "SFO"
+        ],
+        [
+          "JFK",
+          "ATL"
+        ],
+        [
+          "SFO",
+          "ATL"
+        ],
+        [
+          "ATL",
+          "JFK"
+        ],
+        [
+          "ATL",
+          "SFO"
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": [
+      "JFK",
+      "ATL",
+      "JFK",
+      "SFO",
+      "ATL",
+      "SFO"
+    ]
+  },
+  {
+    "id": "advanced-graphs-9-optimized",
+    "className": "AdvancedGraphsBasic$Q09Optimized",
+    "method": "alienOrder",
+    "args": [
+      [
+        "wrt",
+        "wrf",
+        "er",
+        "ett",
+        "rftt"
+      ]
+    ],
+    "mode": "equal",
+    "expected": "wertf"
+  },
+  {
+    "id": "advanced-graphs-9-recursive",
+    "className": "AdvancedGraphsBasic$Q09Recursive",
+    "method": "alienOrder",
+    "args": [
+      [
+        "wrt",
+        "wrf",
+        "er",
+        "ett",
+        "rftt"
+      ]
+    ],
+    "mode": "equal",
+    "expected": "wertf"
+  },
+  {
+    "id": "advanced-graphs-10-optimized",
+    "className": "AdvancedGraphsBasic$Q10Optimized",
+    "method": "findOrder",
+    "args": [
+      2,
+      [
+        [
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "topological",
+    "expected": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "advanced-graphs-10-recursive",
+    "className": "AdvancedGraphsBasic$Q10Recursive",
+    "method": "findOrder",
+    "args": [
+      2,
+      [
+        [
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "topological",
+    "expected": [
+      0,
+      1
+    ]
+  },
+  {
+    "id": "advanced-graphs-11-optimized",
+    "className": "AdvancedGraphsBasic$Q11Optimized",
+    "method": "shortestPathLength",
+    "args": [
+      [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "advanced-graphs-11-recursive",
+    "className": "AdvancedGraphsBasic$Q11Recursive",
+    "method": "shortestPathLength",
+    "args": [
+      [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 4
+  },
+  {
+    "id": "advanced-graphs-12-optimized",
+    "className": "AdvancedGraphsBasic$Q12Optimized",
+    "method": "minCost",
+    "args": [
+      30,
+      [
+        [
+          0,
+          1,
+          10
+        ],
+        [
+          1,
+          2,
+          10
+        ],
+        [
+          2,
+          5,
+          10
+        ],
+        [
+          0,
+          3,
+          1
+        ],
+        [
+          3,
+          4,
+          10
+        ],
+        [
+          4,
+          5,
+          15
+        ]
+      ],
+      [
+        5,
+        1,
+        2,
+        20,
+        20,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": 11
+  },
+  {
+    "id": "advanced-graphs-12-recursive",
+    "className": "AdvancedGraphsBasic$Q12Recursive",
+    "method": "minCost",
+    "args": [
+      30,
+      [
+        [
+          0,
+          1,
+          10
+        ],
+        [
+          1,
+          2,
+          10
+        ],
+        [
+          2,
+          5,
+          10
+        ],
+        [
+          0,
+          3,
+          1
+        ],
+        [
+          3,
+          4,
+          10
+        ],
+        [
+          4,
+          5,
+          15
+        ]
+      ],
+      [
+        5,
+        1,
+        2,
+        20,
+        20,
+        3
+      ]
+    ],
+    "mode": "equal",
+    "expected": 11
+  },
+  {
+    "id": "advanced-graphs-13-optimized",
+    "className": "AdvancedGraphsModerate$Q13Optimized",
+    "method": "findTheCity",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          4
+        ],
+        [
+          2,
+          3,
+          1
+        ]
+      ],
+      4
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-13-recursive",
+    "className": "AdvancedGraphsModerate$Q13Recursive",
+    "method": "findTheCity",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1,
+          3
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          4
+        ],
+        [
+          2,
+          3,
+          1
+        ]
+      ],
+      4
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-14-optimized",
+    "className": "AdvancedGraphsModerate$Q14Optimized",
+    "method": "criticalConnections",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    ],
+    "mode": "edges",
+    "expected": [
+      [
+        1,
+        3
+      ]
+    ]
+  },
+  {
+    "id": "advanced-graphs-14-recursive",
+    "className": "AdvancedGraphsModerate$Q14Recursive",
+    "method": "criticalConnections",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          1,
+          3
+        ]
+      ]
+    ],
+    "mode": "edges",
+    "expected": [
+      [
+        1,
+        3
+      ]
+    ]
+  },
+  {
+    "id": "advanced-graphs-15-optimized",
+    "className": "AdvancedGraphsModerate$Q15Optimized",
+    "method": "countComponents",
+    "args": [
+      5,
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "advanced-graphs-15-recursive",
+    "className": "AdvancedGraphsModerate$Q15Recursive",
+    "method": "countComponents",
+    "args": [
+      5,
+      [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "advanced-graphs-16-optimized",
+    "className": "AdvancedGraphsModerate$Q16Optimized",
+    "method": "countSCC",
+    "args": [
+      5,
+      [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-16-recursive",
+    "className": "AdvancedGraphsModerate$Q16Recursive",
+    "method": "countSCC",
+    "args": [
+      5,
+      [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-17-optimized",
+    "className": "AdvancedGraphsModerate$Q17Optimized",
+    "method": "countSCC",
+    "args": [
+      5,
+      [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-17-recursive",
+    "className": "AdvancedGraphsModerate$Q17Recursive",
+    "method": "countSCC",
+    "args": [
+      5,
+      [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 3
+  },
+  {
+    "id": "advanced-graphs-18-optimized",
+    "className": "AdvancedGraphsModerate$Q18Optimized",
+    "method": "minimumSpanningTree",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          3
+        ],
+        [
+          0,
+          3,
+          10
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "advanced-graphs-18-recursive",
+    "className": "AdvancedGraphsModerate$Q18Recursive",
+    "method": "minimumSpanningTree",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          3
+        ],
+        [
+          0,
+          3,
+          10
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "advanced-graphs-19-optimized",
+    "className": "AdvancedGraphsModerate$Q19Optimized",
+    "method": "minimumSpanningTree",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          3
+        ],
+        [
+          0,
+          3,
+          10
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "advanced-graphs-19-recursive",
+    "className": "AdvancedGraphsModerate$Q19Recursive",
+    "method": "minimumSpanningTree",
+    "args": [
+      4,
+      [
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          3
+        ],
+        [
+          0,
+          3,
+          10
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 6
+  },
+  {
+    "id": "advanced-graphs-20-optimized",
+    "className": "AdvancedGraphsModerate$Q20Optimized",
+    "method": "minimumObstacles",
+    "args": [
+      [
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  },
+  {
+    "id": "advanced-graphs-20-recursive",
+    "className": "AdvancedGraphsModerate$Q20Recursive",
+    "method": "minimumObstacles",
+    "args": [
+      [
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ]
+      ]
+    ],
+    "mode": "equal",
+    "expected": 2
+  }
+]

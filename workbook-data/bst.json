@@ -1,0 +1,608 @@
+{
+  "id": "bst",
+  "name": "Binary Search Tree",
+  "sourceUrl": "https://maurya29.github.io/DSA-Pattern-Workbook/pages/bst.html",
+  "retrievedOn": "2026-10-04",
+  "problems": [
+    {
+      "name": "Search in a Binary Search Tree",
+      "question": "Given the root of a binary search tree and an integer val, return the subtree rooted at the node whose value equals val, or null if the value does not exist.",
+      "constraints": "1 <= number of nodes <= 5000; 1 <= Node.val <= 10000000; all values are unique; 1 <= val <= 10000000.",
+      "examples": [
+        {
+          "input": "root = [4,2,7,1,3], val = 2",
+          "output": "[2,1,3]",
+          "explanation": "The node with value 2 is found and its subtree is returned."
+        },
+        {
+          "input": "root = [4,2,7,1,3], val = 5",
+          "output": "[]",
+          "explanation": "5 does not exist in the BST."
+        },
+        {
+          "input": "root = [1], val = 1",
+          "output": "[1]",
+          "explanation": "The root itself matches."
+        }
+      ],
+      "optimizedCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode searchBST(TreeNode root, int val) {\n    TreeNode current = root;\n    while (current != null && current.val != val) {\n      current = val < current.val ? current.left : current.right;\n    }\n    return current;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode searchBST(TreeNode root, int val) {\n    if (root == null || root.val == val) return root;\n    if (val < root.val) return searchBST(root.left, val);\n    return searchBST(root.right, val);\n  }\n}",
+      "optimizedComplexity": "Time O(h); Space O(1). Iterative BST search follows one path.",
+      "recursiveComplexity": "Time O(h); Space O(h). Recursive BST search follows one path.",
+      "source": {
+        "label": "Search in a Binary Search Tree - LeetCode 700",
+        "url": "https://leetcode.com/problems/search-in-a-binary-search-tree/"
+      }
+    },
+    {
+      "name": "Insert into a Binary Search Tree",
+      "question": "Given the root of a BST and a value not currently in the tree, insert the value into the BST and return the root.",
+      "constraints": "0 <= number of nodes <= 10000; -100000000 <= Node.val,val <= 100000000; val does not exist in the BST.",
+      "examples": [
+        {
+          "input": "root = [4,2,7,1,3], val = 5",
+          "output": "[4,2,7,1,3,5]",
+          "explanation": "5 is inserted as the left child of 7."
+        },
+        {
+          "input": "root = [40,20,60,10,30,50,70], val = 25",
+          "output": "valid BST containing 25",
+          "explanation": "25 belongs between 20 and 30."
+        },
+        {
+          "input": "root = [], val = 5",
+          "output": "[5]",
+          "explanation": "A new root is created."
+        }
+      ],
+      "optimizedCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode insertIntoBST(TreeNode root, int val) {\n    if (root == null) return new TreeNode(val);\n    TreeNode current = root;\n    while (true) {\n      if (val < current.val) {\n        if (current.left == null) { current.left = new TreeNode(val); break; }\n        current = current.left;\n      } else {\n        if (current.right == null) { current.right = new TreeNode(val); break; }\n        current = current.right;\n      }\n    }\n    return root;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode insertIntoBST(TreeNode root, int val) {\n    if (root == null) return new TreeNode(val);\n    if (val < root.val) root.left = insertIntoBST(root.left, val);\n    else root.right = insertIntoBST(root.right, val);\n    return root;\n  }\n}",
+      "optimizedComplexity": "Time O(h); Space O(1). Iterative insertion follows one search path.",
+      "recursiveComplexity": "Time O(h); Space O(h). Recursive insertion returns the updated subtree root.",
+      "source": {
+        "label": "Insert into a Binary Search Tree - LeetCode 701",
+        "url": "https://leetcode.com/problems/insert-into-a-binary-search-tree/"
+      }
+    },
+    {
+      "name": "Delete Node in a BST",
+      "question": "Given the root of a BST and a key, delete the node with value key if it exists and return the updated root.",
+      "constraints": "0 <= number of nodes <= 10000; -100000 <= Node.val,key <= 100000; all node values are unique.",
+      "examples": [
+        {
+          "input": "root = [5,3,6,2,4,null,7], key = 3",
+          "output": "[5,4,6,2,null,null,7]",
+          "explanation": "3 is replaced by its inorder successor 4."
+        },
+        {
+          "input": "root = [5,3,6,2,4,null,7], key = 0",
+          "output": "same tree",
+          "explanation": "0 is absent."
+        },
+        {
+          "input": "root = [], key = 0",
+          "output": "[]",
+          "explanation": "Empty tree remains empty."
+        }
+      ],
+      "optimizedCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode deleteNode(TreeNode root, int key) {\n    TreeNode dummy = new TreeNode(0, null, root);\n    TreeNode parent = dummy;\n    TreeNode current = root;\n    while (current != null && current.val != key) {\n      parent = current;\n      current = key < current.val ? current.left : current.right;\n    }\n    if (current == null) return dummy.right;\n\n    TreeNode replacement = removeRoot(current);\n    if (parent.left == current) parent.left = replacement;\n    else parent.right = replacement;\n    return dummy.right;\n  }\n\n  private TreeNode removeRoot(TreeNode node) {\n    if (node.left == null) return node.right;\n    if (node.right == null) return node.left;\n    TreeNode successorParent = node;\n    TreeNode successor = node.right;\n    while (successor.left != null) {\n      successorParent = successor;\n      successor = successor.left;\n    }\n    if (successorParent != node) {\n      successorParent.left = successor.right;\n      successor.right = node.right;\n    }\n    successor.left = node.left;\n    return successor;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode deleteNode(TreeNode root, int key) {\n    if (root == null) return null;\n    if (key < root.val) root.left = deleteNode(root.left, key);\n    else if (key > root.val) root.right = deleteNode(root.right, key);\n    else {\n      if (root.left == null) return root.right;\n      if (root.right == null) return root.left;\n      TreeNode successor = min(root.right);\n      root.val = successor.val;\n      root.right = deleteNode(root.right, successor.val);\n    }\n    return root;\n  }\n\n  private TreeNode min(TreeNode node) {\n    while (node.left != null) node = node.left;\n    return node;\n  }\n}",
+      "optimizedComplexity": "Time O(h); Space O(1). Iteratively search and rewire the deleted node.",
+      "recursiveComplexity": "Time O(h); Space O(h). Recursive deletion updates subtree links while unwinding.",
+      "source": {
+        "label": "Delete Node in a BST - LeetCode 450",
+        "url": "https://leetcode.com/problems/delete-node-in-a-bst/"
+      }
+    },
+    {
+      "name": "Validate Binary Search Tree",
+      "question": "Given the root of a binary tree, determine if it is a valid BST. Every node must be strictly greater than all values in its left subtree and strictly less than all values in its right subtree.",
+      "constraints": "1 <= number of nodes <= 10000; -2147483648 <= Node.val <= 2147483647.",
+      "examples": [
+        {
+          "input": "root = [2,1,3]",
+          "output": "true",
+          "explanation": "All nodes satisfy BST ordering."
+        },
+        {
+          "input": "root = [5,1,4,null,null,3,6]",
+          "output": "false",
+          "explanation": "3 is in the right subtree of 5 but less than 5."
+        },
+        {
+          "input": "root = [2,2,2]",
+          "output": "false",
+          "explanation": "BST ordering is strict."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public boolean isValidBST(TreeNode root) {\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    TreeNode current = root;\n    Long previous = null;\n    while (current != null || !stack.isEmpty()) {\n      while (current != null) { stack.push(current); current = current.left; }\n      current = stack.pop();\n      if (previous != null && current.val <= previous) return false;\n      previous = (long) current.val;\n      current = current.right;\n    }\n    return true;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public boolean isValidBST(TreeNode root) {\n    return valid(root, Long.MIN_VALUE, Long.MAX_VALUE);\n  }\n\n  private boolean valid(TreeNode node, long low, long high) {\n    if (node == null) return true;\n    if (node.val <= low || node.val >= high) return false;\n    return valid(node.left, low, node.val) && valid(node.right, node.val, high);\n  }\n}",
+      "optimizedComplexity": "Time O(n); Space O(h). Iterative inorder stops at first violation.",
+      "recursiveComplexity": "Time O(n); Space O(h). Recursive bounds validate every node once.",
+      "source": {
+        "label": "Validate Binary Search Tree - LeetCode 98",
+        "url": "https://leetcode.com/problems/validate-binary-search-tree/"
+      }
+    },
+    {
+      "name": "Kth Smallest Element in a BST",
+      "question": "Given the root of a BST and an integer k, return the kth smallest value in the tree.",
+      "constraints": "1 <= k <= number of nodes <= 10000; 0 <= Node.val <= 10000.",
+      "examples": [
+        {
+          "input": "root = [3,1,4,null,2], k = 1",
+          "output": "1",
+          "explanation": "The first inorder value is 1."
+        },
+        {
+          "input": "root = [5,3,6,2,4,null,null,1], k = 3",
+          "output": "3",
+          "explanation": "The sorted values are [1,2,3,4,5,6]."
+        },
+        {
+          "input": "root = [1], k = 1",
+          "output": "1",
+          "explanation": "The only value is kth."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public int kthSmallest(TreeNode root, int k) {\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    TreeNode current = root;\n    while (current != null || !stack.isEmpty()) {\n      while (current != null) { stack.push(current); current = current.left; }\n      current = stack.pop();\n      if (--k == 0) return current.val;\n      current = current.right;\n    }\n    return -1;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  private int remaining;\n  private int answer;\n\n  public int kthSmallest(TreeNode root, int k) {\n    remaining = k;\n    inorder(root);\n    return answer;\n  }\n\n  private void inorder(TreeNode node) {\n    if (node == null || remaining == 0) return;\n    inorder(node.left);\n    if (--remaining == 0) { answer = node.val; return; }\n    inorder(node.right);\n  }\n}",
+      "optimizedComplexity": "Time O(h + k); Space O(h). Iterative inorder stops after k nodes.",
+      "recursiveComplexity": "Time O(h + k); Space O(h). Recursive inorder stops when kth is found.",
+      "source": {
+        "label": "Kth Smallest Element in a BST - LeetCode 230",
+        "url": "https://leetcode.com/problems/kth-smallest-element-in-a-bst/"
+      }
+    },
+    {
+      "name": "Lowest Common Ancestor of a Binary Search Tree",
+      "question": "Given a BST and two nodes p and q, return their lowest common ancestor.",
+      "constraints": "2 <= number of nodes <= 100000; all Node.val values are unique; p and q exist in the BST.",
+      "examples": [
+        {
+          "input": "root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8",
+          "output": "6",
+          "explanation": "2 and 8 split at root 6."
+        },
+        {
+          "input": "same root, p = 2, q = 4",
+          "output": "2",
+          "explanation": "2 is an ancestor of 4."
+        },
+        {
+          "input": "root = [2,1], p = 2, q = 1",
+          "output": "2",
+          "explanation": "Root is the LCA."
+        }
+      ],
+      "optimizedCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n    TreeNode current = root;\n    while (current != null) {\n      if (p.val < current.val && q.val < current.val) current = current.left;\n      else if (p.val > current.val && q.val > current.val) current = current.right;\n      else return current;\n    }\n    return null;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n    if (p.val < root.val && q.val < root.val) return lowestCommonAncestor(root.left, p, q);\n    if (p.val > root.val && q.val > root.val) return lowestCommonAncestor(root.right, p, q);\n    return root;\n  }\n}",
+      "optimizedComplexity": "Time O(h); Space O(1). Iterative BST split search follows one path.",
+      "recursiveComplexity": "Time O(h); Space O(h). Recursive BST split search follows one path.",
+      "source": {
+        "label": "Lowest Common Ancestor of a Binary Search Tree - LeetCode 235",
+        "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
+      }
+    },
+    {
+      "name": "Convert Sorted Array to Binary Search Tree",
+      "question": "Given a sorted integer array, convert it to a height-balanced BST.",
+      "constraints": "1 <= nums.length <= 10000; -10000 <= nums[i] <= 10000; nums is strictly increasing.",
+      "examples": [
+        {
+          "input": "nums = [-10,-3,0,5,9]",
+          "output": "[0,-3,9,-10,null,5]",
+          "explanation": "One valid balanced BST uses 0 as root."
+        },
+        {
+          "input": "nums = [1,3]",
+          "output": "[1,null,3] or [3,1]",
+          "explanation": "Both are height-balanced."
+        },
+        {
+          "input": "nums = [1]",
+          "output": "[1]",
+          "explanation": "The only value becomes root."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode sortedArrayToBST(int[] nums) {\n    if (nums.length == 0) return null;\n    TreeNode root = new TreeNode(0);\n    Deque<State> stack = new ArrayDeque<>();\n    stack.push(new State(root, 0, nums.length - 1));\n    while (!stack.isEmpty()) {\n      State state = stack.pop();\n      int mid = state.left + (state.right - state.left) / 2;\n      state.node.val = nums[mid];\n      if (state.left <= mid - 1) { state.node.left = new TreeNode(0); stack.push(new State(state.node.left, state.left, mid - 1)); }\n      if (mid + 1 <= state.right) { state.node.right = new TreeNode(0); stack.push(new State(state.node.right, mid + 1, state.right)); }\n    }\n    return root;\n  }\n\n  private static class State { TreeNode node; int left, right; State(TreeNode node, int left, int right){this.node=node;this.left=left;this.right=right;} }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode sortedArrayToBST(int[] nums) {\n    return build(nums, 0, nums.length - 1);\n  }\n\n  private TreeNode build(int[] nums, int left, int right) {\n    if (left > right) return null;\n    int mid = left + (right - left) / 2;\n    TreeNode root = new TreeNode(nums[mid]);\n    root.left = build(nums, left, mid - 1);\n    root.right = build(nums, mid + 1, right);\n    return root;\n  }\n}",
+      "optimizedComplexity": "Time O(n); Space O(n). Iterative stack builds ranges.",
+      "recursiveComplexity": "Time O(n); Space O(log n). Recursive midpoint construction creates each node once.",
+      "source": {
+        "label": "Convert Sorted Array to Binary Search Tree - LeetCode 108",
+        "url": "https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/"
+      }
+    },
+    {
+      "name": "Two Sum IV - Input is a BST",
+      "question": "Given the root of a BST and an integer k, return true if there exist two different nodes whose values sum to k.",
+      "constraints": "1 <= number of nodes <= 10000; -10000 <= Node.val <= 10000; -100000 <= k <= 100000.",
+      "examples": [
+        {
+          "input": "root = [5,3,6,2,4,null,7], k = 9",
+          "output": "true",
+          "explanation": "2 + 7 = 9."
+        },
+        {
+          "input": "root = [5,3,6,2,4,null,7], k = 28",
+          "output": "false",
+          "explanation": "No pair sums to 28."
+        },
+        {
+          "input": "root = [1], k = 2",
+          "output": "false",
+          "explanation": "One node cannot form a pair with itself."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public boolean findTarget(TreeNode root, int k) {\n    List<Integer> values = new ArrayList<>();\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    TreeNode current = root;\n    while (current != null || !stack.isEmpty()) {\n      while (current != null) { stack.push(current); current = current.left; }\n      current = stack.pop();\n      values.add(current.val);\n      current = current.right;\n    }\n    int left = 0, right = values.size() - 1;\n    while (left < right) {\n      int sum = values.get(left) + values.get(right);\n      if (sum == k) return true;\n      if (sum < k) left++;\n      else right--;\n    }\n    return false;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public boolean findTarget(TreeNode root, int k) {\n    return dfs(root, k, new HashSet<>());\n  }\n\n  private boolean dfs(TreeNode node, int k, Set<Integer> seen) {\n    if (node == null) return false;\n    if (seen.contains(k - node.val)) return true;\n    seen.add(node.val);\n    return dfs(node.left, k, seen) || dfs(node.right, k, seen);\n  }\n}",
+      "optimizedComplexity": "Time O(n); Space O(n). Inorder list plus two pointers scans once.",
+      "recursiveComplexity": "Time O(n); Space O(n). DFS checks complements in a hash set.",
+      "source": {
+        "label": "Two Sum IV - Input is a BST - LeetCode 653",
+        "url": "https://leetcode.com/problems/two-sum-iv-input-is-a-bst/"
+      }
+    },
+    {
+      "name": "Minimum Absolute Difference in BST",
+      "question": "Given the root of a BST, return the minimum absolute difference between values of any two different nodes.",
+      "constraints": "2 <= number of nodes <= 10000; 0 <= Node.val <= 100000.",
+      "examples": [
+        {
+          "input": "root = [4,2,6,1,3]",
+          "output": "1",
+          "explanation": "Adjacent sorted pairs differ by 1."
+        },
+        {
+          "input": "root = [1,0,48,null,null,12,49]",
+          "output": "1",
+          "explanation": "48 and 49 are closest."
+        },
+        {
+          "input": "root = [2,1]",
+          "output": "1",
+          "explanation": "The only pair differs by 1."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public int getMinimumDifference(TreeNode root) {\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    TreeNode current = root;\n    Integer previous = null;\n    int best = Integer.MAX_VALUE;\n    while (current != null || !stack.isEmpty()) {\n      while (current != null) { stack.push(current); current = current.left; }\n      current = stack.pop();\n      if (previous != null) best = Math.min(best, current.val - previous);\n      previous = current.val;\n      current = current.right;\n    }\n    return best;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  private Integer previous = null;\n  private int best = Integer.MAX_VALUE;\n\n  public int getMinimumDifference(TreeNode root) {\n    inorder(root);\n    return best;\n  }\n\n  private void inorder(TreeNode node) {\n    if (node == null) return;\n    inorder(node.left);\n    if (previous != null) best = Math.min(best, node.val - previous);\n    previous = node.val;\n    inorder(node.right);\n  }\n}",
+      "optimizedComplexity": "Time O(n); Space O(h). Iterative inorder compares adjacent sorted values.",
+      "recursiveComplexity": "Time O(n); Space O(h). Recursive inorder tracks previous value and best answer.",
+      "source": {
+        "label": "Minimum Absolute Difference in BST - LeetCode 530",
+        "url": "https://leetcode.com/problems/minimum-absolute-difference-in-bst/"
+      }
+    },
+    {
+      "name": "Range Sum of BST",
+      "question": "Given a BST root and integers low and high, return the sum of values of all nodes with low <= value <= high.",
+      "constraints": "1 <= number of nodes <= 20000; 1 <= Node.val <= 100000; 1 <= low <= high <= 100000.",
+      "examples": [
+        {
+          "input": "root = [10,5,15,3,7,null,18], low = 7, high = 15",
+          "output": "32",
+          "explanation": "7 + 10 + 15 = 32."
+        },
+        {
+          "input": "root = [10,5,15,3,7,13,18,1,null,6], low = 6, high = 10",
+          "output": "23",
+          "explanation": "6 + 7 + 10 = 23."
+        },
+        {
+          "input": "root = [1], low = 2, high = 3",
+          "output": "0",
+          "explanation": "The only value is outside range."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public int rangeSumBST(TreeNode root, int low, int high) {\n    int sum = 0;\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    stack.push(root);\n    while (!stack.isEmpty()) {\n      TreeNode node = stack.pop();\n      if (node == null) continue;\n      if (node.val >= low && node.val <= high) sum += node.val;\n      if (node.val > low) stack.push(node.left);\n      if (node.val < high) stack.push(node.right);\n    }\n    return sum;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public int rangeSumBST(TreeNode root, int low, int high) {\n    if (root == null) return 0;\n    if (root.val < low) return rangeSumBST(root.right, low, high);\n    if (root.val > high) return rangeSumBST(root.left, low, high);\n    return root.val + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high);\n  }\n}",
+      "optimizedComplexity": "Time O(m + h); Space O(h). Iterative DFS skips irrelevant subtrees, where m is nodes visited in/pruned near range.",
+      "recursiveComplexity": "Time O(m + h); Space O(h). Recursive pruning skips impossible subtrees.",
+      "source": {
+        "label": "Range Sum of BST - LeetCode 938",
+        "url": "https://leetcode.com/problems/range-sum-of-bst/"
+      }
+    },
+    {
+      "name": "Increasing Order Search Tree",
+      "question": "Given the root of a BST, rearrange the tree in increasing order so the leftmost node becomes the new root and every node has no left child and only one right child.",
+      "constraints": "1 <= number of nodes <= 100; 0 <= Node.val <= 1000.",
+      "examples": [
+        {
+          "input": "root = [5,3,6,2,4,null,8,1,null,null,null,7,9]",
+          "output": "[1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]",
+          "explanation": "The right chain follows inorder order."
+        },
+        {
+          "input": "root = [5,1,7]",
+          "output": "[1,null,5,null,7]",
+          "explanation": "Values are rearranged ascending."
+        },
+        {
+          "input": "root = [1]",
+          "output": "[1]",
+          "explanation": "A single node already satisfies the shape."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode increasingBST(TreeNode root) {\n    TreeNode dummy = new TreeNode(0);\n    TreeNode tail = dummy;\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    TreeNode current = root;\n    while (current != null || !stack.isEmpty()) {\n      while (current != null) { stack.push(current); current = current.left; }\n      current = stack.pop();\n      current.left = null;\n      tail.right = current;\n      tail = current;\n      current = current.right;\n    }\n    return dummy.right;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  private TreeNode tail;\n\n  public TreeNode increasingBST(TreeNode root) {\n    TreeNode dummy = new TreeNode(0);\n    tail = dummy;\n    inorder(root);\n    return dummy.right;\n  }\n\n  private void inorder(TreeNode node) {\n    if (node == null) return;\n    inorder(node.left);\n    node.left = null;\n    tail.right = node;\n    tail = node;\n    inorder(node.right);\n  }\n}",
+      "optimizedComplexity": "Time O(n); Space O(h). Iterative inorder rewires existing nodes.",
+      "recursiveComplexity": "Time O(n); Space O(h). Recursive inorder appends nodes to a tail pointer.",
+      "source": {
+        "label": "Increasing Order Search Tree - LeetCode 897",
+        "url": "https://leetcode.com/problems/increasing-order-search-tree/"
+      }
+    },
+    {
+      "name": "Recover Binary Search Tree",
+      "question": "Two nodes of a BST were swapped by mistake. Recover the tree without changing its structure.",
+      "constraints": "2 <= number of nodes <= 1000; -2147483648 <= Node.val <= 2147483647.",
+      "examples": [
+        {
+          "input": "root = [1,3,null,null,2]",
+          "output": "[3,1,null,null,2]",
+          "explanation": "Values 1 and 3 are swapped back."
+        },
+        {
+          "input": "root = [3,1,4,null,null,2]",
+          "output": "[2,1,4,null,null,3]",
+          "explanation": "Values 2 and 3 are swapped back."
+        },
+        {
+          "input": "root = [2,1]",
+          "output": "[2,1]",
+          "explanation": "A valid tree remains valid in no-op variants."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public void recoverTree(TreeNode root) {\n    TreeNode first = null, second = null, previous = null;\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    TreeNode current = root;\n    while (current != null || !stack.isEmpty()) {\n      while (current != null) { stack.push(current); current = current.left; }\n      current = stack.pop();\n      if (previous != null && previous.val > current.val) {\n        if (first == null) first = previous;\n        second = current;\n      }\n      previous = current;\n      current = current.right;\n    }\n    int temp = first.val;\n    first.val = second.val;\n    second.val = temp;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  private TreeNode first;\n  private TreeNode second;\n  private TreeNode previous;\n\n  public void recoverTree(TreeNode root) {\n    inorder(root);\n    int temp = first.val;\n    first.val = second.val;\n    second.val = temp;\n  }\n\n  private void inorder(TreeNode node) {\n    if (node == null) return;\n    inorder(node.left);\n    if (previous != null && previous.val > node.val) {\n      if (first == null) first = previous;\n      second = node;\n    }\n    previous = node;\n    inorder(node.right);\n  }\n}",
+      "optimizedComplexity": "Time O(n); Space O(h). Iterative inorder detects the two swapped nodes.",
+      "recursiveComplexity": "Time O(n); Space O(h). Recursive inorder detects inversions.",
+      "source": {
+        "label": "Recover Binary Search Tree - LeetCode 99",
+        "url": "https://leetcode.com/problems/recover-binary-search-tree/"
+      }
+    },
+    {
+      "name": "Balance a Binary Search Tree",
+      "question": "Given the root of a BST, return a balanced BST containing the same node values.",
+      "constraints": "1 <= number of nodes <= 10000; 1 <= Node.val <= 100000.",
+      "examples": [
+        {
+          "input": "root = [1,null,2,null,3,null,4]",
+          "output": "balanced BST with values [1,2,3,4]",
+          "explanation": "A skewed tree is rebuilt with smaller height."
+        },
+        {
+          "input": "root = [2,1,3]",
+          "output": "[2,1,3]",
+          "explanation": "Already balanced tree may remain unchanged."
+        },
+        {
+          "input": "root = [1]",
+          "output": "[1]",
+          "explanation": "One node is balanced."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode balanceBST(TreeNode root) {\n    List<Integer> values = new ArrayList<>();\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    TreeNode current = root;\n    while (current != null || !stack.isEmpty()) {\n      while (current != null) { stack.push(current); current = current.left; }\n      current = stack.pop();\n      values.add(current.val);\n      current = current.right;\n    }\n    if (values.isEmpty()) return null;\n    TreeNode newRoot = new TreeNode(0);\n    Deque<State> ranges = new ArrayDeque<>();\n    ranges.push(new State(newRoot, 0, values.size() - 1));\n    while (!ranges.isEmpty()) {\n      State state = ranges.pop();\n      int mid = state.left + (state.right - state.left) / 2;\n      state.node.val = values.get(mid);\n      if (state.left <= mid - 1) { state.node.left = new TreeNode(0); ranges.push(new State(state.node.left, state.left, mid - 1)); }\n      if (mid + 1 <= state.right) { state.node.right = new TreeNode(0); ranges.push(new State(state.node.right, mid + 1, state.right)); }\n    }\n    return newRoot;\n  }\n\n  private static class State { TreeNode node; int left, right; State(TreeNode node, int left, int right){this.node=node;this.left=left;this.right=right;} }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode balanceBST(TreeNode root) {\n    List<Integer> values = new ArrayList<>();\n    inorder(root, values);\n    return build(values, 0, values.size() - 1);\n  }\n\n  private void inorder(TreeNode node, List<Integer> values) {\n    if (node == null) return;\n    inorder(node.left, values);\n    values.add(node.val);\n    inorder(node.right, values);\n  }\n\n  private TreeNode build(List<Integer> values, int left, int right) {\n    if (left > right) return null;\n    int mid = left + (right - left) / 2;\n    TreeNode root = new TreeNode(values.get(mid));\n    root.left = build(values, left, mid - 1);\n    root.right = build(values, mid + 1, right);\n    return root;\n  }\n}",
+      "optimizedComplexity": "Time O(n); Space O(n). Iterative inorder plus iterative range construction builds balanced tree.",
+      "recursiveComplexity": "Time O(n); Space O(n). Inorder list plus recursive middle construction.",
+      "source": {
+        "label": "Balance a Binary Search Tree - LeetCode 1382",
+        "url": "https://leetcode.com/problems/balance-a-binary-search-tree/"
+      }
+    },
+    {
+      "name": "Trim a Binary Search Tree",
+      "question": "Given a BST root and range [low, high], trim the tree so every node value lies in the range while preserving relative ancestor-child structure among remaining nodes.",
+      "constraints": "1 <= number of nodes <= 10000; 0 <= Node.val <= 10000; 0 <= low <= high <= 10000.",
+      "examples": [
+        {
+          "input": "root = [1,0,2], low = 1, high = 2",
+          "output": "[1,null,2]",
+          "explanation": "0 is removed."
+        },
+        {
+          "input": "root = [3,0,4,null,2,null,null,1], low = 1, high = 3",
+          "output": "[3,2,null,1]",
+          "explanation": "0 and 4 are trimmed."
+        },
+        {
+          "input": "root = [1], low = 1, high = 1",
+          "output": "[1]",
+          "explanation": "Root remains."
+        }
+      ],
+      "optimizedCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode trimBST(TreeNode root, int low, int high) {\n    while (root != null && (root.val < low || root.val > high)) {\n      root = root.val < low ? root.right : root.left;\n    }\n    TreeNode current = root;\n    while (current != null) {\n      while (current.left != null && current.left.val < low) current.left = current.left.right;\n      current = current.left;\n    }\n    current = root;\n    while (current != null) {\n      while (current.right != null && current.right.val > high) current.right = current.right.left;\n      current = current.right;\n    }\n    return root;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode trimBST(TreeNode root, int low, int high) {\n    if (root == null) return null;\n    if (root.val < low) return trimBST(root.right, low, high);\n    if (root.val > high) return trimBST(root.left, low, high);\n    root.left = trimBST(root.left, low, high);\n    root.right = trimBST(root.right, low, high);\n    return root;\n  }\n}",
+      "optimizedComplexity": "Time O(n); Space O(1). Iteratively find valid root and trim invalid boundary chains.",
+      "recursiveComplexity": "Time O(n); Space O(h). Recursive trimming skips invalid subtrees by range.",
+      "source": {
+        "label": "Trim a Binary Search Tree - LeetCode 669",
+        "url": "https://leetcode.com/problems/trim-a-binary-search-tree/"
+      }
+    },
+    {
+      "name": "Construct BST from Preorder Traversal",
+      "question": "Given preorder traversal of a BST, construct the tree and return its root.",
+      "constraints": "1 <= preorder.length <= 100; 1 <= preorder[i] <= 1000; all values are unique.",
+      "examples": [
+        {
+          "input": "preorder = [8,5,1,7,10,12]",
+          "output": "[8,5,10,1,7,null,12]",
+          "explanation": "Values are inserted respecting BST preorder structure."
+        },
+        {
+          "input": "preorder = [1,3]",
+          "output": "[1,null,3]",
+          "explanation": "3 is the right child."
+        },
+        {
+          "input": "preorder = [2,1]",
+          "output": "[2,1]",
+          "explanation": "1 is the left child."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public TreeNode bstFromPreorder(int[] preorder) {\n    TreeNode root = new TreeNode(preorder[0]);\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    stack.push(root);\n    for (int i = 1; i < preorder.length; i++) {\n      TreeNode node = new TreeNode(preorder[i]);\n      if (preorder[i] < stack.peek().val) {\n        stack.peek().left = node;\n      } else {\n        TreeNode parent = null;\n        while (!stack.isEmpty() && preorder[i] > stack.peek().val) parent = stack.pop();\n        parent.right = node;\n      }\n      stack.push(node);\n    }\n    return root;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  private int index = 0;\n\n  public TreeNode bstFromPreorder(int[] preorder) {\n    return build(preorder, Integer.MIN_VALUE, Integer.MAX_VALUE);\n  }\n\n  private TreeNode build(int[] preorder, int low, int high) {\n    if (index == preorder.length) return null;\n    int value = preorder[index];\n    if (value < low || value > high) return null;\n    index++;\n    TreeNode root = new TreeNode(value);\n    root.left = build(preorder, low, value);\n    root.right = build(preorder, value, high);\n    return root;\n  }\n}",
+      "optimizedComplexity": "Time O(n); Space O(n). Iterative stack links nodes by preorder transitions.",
+      "recursiveComplexity": "Time O(n); Space O(h). Recursive bounds consume each value once.",
+      "source": {
+        "label": "Construct Binary Search Tree from Preorder Traversal - LeetCode 1008",
+        "url": "https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/"
+      }
+    },
+    {
+      "name": "Unique Binary Search Trees",
+      "question": "Given n, return the number of structurally unique BSTs that store values 1 through n.",
+      "constraints": "1 <= n <= 19.",
+      "examples": [
+        {
+          "input": "n = 3",
+          "output": "5",
+          "explanation": "There are five structurally unique BSTs."
+        },
+        {
+          "input": "n = 1",
+          "output": "1",
+          "explanation": "Only one tree can be formed."
+        },
+        {
+          "input": "n = 2",
+          "output": "2",
+          "explanation": "Either 1 or 2 can be root."
+        }
+      ],
+      "optimizedCode": "class Solution {\n  public int numTrees(int n) {\n    int[] dp = new int[n + 1];\n    dp[0] = 1;\n    dp[1] = 1;\n    for (int nodes = 2; nodes <= n; nodes++) {\n      for (int root = 1; root <= nodes; root++) {\n        dp[nodes] += dp[root - 1] * dp[nodes - root];\n      }\n    }\n    return dp[n];\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  public int numTrees(int n) {\n    int[] memo = new int[n + 1];\n    Arrays.fill(memo, -1);\n    return count(n, memo);\n  }\n\n  private int count(int nodes, int[] memo) {\n    if (nodes <= 1) return 1;\n    if (memo[nodes] != -1) return memo[nodes];\n    int total = 0;\n    for (int root = 1; root <= nodes; root++) {\n      total += count(root - 1, memo) * count(nodes - root, memo);\n    }\n    memo[nodes] = total;\n    return total;\n  }\n}",
+      "optimizedComplexity": "Time O(n^2); Space O(n). Bottom-up Catalan DP computes each size once.",
+      "recursiveComplexity": "Time O(n^2); Space O(n). Memoized recursion caches counts by subtree size.",
+      "source": {
+        "label": "Unique Binary Search Trees - LeetCode 96",
+        "url": "https://leetcode.com/problems/unique-binary-search-trees/"
+      }
+    },
+    {
+      "name": "Unique Binary Search Trees II",
+      "question": "Given n, generate all structurally unique BSTs that store values 1 through n.",
+      "constraints": "1 <= n <= 8.",
+      "examples": [
+        {
+          "input": "n = 3",
+          "output": "five unique BST roots",
+          "explanation": "All five structures for values 1..3 are generated."
+        },
+        {
+          "input": "n = 1",
+          "output": "[[1]]",
+          "explanation": "Only one tree exists."
+        },
+        {
+          "input": "n = 2",
+          "output": "[[1,null,2],[2,1]]",
+          "explanation": "Either value can be the root."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public List<TreeNode> generateTrees(int n) {\n    List<TreeNode>[][] dp = new ArrayList[n + 2][n + 2];\n    for (int i = 1; i <= n + 1; i++) {\n      dp[i][i - 1] = new ArrayList<>();\n      dp[i][i - 1].add(null);\n    }\n    for (int len = 1; len <= n; len++) {\n      for (int left = 1; left + len - 1 <= n; left++) {\n        int right = left + len - 1;\n        dp[left][right] = new ArrayList<>();\n        for (int root = left; root <= right; root++) {\n          for (TreeNode l : dp[left][root - 1]) for (TreeNode r : dp[root + 1][right]) {\n            dp[left][right].add(new TreeNode(root, l, r));\n          }\n        }\n      }\n    }\n    return dp[1][n];\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public List<TreeNode> generateTrees(int n) {\n    return build(1, n);\n  }\n\n  private List<TreeNode> build(int left, int right) {\n    List<TreeNode> answer = new ArrayList<>();\n    if (left > right) {\n      answer.add(null);\n      return answer;\n    }\n    for (int root = left; root <= right; root++) {\n      for (TreeNode l : build(left, root - 1)) {\n        for (TreeNode r : build(root + 1, right)) {\n          answer.add(new TreeNode(root, l, r));\n        }\n      }\n    }\n    return answer;\n  }\n}",
+      "optimizedComplexity": "Time O(Cn * n); Space O(Cn * n). Iterative DP builds trees by interval length.",
+      "recursiveComplexity": "Time O(Cn * n); Space O(Cn * n). Recursive range generation creates Catalan many trees.",
+      "source": {
+        "label": "Unique Binary Search Trees II - LeetCode 95",
+        "url": "https://leetcode.com/problems/unique-binary-search-trees-ii/"
+      }
+    },
+    {
+      "name": "Closest Binary Search Tree Value",
+      "question": "Given the root of a BST and a target double, return the value in the BST closest to target.",
+      "constraints": "1 <= number of nodes <= 10000; -1000000000 <= Node.val <= 1000000000; target is a double.",
+      "examples": [
+        {
+          "input": "root = [4,2,5,1,3], target = 3.714286",
+          "output": "4",
+          "explanation": "4 is closest to the target."
+        },
+        {
+          "input": "root = [1], target = 4.428571",
+          "output": "1",
+          "explanation": "Only one value exists."
+        },
+        {
+          "input": "root = [2,1,3], target = 3.0",
+          "output": "3",
+          "explanation": "Exact match is closest."
+        }
+      ],
+      "optimizedCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public int closestValue(TreeNode root, double target) {\n    int closest = root.val;\n    TreeNode current = root;\n    while (current != null) {\n      if (Math.abs(current.val - target) < Math.abs(closest - target)) closest = current.val;\n      current = target < current.val ? current.left : current.right;\n    }\n    return closest;\n  }\n}",
+      "recursiveCode": "class TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public int closestValue(TreeNode root, double target) {\n    return search(root, target, root.val);\n  }\n\n  private int search(TreeNode node, double target, int closest) {\n    if (node == null) return closest;\n    if (Math.abs(node.val - target) < Math.abs(closest - target)) closest = node.val;\n    if (target < node.val) return search(node.left, target, closest);\n    return search(node.right, target, closest);\n  }\n}",
+      "optimizedComplexity": "Time O(h); Space O(1). Iterative BST search follows the target direction.",
+      "recursiveComplexity": "Time O(h); Space O(h). Recursive search tracks closest value.",
+      "source": {
+        "label": "Closest Binary Search Tree Value - LeetCode 270",
+        "url": "https://leetcode.com/problems/closest-binary-search-tree-value/"
+      }
+    },
+    {
+      "name": "Closest Binary Search Tree Value II",
+      "question": "Given a non-empty BST, a target double, and integer k, return k values in the BST that are closest to target.",
+      "constraints": "1 <= k <= number of nodes <= 10000; target is a double; all node values are unique in common variants.",
+      "examples": [
+        {
+          "input": "root = [4,2,5,1,3], target = 3.714286, k = 2",
+          "output": "[4,3]",
+          "explanation": "4 and 3 are the two closest values."
+        },
+        {
+          "input": "root = [1], target = 0.0, k = 1",
+          "output": "[1]",
+          "explanation": "Only one node exists."
+        },
+        {
+          "input": "root = [2,1,3], target = 10.0, k = 2",
+          "output": "[3,2]",
+          "explanation": "Largest values are closest when target is above all nodes."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public List<Integer> closestKValues(TreeNode root, double target, int k) {\n    Deque<TreeNode> predecessors = new ArrayDeque<>();\n    Deque<TreeNode> successors = new ArrayDeque<>();\n    initPredecessors(root, target, predecessors);\n    initSuccessors(root, target, successors);\n    List<Integer> answer = new ArrayList<>();\n    while (k-- > 0) {\n      if (predecessors.isEmpty()) answer.add(nextSuccessor(successors));\n      else if (successors.isEmpty()) answer.add(nextPredecessor(predecessors));\n      else if (Math.abs(predecessors.peek().val - target) <= Math.abs(successors.peek().val - target)) answer.add(nextPredecessor(predecessors));\n      else answer.add(nextSuccessor(successors));\n    }\n    return answer;\n  }\n\n  private void initPredecessors(TreeNode node, double target, Deque<TreeNode> stack) {\n    while (node != null) {\n      if (node.val <= target) { stack.push(node); node = node.right; }\n      else node = node.left;\n    }\n  }\n\n  private void initSuccessors(TreeNode node, double target, Deque<TreeNode> stack) {\n    while (node != null) {\n      if (node.val > target) { stack.push(node); node = node.left; }\n      else node = node.right;\n    }\n  }\n\n  private int nextPredecessor(Deque<TreeNode> stack) {\n    TreeNode node = stack.pop();\n    int value = node.val;\n    node = node.left;\n    while (node != null) { stack.push(node); node = node.right; }\n    return value;\n  }\n\n  private int nextSuccessor(Deque<TreeNode> stack) {\n    TreeNode node = stack.pop();\n    int value = node.val;\n    node = node.right;\n    while (node != null) { stack.push(node); node = node.left; }\n    return value;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass Solution {\n  public List<Integer> closestKValues(TreeNode root, double target, int k) {\n    PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> Double.compare(Math.abs(b - target), Math.abs(a - target)));\n    dfs(root, target, k, heap);\n    return new ArrayList<>(heap);\n  }\n\n  private void dfs(TreeNode node, double target, int k, PriorityQueue<Integer> heap) {\n    if (node == null) return;\n    heap.offer(node.val);\n    if (heap.size() > k) heap.poll();\n    dfs(node.left, target, k, heap);\n    dfs(node.right, target, k, heap);\n  }\n}",
+      "optimizedComplexity": "Time O(h + k); Space O(h + k). Two stacks generate predecessor and successor values lazily.",
+      "recursiveComplexity": "Time O(n log k); Space O(h + k). DFS maintains a max-heap of k closest values.",
+      "source": {
+        "label": "Closest Binary Search Tree Value II - LeetCode 272",
+        "url": "https://leetcode.com/problems/closest-binary-search-tree-value-ii/"
+      }
+    },
+    {
+      "name": "Binary Search Tree Iterator",
+      "question": "Design an iterator over a BST that supports next() returning the next smallest value and hasNext() indicating whether another value exists.",
+      "constraints": "1 <= number of nodes <= 100000; at most 100000 calls; next is called only when hasNext is true.",
+      "examples": [
+        {
+          "input": "BSTIterator([7,3,15,null,null,9,20]); next(); next(); hasNext();",
+          "output": "3, 7, true",
+          "explanation": "Values are returned in ascending order."
+        },
+        {
+          "input": "next(); next(); next()",
+          "output": "9, 15, 20 later in sequence",
+          "explanation": "The iterator continues inorder."
+        },
+        {
+          "input": "single-node tree",
+          "output": "next returns root then hasNext false",
+          "explanation": "Only one value exists."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass BSTIterator {\n  private final Deque<TreeNode> stack = new ArrayDeque<>();\n\n  public BSTIterator(TreeNode root) {\n    pushLeft(root);\n  }\n\n  public int next() {\n    TreeNode node = stack.pop();\n    pushLeft(node.right);\n    return node.val;\n  }\n\n  public boolean hasNext() {\n    return !stack.isEmpty();\n  }\n\n  private void pushLeft(TreeNode node) {\n    while (node != null) {\n      stack.push(node);\n      node = node.left;\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass TreeNode {\n  int val;\n  TreeNode left;\n  TreeNode right;\n\n  TreeNode() {}\n  TreeNode(int val) { this.val = val; }\n  TreeNode(int val, TreeNode left, TreeNode right) {\n    this.val = val;\n    this.left = left;\n    this.right = right;\n  }\n}\n\nclass BSTIterator {\n  private final List<Integer> values = new ArrayList<>();\n  private int index = 0;\n\n  public BSTIterator(TreeNode root) {\n    inorder(root);\n  }\n\n  public int next() {\n    return values.get(index++);\n  }\n\n  public boolean hasNext() {\n    return index < values.size();\n  }\n\n  private void inorder(TreeNode node) {\n    if (node == null) return;\n    inorder(node.left);\n    values.add(node.val);\n    inorder(node.right);\n  }\n}",
+      "optimizedComplexity": "Constructor Time O(h), next Amortized O(1), hasNext O(1), Space O(h). Lazy stack stores only the path.",
+      "recursiveComplexity": "Constructor Time O(n), next O(1), hasNext O(1), Space O(n). Recursive inorder precomputes values.",
+      "source": {
+        "label": "Binary Search Tree Iterator - LeetCode 173",
+        "url": "https://leetcode.com/problems/binary-search-tree-iterator/"
+      }
+    }
+  ]
+}

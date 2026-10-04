@@ -1,0 +1,608 @@
+{
+  "id": "tries",
+  "name": "Trie",
+  "sourceUrl": "https://maurya29.github.io/DSA-Pattern-Workbook/pages/tries.html",
+  "retrievedOn": "2026-10-04",
+  "problems": [
+    {
+      "name": "Implement Trie Prefix Tree",
+      "question": "Design a trie that supports inserting words, searching complete words, and checking whether any word starts with a given prefix.",
+      "constraints": "1 <= word.length, prefix.length <= 2000; calls contain lowercase English letters; at most 30000 operations.",
+      "examples": [
+        {
+          "input": "insert(\"apple\"), search(\"apple\"), search(\"app\"), startsWith(\"app\")",
+          "output": "true, false, true",
+          "explanation": "app is only a prefix until it is inserted."
+        },
+        {
+          "input": "insert(\"app\"), search(\"app\")",
+          "output": "true",
+          "explanation": "The terminal flag is set on the app node."
+        },
+        {
+          "input": "startsWith(\"banana\") on empty trie",
+          "output": "false",
+          "explanation": "The first character path is missing."
+        }
+      ],
+      "optimizedCode": "class Trie {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  private final Node root = new Node();\n\n  public void insert(String word) {\n    Node node = root;\n    for (char ch : word.toCharArray()) {\n      int index = ch - 'a';\n      if (node.next[index] == null) node.next[index] = new Node();\n      node = node.next[index];\n    }\n    node.word = true;\n  }\n\n  public boolean search(String word) {\n    Node node = find(word);\n    return node != null && node.word;\n  }\n\n  public boolean startsWith(String prefix) {\n    return find(prefix) != null;\n  }\n\n  private Node find(String text) {\n    Node node = root;\n    for (char ch : text.toCharArray()) {\n      node = node.next[ch - 'a'];\n      if (node == null) return null;\n    }\n    return node;\n  }\n}",
+      "recursiveCode": "class Trie {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  private final Node root = new Node();\n\n  public void insert(String word) {\n    insert(root, word, 0);\n  }\n\n  public boolean search(String word) {\n    Node node = find(root, word, 0);\n    return node != null && node.word;\n  }\n\n  public boolean startsWith(String prefix) {\n    return find(root, prefix, 0) != null;\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index == word.length()) {\n      node.word = true;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1);\n  }\n\n  private Node find(Node node, String text, int index) {\n    if (node == null || index == text.length()) return node;\n    return find(node.next[text.charAt(index) - 'a'], text, index + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(L) per operation; Space O(total characters). Each character moves one trie edge.",
+      "recursiveComplexity": "Time O(L) per operation; Space O(L) call stack. Recursive helpers process one character per call.",
+      "source": {
+        "label": "Implement Trie Prefix Tree - LeetCode 208",
+        "url": "https://leetcode.com/problems/implement-trie-prefix-tree/"
+      }
+    },
+    {
+      "name": "Design Add and Search Words Data Structure",
+      "question": "Design a data structure that adds lowercase words and searches words where dot can match any one letter.",
+      "constraints": "1 <= word.length <= 25; calls contain lowercase letters and dots in search; at most 10000 calls.",
+      "examples": [
+        {
+          "input": "addWord(\"bad\"), addWord(\"dad\"), search(\"pad\")",
+          "output": "false",
+          "explanation": "No stored word matches pad."
+        },
+        {
+          "input": "search(\".ad\")",
+          "output": "true",
+          "explanation": "The dot can match b or d."
+        },
+        {
+          "input": "search(\"b..\")",
+          "output": "true",
+          "explanation": "Both dots match the remaining letters of bad."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass WordDictionary {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  private final Node root = new Node();\n\n  public void addWord(String word) {\n    Node node = root;\n    for (char ch : word.toCharArray()) {\n      int index = ch - 'a';\n      if (node.next[index] == null) node.next[index] = new Node();\n      node = node.next[index];\n    }\n    node.word = true;\n  }\n\n  public boolean search(String pattern) {\n    Deque<State> stack = new ArrayDeque<>();\n    stack.push(new State(root, 0));\n    while (!stack.isEmpty()) {\n      State state = stack.pop();\n      if (state.index == pattern.length()) {\n        if (state.node.word) return true;\n        continue;\n      }\n      char ch = pattern.charAt(state.index);\n      if (ch == '.') {\n        for (Node child : state.node.next) {\n          if (child != null) stack.push(new State(child, state.index + 1));\n        }\n      } else {\n        Node child = state.node.next[ch - 'a'];\n        if (child != null) stack.push(new State(child, state.index + 1));\n      }\n    }\n    return false;\n  }\n\n  private static class State {\n    Node node;\n    int index;\n    State(Node node, int index) { this.node = node; this.index = index; }\n  }\n}",
+      "recursiveCode": "class WordDictionary {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  private final Node root = new Node();\n\n  public void addWord(String word) {\n    Node node = root;\n    for (char ch : word.toCharArray()) {\n      int index = ch - 'a';\n      if (node.next[index] == null) node.next[index] = new Node();\n      node = node.next[index];\n    }\n    node.word = true;\n  }\n\n  public boolean search(String word) {\n    return dfs(root, word, 0);\n  }\n\n  private boolean dfs(Node node, String word, int index) {\n    if (node == null) return false;\n    if (index == word.length()) return node.word;\n\n    char ch = word.charAt(index);\n    if (ch != '.') return dfs(node.next[ch - 'a'], word, index + 1);\n    for (Node child : node.next) {\n      if (child != null && dfs(child, word, index + 1)) return true;\n    }\n    return false;\n  }\n}",
+      "optimizedComplexity": "Time add O(L), search O(26^d * L) worst case where d is wildcard count; Space O(total characters).",
+      "recursiveComplexity": "Time add O(L), search O(26^d * L); Space O(L) call stack for one search path.",
+      "source": {
+        "label": "Design Add and Search Words - LeetCode 211",
+        "url": "https://leetcode.com/problems/design-add-and-search-words-data-structure/"
+      }
+    },
+    {
+      "name": "Word Search II",
+      "question": "Given a board of letters and a list of words, return every word that can be formed by adjacent horizontal or vertical cells without reusing a cell.",
+      "constraints": "1 <= board rows, cols <= 12; 1 <= words.length <= 30000; words contain lowercase English letters.",
+      "examples": [
+        {
+          "input": "board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]",
+          "output": "[\"oath\",\"eat\"]",
+          "explanation": "Only oath and eat can be formed on valid adjacent paths."
+        },
+        {
+          "input": "board = [[\"a\",\"b\"],[\"c\",\"d\"]], words = [\"abcb\"]",
+          "output": "[]",
+          "explanation": "The path would need to reuse b."
+        },
+        {
+          "input": "board = [[\"a\"]], words = [\"a\"]",
+          "output": "[\"a\"]",
+          "explanation": "The single cell forms the word."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    String word;\n  }\n\n  public List<String> findWords(char[][] board, String[] words) {\n    Node root = build(words);\n    Set<String> found = new LinkedHashSet<>();\n    for (int r = 0; r < board.length; r++) {\n      for (int c = 0; c < board[0].length; c++) {\n        collect(board, r, c, root, found);\n      }\n    }\n    return new ArrayList<>(found);\n  }\n\n  private Node build(String[] words) {\n    Node root = new Node();\n    for (String word : words) {\n      Node node = root;\n      for (char ch : word.toCharArray()) {\n        int index = ch - 'a';\n        if (node.next[index] == null) node.next[index] = new Node();\n        node = node.next[index];\n      }\n      node.word = word;\n    }\n    return root;\n  }\n\n  private void collect(char[][] board, int r, int c, Node node, Set<String> found) {\n    if (r < 0 || c < 0 || r == board.length || c == board[0].length) return;\n    char ch = board[r][c];\n    if (ch == '#' || node.next[ch - 'a'] == null) return;\n\n    Node next = node.next[ch - 'a'];\n    if (next.word != null) found.add(next.word);\n    board[r][c] = '#';\n    collect(board, r + 1, c, next, found);\n    collect(board, r - 1, c, next, found);\n    collect(board, r, c + 1, next, found);\n    collect(board, r, c - 1, next, found);\n    board[r][c] = ch;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    String word;\n  }\n\n  public List<String> findWords(char[][] board, String[] words) {\n    Node root = new Node();\n    insertAll(root, words, 0);\n    List<String> answer = new ArrayList<>();\n    for (int r = 0; r < board.length; r++) {\n      for (int c = 0; c < board[0].length; c++) {\n        dfs(board, r, c, root, answer);\n      }\n    }\n    return answer;\n  }\n\n  private void insertAll(Node root, String[] words, int index) {\n    if (index == words.length) return;\n    insert(root, words[index], 0, words[index]);\n    insertAll(root, words, index + 1);\n  }\n\n  private void insert(Node node, String word, int index, String full) {\n    if (index == word.length()) {\n      node.word = full;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1, full);\n  }\n\n  private void dfs(char[][] board, int r, int c, Node node, List<String> answer) {\n    if (r < 0 || c < 0 || r == board.length || c == board[0].length) return;\n    char ch = board[r][c];\n    if (ch == '#' || node.next[ch - 'a'] == null) return;\n    Node next = node.next[ch - 'a'];\n    if (next.word != null) {\n      answer.add(next.word);\n      next.word = null;\n    }\n    board[r][c] = '#';\n    dfs(board, r + 1, c, next, answer);\n    dfs(board, r - 1, c, next, answer);\n    dfs(board, r, c + 1, next, answer);\n    dfs(board, r, c - 1, next, answer);\n    board[r][c] = ch;\n  }\n}",
+      "optimizedComplexity": "Time O(mn * 4^L) with prefix pruning; Space O(total word characters). Trie nodes cut dead paths early.",
+      "recursiveComplexity": "Time O(mn * 4^L) with trie pruning; Space O(total word characters + L) including recursion stack.",
+      "source": {
+        "label": "Word Search II - LeetCode 212",
+        "url": "https://leetcode.com/problems/word-search-ii/"
+      }
+    },
+    {
+      "name": "Replace Words",
+      "question": "Given dictionary roots and a sentence, replace each word with the shortest root that is its prefix when such a root exists.",
+      "constraints": "1 <= dictionary.length <= 1000; 1 <= sentence.length <= 100000; words contain lowercase English letters.",
+      "examples": [
+        {
+          "input": "dictionary = [\"cat\",\"bat\",\"rat\"], sentence = \"the cattle was rattled by the battery\"",
+          "output": "\"the cat was rat by the bat\"",
+          "explanation": "cattle, rattled, and battery use their shortest roots."
+        },
+        {
+          "input": "dictionary = [\"a\",\"aa\",\"aaa\"], sentence = \"a aa aaaa\"",
+          "output": "\"a a a\"",
+          "explanation": "The shortest root a wins each time."
+        },
+        {
+          "input": "dictionary = [\"x\"], sentence = \"hello world\"",
+          "output": "\"hello world\"",
+          "explanation": "No word has x as a prefix."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  public String replaceWords(List<String> dictionary, String sentence) {\n    Node root = new Node();\n    for (String word : dictionary) insert(root, word);\n\n    String[] words = sentence.split(\" \");\n    for (int i = 0; i < words.length; i++) {\n      words[i] = shortestRoot(root, words[i]);\n    }\n    return String.join(\" \", words);\n  }\n\n  private void insert(Node root, String word) {\n    Node node = root;\n    for (char ch : word.toCharArray()) {\n      int index = ch - 'a';\n      if (node.next[index] == null) node.next[index] = new Node();\n      node = node.next[index];\n    }\n    node.word = true;\n  }\n\n  private String shortestRoot(Node root, String word) {\n    Node node = root;\n    StringBuilder prefix = new StringBuilder();\n    for (char ch : word.toCharArray()) {\n      int index = ch - 'a';\n      if (node.next[index] == null) return word;\n      prefix.append(ch);\n      node = node.next[index];\n      if (node.word) return prefix.toString();\n    }\n    return word;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  public String replaceWords(List<String> dictionary, String sentence) {\n    Node root = new Node();\n    for (String word : dictionary) insert(root, word, 0);\n    String[] words = sentence.split(\" \");\n    replace(words, 0, root);\n    return String.join(\" \", words);\n  }\n\n  private void replace(String[] words, int index, Node root) {\n    if (index == words.length) return;\n    String match = find(root, words[index], 0);\n    if (match != null) words[index] = match;\n    replace(words, index + 1, root);\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index == word.length()) {\n      node.word = true;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1);\n  }\n\n  private String find(Node node, String word, int index) {\n    if (node.word) return word.substring(0, index);\n    if (index == word.length()) return null;\n    Node child = node.next[word.charAt(index) - 'a'];\n    if (child == null) return null;\n    return find(child, word, index + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(total root chars + sentence chars); Space O(total root chars). Trie lookup stops at shortest terminal root.",
+      "recursiveComplexity": "Time O(total root chars + sentence chars); Space O(total root chars + L) including recursion stack.",
+      "source": {
+        "label": "Replace Words - LeetCode 648",
+        "url": "https://leetcode.com/problems/replace-words/"
+      }
+    },
+    {
+      "name": "Map Sum Pairs",
+      "question": "Design a structure that inserts key-value pairs and returns the sum of values of all keys with a given prefix.",
+      "constraints": "1 <= key.length, prefix.length <= 50; 1 <= val <= 1000; at most 50 operations in the original problem.",
+      "examples": [
+        {
+          "input": "insert(\"apple\", 3), sum(\"ap\")",
+          "output": "3",
+          "explanation": "apple contributes 3 to prefix ap."
+        },
+        {
+          "input": "insert(\"app\", 2), sum(\"ap\")",
+          "output": "5",
+          "explanation": "apple and app both match ap."
+        },
+        {
+          "input": "insert(\"apple\", 2), sum(\"apple\")",
+          "output": "2",
+          "explanation": "Overwriting apple changes its contribution from 3 to 2."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass MapSum {\n  private static class Node {\n    Node[] next = new Node[26];\n    int sum;\n  }\n\n  private final Node root = new Node();\n  private final Map<String, Integer> values = new HashMap<>();\n\n  public void insert(String key, int val) {\n    int delta = val - values.getOrDefault(key, 0);\n    values.put(key, val);\n    Node node = root;\n    node.sum += delta;\n    for (char ch : key.toCharArray()) {\n      int index = ch - 'a';\n      if (node.next[index] == null) node.next[index] = new Node();\n      node = node.next[index];\n      node.sum += delta;\n    }\n  }\n\n  public int sum(String prefix) {\n    Node node = root;\n    for (char ch : prefix.toCharArray()) {\n      node = node.next[ch - 'a'];\n      if (node == null) return 0;\n    }\n    return node.sum;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass MapSum {\n  private static class Node {\n    Node[] next = new Node[26];\n    int sum;\n  }\n\n  private final Node root = new Node();\n  private final Map<String, Integer> values = new HashMap<>();\n\n  public void insert(String key, int val) {\n    int delta = val - values.getOrDefault(key, 0);\n    values.put(key, val);\n    add(root, key, 0, delta);\n  }\n\n  public int sum(String prefix) {\n    Node node = find(root, prefix, 0);\n    return node == null ? 0 : node.sum;\n  }\n\n  private void add(Node node, String key, int index, int delta) {\n    node.sum += delta;\n    if (index == key.length()) return;\n    int child = key.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    add(node.next[child], key, index + 1, delta);\n  }\n\n  private Node find(Node node, String prefix, int index) {\n    if (node == null || index == prefix.length()) return node;\n    return find(node.next[prefix.charAt(index) - 'a'], prefix, index + 1);\n  }\n}",
+      "optimizedComplexity": "Time insert O(L), sum O(P); Space O(total key chars). Each trie node stores the aggregate prefix sum.",
+      "recursiveComplexity": "Time insert O(L), sum O(P); Space O(L) call stack for update and lookup.",
+      "source": {
+        "label": "Map Sum Pairs - LeetCode 677",
+        "url": "https://leetcode.com/problems/map-sum-pairs/"
+      }
+    },
+    {
+      "name": "Longest Word in Dictionary",
+      "question": "Given a list of words, return the longest word that can be built one character at a time by other words in the list. Return the lexicographically smallest answer on ties.",
+      "constraints": "1 <= words.length <= 1000; 1 <= words[i].length <= 30; words contain lowercase English letters.",
+      "examples": [
+        {
+          "input": "words = [\"w\",\"wo\",\"wor\",\"worl\",\"world\"]",
+          "output": "\"world\"",
+          "explanation": "Every prefix of world is present."
+        },
+        {
+          "input": "words = [\"a\",\"banana\",\"app\",\"appl\",\"ap\",\"apply\",\"apple\"]",
+          "output": "\"apple\"",
+          "explanation": "apple and apply have length 5; apple is lexicographically smaller."
+        },
+        {
+          "input": "words = [\"abc\",\"bc\"]",
+          "output": "\"\"",
+          "explanation": "No word can be built from single-character prefixes."
+        }
+      ],
+      "optimizedCode": "class Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    String word;\n  }\n\n  public String longestWord(String[] words) {\n    Node root = new Node();\n    for (String word : words) insert(root, word);\n\n    String best = \"\";\n    java.util.Deque<Node> stack = new java.util.ArrayDeque<>();\n    stack.push(root);\n    while (!stack.isEmpty()) {\n      Node node = stack.pop();\n      if (node.word != null && better(node.word, best)) best = node.word;\n      for (int i = 25; i >= 0; i--) {\n        Node child = node.next[i];\n        if (child != null && child.word != null) stack.push(child);\n      }\n    }\n    return best;\n  }\n\n  private void insert(Node root, String word) {\n    Node node = root;\n    for (char ch : word.toCharArray()) {\n      int index = ch - 'a';\n      if (node.next[index] == null) node.next[index] = new Node();\n      node = node.next[index];\n    }\n    node.word = word;\n  }\n\n  private boolean better(String word, String best) {\n    return word.length() > best.length()\n        || (word.length() == best.length() && word.compareTo(best) < 0);\n  }\n}",
+      "recursiveCode": "class Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    String word;\n  }\n\n  public String longestWord(String[] words) {\n    Node root = new Node();\n    for (String word : words) insert(root, word, 0, word);\n    return dfs(root, \"\");\n  }\n\n  private void insert(Node node, String word, int index, String full) {\n    if (index == word.length()) {\n      node.word = full;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1, full);\n  }\n\n  private String dfs(Node node, String best) {\n    if (node.word != null && isBetter(node.word, best)) best = node.word;\n    for (int i = 0; i < 26; i++) {\n      Node child = node.next[i];\n      if (child != null && child.word != null) best = dfs(child, best);\n    }\n    return best;\n  }\n\n  private boolean isBetter(String word, String best) {\n    return word.length() > best.length()\n        || (word.length() == best.length() && word.compareTo(best) < 0);\n  }\n}",
+      "optimizedComplexity": "Time O(nL + nodes); Space O(nL). Trie DFS visits only terminal-prefix paths.",
+      "recursiveComplexity": "Time O(nL + nodes); Space O(nL + L). Recursive DFS builds candidates through terminal nodes.",
+      "source": {
+        "label": "Longest Word in Dictionary - LeetCode 720",
+        "url": "https://leetcode.com/problems/longest-word-in-dictionary/"
+      }
+    },
+    {
+      "name": "Stream of Characters",
+      "question": "Design a stream checker that receives one character at a time and returns true if any suffix of the stream equals a dictionary word.",
+      "constraints": "1 <= words.length <= 2000; 1 <= words[i].length <= 200; at most 40000 query calls.",
+      "examples": [
+        {
+          "input": "words = [\"cd\",\"f\",\"kl\"], queries = a,b,c,d",
+          "output": "false,false,false,true",
+          "explanation": "The suffix cd appears after reading d."
+        },
+        {
+          "input": "queries continue with f",
+          "output": "true",
+          "explanation": "The single-character word f matches the latest suffix."
+        },
+        {
+          "input": "queries end with k,l",
+          "output": "false,true",
+          "explanation": "The suffix kl matches after reading l."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass StreamChecker {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  private final Node root = new Node();\n  private final Deque<Character> stream = new ArrayDeque<>();\n  private int maxLength = 0;\n\n  public StreamChecker(String[] words) {\n    for (String word : words) {\n      maxLength = Math.max(maxLength, word.length());\n      Node node = root;\n      for (int i = word.length() - 1; i >= 0; i--) {\n        int index = word.charAt(i) - 'a';\n        if (node.next[index] == null) node.next[index] = new Node();\n        node = node.next[index];\n      }\n      node.word = true;\n    }\n  }\n\n  public boolean query(char letter) {\n    stream.addFirst(letter);\n    if (stream.size() > maxLength) stream.removeLast();\n    Node node = root;\n    for (char ch : stream) {\n      node = node.next[ch - 'a'];\n      if (node == null) return false;\n      if (node.word) return true;\n    }\n    return false;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass StreamChecker {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  private final Node root = new Node();\n  private final StringBuilder stream = new StringBuilder();\n  private int maxLength = 0;\n\n  public StreamChecker(String[] words) {\n    for (String word : words) {\n      maxLength = Math.max(maxLength, word.length());\n      insert(root, word, word.length() - 1);\n    }\n  }\n\n  public boolean query(char letter) {\n    stream.append(letter);\n    if (stream.length() > maxLength) stream.deleteCharAt(0);\n    return search(root, stream.length() - 1);\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index < 0) {\n      node.word = true;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index - 1);\n  }\n\n  private boolean search(Node node, int index) {\n    if (node.word) return true;\n    if (index < 0) return false;\n    Node child = node.next[stream.charAt(index) - 'a'];\n    return child != null && search(child, index - 1);\n  }\n}",
+      "optimizedComplexity": "Time O(max word length) per query; Space O(total word chars + max word length). Reverse trie stops at first broken suffix.",
+      "recursiveComplexity": "Time O(max word length) per query; Space O(total word chars + max word length) including recursion.",
+      "source": {
+        "label": "Stream of Characters - LeetCode 1032",
+        "url": "https://leetcode.com/problems/stream-of-characters/"
+      }
+    },
+    {
+      "name": "Search Suggestions System",
+      "question": "Given product names and a search word, return up to three lexicographically smallest product suggestions after each typed character.",
+      "constraints": "1 <= products.length <= 1000; 1 <= products[i].length, searchWord.length <= 3000 total input size.",
+      "examples": [
+        {
+          "input": "products = [\"mobile\",\"mouse\",\"moneypot\",\"monitor\",\"mousepad\"], searchWord = \"mouse\"",
+          "output": "[[\"mobile\",\"moneypot\",\"monitor\"],[\"mobile\",\"moneypot\",\"monitor\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"]]",
+          "explanation": "Suggestions shrink as the prefix becomes more specific."
+        },
+        {
+          "input": "products = [\"havana\"], searchWord = \"havana\"",
+          "output": "[[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"]]",
+          "explanation": "The only product matches every prefix."
+        },
+        {
+          "input": "products = [\"bags\",\"baggage\",\"banner\",\"box\",\"cloths\"], searchWord = \"bags\"",
+          "output": "[[\"baggage\",\"bags\",\"banner\"],[\"baggage\",\"bags\",\"banner\"],[\"baggage\",\"bags\"],[\"bags\"]]",
+          "explanation": "Each prefix returns up to three sorted matches."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    List<String> suggestions = new ArrayList<>();\n  }\n\n  public List<List<String>> suggestedProducts(String[] products, String searchWord) {\n    Arrays.sort(products);\n    Node root = new Node();\n    for (String product : products) insert(root, product);\n\n    List<List<String>> answer = new ArrayList<>();\n    Node node = root;\n    for (char ch : searchWord.toCharArray()) {\n      if (node != null) node = node.next[ch - 'a'];\n      answer.add(node == null ? new ArrayList<>() : new ArrayList<>(node.suggestions));\n    }\n    return answer;\n  }\n\n  private void insert(Node root, String product) {\n    Node node = root;\n    for (char ch : product.toCharArray()) {\n      int index = ch - 'a';\n      if (node.next[index] == null) node.next[index] = new Node();\n      node = node.next[index];\n      if (node.suggestions.size() < 3) node.suggestions.add(product);\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    String word;\n  }\n\n  public List<List<String>> suggestedProducts(String[] products, String searchWord) {\n    Node root = new Node();\n    for (String product : products) insert(root, product, 0);\n    List<List<String>> answer = new ArrayList<>();\n    Node node = root;\n    for (char ch : searchWord.toCharArray()) {\n      node = node == null ? null : node.next[ch - 'a'];\n      List<String> list = new ArrayList<>();\n      collect(node, list);\n      answer.add(list);\n    }\n    return answer;\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index == word.length()) {\n      node.word = word;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1);\n  }\n\n  private void collect(Node node, List<String> list) {\n    if (node == null || list.size() == 3) return;\n    if (node.word != null) list.add(node.word);\n    for (int i = 0; i < 26 && list.size() < 3; i++) collect(node.next[i], list);\n  }\n}",
+      "optimizedComplexity": "Time O(nL log n + S); Space O(nL). Trie nodes store at most three sorted suggestions while inserting sorted products.",
+      "recursiveComplexity": "Time O(nL + S * nodes under prefix); Space O(nL + L). DFS collects up to three words from each prefix node.",
+      "source": {
+        "label": "Search Suggestions System - LeetCode 1268",
+        "url": "https://leetcode.com/problems/search-suggestions-system/"
+      }
+    },
+    {
+      "name": "Maximum XOR of Two Numbers in an Array",
+      "question": "Given an integer array, return the maximum XOR value of any two numbers in the array.",
+      "constraints": "1 <= nums.length <= 200000; 0 <= nums[i] <= 2^31 - 1.",
+      "examples": [
+        {
+          "input": "nums = [3,10,5,25,2,8]",
+          "output": "28",
+          "explanation": "5 XOR 25 equals 28."
+        },
+        {
+          "input": "nums = [0]",
+          "output": "0",
+          "explanation": "Only one number exists."
+        },
+        {
+          "input": "nums = [14,70,53,83,49,91,36,80,92,51,66,70]",
+          "output": "127",
+          "explanation": "The best pair creates all seven lower bits as 1."
+        }
+      ],
+      "optimizedCode": "class Solution {\n  private static class Node {\n    Node[] next = new Node[2];\n  }\n\n  public int findMaximumXOR(int[] nums) {\n    Node root = new Node();\n    for (int num : nums) insert(root, num);\n\n    int best = 0;\n    for (int num : nums) {\n      Node node = root;\n      int value = 0;\n      for (int bit = 30; bit >= 0; bit--) {\n        int current = (num >>> bit) & 1;\n        int want = current ^ 1;\n        if (node.next[want] != null) {\n          value |= 1 << bit;\n          node = node.next[want];\n        } else {\n          node = node.next[current];\n        }\n      }\n      best = Math.max(best, value);\n    }\n    return best;\n  }\n\n  private void insert(Node root, int num) {\n    Node node = root;\n    for (int bit = 30; bit >= 0; bit--) {\n      int current = (num >>> bit) & 1;\n      if (node.next[current] == null) node.next[current] = new Node();\n      node = node.next[current];\n    }\n  }\n}",
+      "recursiveCode": "class Solution {\n  private static class Node {\n    Node[] next = new Node[2];\n  }\n\n  public int findMaximumXOR(int[] nums) {\n    Node root = new Node();\n    for (int num : nums) insert(root, num, 30);\n    int best = 0;\n    for (int num : nums) best = Math.max(best, query(root, num, 30));\n    return best;\n  }\n\n  private void insert(Node node, int num, int bit) {\n    if (bit < 0) return;\n    int current = (num >>> bit) & 1;\n    if (node.next[current] == null) node.next[current] = new Node();\n    insert(node.next[current], num, bit - 1);\n  }\n\n  private int query(Node node, int num, int bit) {\n    if (bit < 0) return 0;\n    int current = (num >>> bit) & 1;\n    int want = current ^ 1;\n    if (node.next[want] != null) {\n      return (1 << bit) | query(node.next[want], num, bit - 1);\n    }\n    return query(node.next[current], num, bit - 1);\n  }\n}",
+      "optimizedComplexity": "Time O(31n); Space O(31n). Each number inserts and queries one path in a binary trie.",
+      "recursiveComplexity": "Time O(31n); Space O(31n + 31). Recursive insert/query processes one bit per call.",
+      "source": {
+        "label": "Maximum XOR of Two Numbers - LeetCode 421",
+        "url": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/"
+      }
+    },
+    {
+      "name": "Palindrome Pairs",
+      "question": "Given unique words, return all index pairs [i, j] such that words[i] + words[j] is a palindrome.",
+      "constraints": "1 <= words.length <= 5000; 0 <= words[i].length <= 300; words are unique lowercase strings.",
+      "examples": [
+        {
+          "input": "words = [\"abcd\",\"dcba\",\"lls\",\"s\",\"sssll\"]",
+          "output": "[[0,1],[1,0],[3,2],[2,4]]",
+          "explanation": "Each listed concatenation is a palindrome."
+        },
+        {
+          "input": "words = [\"bat\",\"tab\",\"cat\"]",
+          "output": "[[0,1],[1,0]]",
+          "explanation": "bat+tab and tab+bat are palindromes."
+        },
+        {
+          "input": "words = [\"a\",\"\"]",
+          "output": "[[0,1],[1,0]]",
+          "explanation": "The empty string pairs with any palindrome word."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    int wordIndex = -1;\n    List<Integer> palindromeBelow = new ArrayList<>();\n  }\n\n  public List<List<Integer>> palindromePairs(String[] words) {\n    Node root = new Node();\n    for (int i = 0; i < words.length; i++) insert(root, words[i], i);\n\n    List<List<Integer>> answer = new ArrayList<>();\n    for (int i = 0; i < words.length; i++) search(root, words[i], i, answer);\n    return answer;\n  }\n\n  private void insert(Node root, String word, int index) {\n    Node node = root;\n    for (int i = word.length() - 1; i >= 0; i--) {\n      if (isPalindrome(word, 0, i)) node.palindromeBelow.add(index);\n      int child = word.charAt(i) - 'a';\n      if (node.next[child] == null) node.next[child] = new Node();\n      node = node.next[child];\n    }\n    node.wordIndex = index;\n    node.palindromeBelow.add(index);\n  }\n\n  private void search(Node root, String word, int index, List<List<Integer>> answer) {\n    Node node = root;\n    for (int i = 0; i < word.length(); i++) {\n      if (node.wordIndex != -1 && node.wordIndex != index && isPalindrome(word, i, word.length() - 1)) {\n        answer.add(Arrays.asList(index, node.wordIndex));\n      }\n      node = node.next[word.charAt(i) - 'a'];\n      if (node == null) return;\n    }\n    for (int other : node.palindromeBelow) {\n      if (other != index) answer.add(Arrays.asList(index, other));\n    }\n  }\n\n  private boolean isPalindrome(String word, int left, int right) {\n    while (left < right) if (word.charAt(left++) != word.charAt(right--)) return false;\n    return true;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    int wordIndex = -1;\n    List<Integer> palindromeBelow = new ArrayList<>();\n  }\n\n  public List<List<Integer>> palindromePairs(String[] words) {\n    Node root = new Node();\n    for (int i = 0; i < words.length; i++) insert(root, words[i], words[i].length() - 1, i);\n    List<List<Integer>> answer = new ArrayList<>();\n    for (int i = 0; i < words.length; i++) search(root, words[i], 0, i, answer);\n    return answer;\n  }\n\n  private void insert(Node node, String word, int index, int wordIndex) {\n    if (index < 0) {\n      node.wordIndex = wordIndex;\n      node.palindromeBelow.add(wordIndex);\n      return;\n    }\n    if (isPalindrome(word, 0, index)) node.palindromeBelow.add(wordIndex);\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index - 1, wordIndex);\n  }\n\n  private void search(Node node, String word, int index, int wordIndex, List<List<Integer>> answer) {\n    if (node == null) return;\n    if (index == word.length()) {\n      for (int other : node.palindromeBelow) if (other != wordIndex) answer.add(Arrays.asList(wordIndex, other));\n      return;\n    }\n    if (node.wordIndex != -1 && node.wordIndex != wordIndex && isPalindrome(word, index, word.length() - 1)) {\n      answer.add(Arrays.asList(wordIndex, node.wordIndex));\n    }\n    search(node.next[word.charAt(index) - 'a'], word, index + 1, wordIndex, answer);\n  }\n\n  private boolean isPalindrome(String word, int left, int right) {\n    while (left < right) if (word.charAt(left++) != word.charAt(right--)) return false;\n    return true;\n  }\n}",
+      "optimizedComplexity": "Time O(nL^2); Space O(nL). Reversed trie stores palindrome suffix candidates.",
+      "recursiveComplexity": "Time O(nL^2); Space O(nL + L). Recursive insertion and search process one character at a time.",
+      "source": {
+        "label": "Palindrome Pairs - LeetCode 336",
+        "url": "https://leetcode.com/problems/palindrome-pairs/"
+      }
+    },
+    {
+      "name": "Concatenated Words",
+      "question": "Given an array of words, return all words that are formed by concatenating at least two shorter words from the same array.",
+      "constraints": "1 <= words.length <= 10000; 0 <= words[i].length <= 30; lowercase English letters.",
+      "examples": [
+        {
+          "input": "words = [\"cat\",\"cats\",\"catsdogcats\",\"dog\",\"dogcatsdog\",\"hippopotamuses\",\"rat\",\"ratcatdogcat\"]",
+          "output": "[\"catsdogcats\",\"dogcatsdog\",\"ratcatdogcat\"]",
+          "explanation": "Each returned word is composed from shorter dictionary words."
+        },
+        {
+          "input": "words = [\"cat\",\"dog\",\"catdog\"]",
+          "output": "[\"catdog\"]",
+          "explanation": "catdog is cat + dog."
+        },
+        {
+          "input": "words = [\"a\",\"aa\",\"aaa\"]",
+          "output": "[\"aa\",\"aaa\"]",
+          "explanation": "aa is a+a and aaa can be a+aa."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  public List<String> findAllConcatenatedWordsInADict(String[] words) {\n    Arrays.sort(words, Comparator.comparingInt(String::length));\n    Node root = new Node();\n    List<String> answer = new ArrayList<>();\n    for (String word : words) {\n      if (word.length() == 0) continue;\n      if (canBuild(root, word)) answer.add(word);\n      insert(root, word);\n    }\n    return answer;\n  }\n\n  private boolean canBuild(Node root, String word) {\n    boolean[] dp = new boolean[word.length() + 1];\n    dp[0] = true;\n    for (int start = 0; start < word.length(); start++) {\n      if (!dp[start]) continue;\n      Node node = root;\n      for (int end = start; end < word.length(); end++) {\n        node = node.next[word.charAt(end) - 'a'];\n        if (node == null) break;\n        if (node.word) dp[end + 1] = true;\n      }\n    }\n    return dp[word.length()];\n  }\n\n  private void insert(Node root, String word) {\n    Node node = root;\n    for (char ch : word.toCharArray()) {\n      int child = ch - 'a';\n      if (node.next[child] == null) node.next[child] = new Node();\n      node = node.next[child];\n    }\n    node.word = true;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  public List<String> findAllConcatenatedWordsInADict(String[] words) {\n    Node root = new Node();\n    for (String word : words) if (!word.isEmpty()) insert(root, word, 0);\n    List<String> answer = new ArrayList<>();\n    for (String word : words) {\n      if (!word.isEmpty() && dfs(root, root, word, 0, 0, new Boolean[word.length() + 1][word.length() + 1])) {\n        answer.add(word);\n      }\n    }\n    return answer;\n  }\n\n  private boolean dfs(Node root, Node node, String word, int index, int count, Boolean[][] memo) {\n    if (index == word.length()) return node.word && count >= 1;\n    if (memo[index][count] != null) return memo[index][count];\n    Node child = node.next[word.charAt(index) - 'a'];\n    if (child == null) return memo[index][count] = false;\n    boolean ok = dfs(root, child, word, index + 1, count, memo);\n    if (child.word) ok |= dfs(root, root, word, index + 1, count + 1, memo);\n    return memo[index][count] = ok;\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index == word.length()) {\n      node.word = true;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(nL^2); Space O(nL + L). Trie DP follows only dictionary prefixes.",
+      "recursiveComplexity": "Time O(nL^2); Space O(nL + L). Memoized recursive trie segmentation stores start positions.",
+      "source": {
+        "label": "Concatenated Words - LeetCode 472",
+        "url": "https://leetcode.com/problems/concatenated-words/"
+      }
+    },
+    {
+      "name": "Word Squares",
+      "question": "Given same-length words, return all word squares where the kth row and kth column read the same string.",
+      "constraints": "1 <= words.length <= 1000; 1 <= words[i].length <= 5 in the original problem; words contain lowercase letters.",
+      "examples": [
+        {
+          "input": "words = [\"area\",\"lead\",\"wall\",\"lady\",\"ball\"]",
+          "output": "[[\"wall\",\"area\",\"lead\",\"lady\"],[\"ball\",\"area\",\"lead\",\"lady\"]]",
+          "explanation": "Rows and columns match for both squares."
+        },
+        {
+          "input": "words = [\"abat\",\"baba\",\"atan\",\"atal\"]",
+          "output": "[[\"baba\",\"abat\",\"baba\",\"atan\"],[\"baba\",\"abat\",\"baba\",\"atal\"]]",
+          "explanation": "The prefix trie finds valid row candidates."
+        },
+        {
+          "input": "words = [\"a\"]",
+          "output": "[[\"a\"]]",
+          "explanation": "A one-letter word forms a one-row square."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    List<String> words = new ArrayList<>();\n  }\n\n  public List<List<String>> wordSquares(String[] words) {\n    Node root = new Node();\n    for (String word : words) insert(root, word);\n    List<List<String>> answer = new ArrayList<>();\n    for (String word : words) {\n      List<String> square = new ArrayList<>();\n      square.add(word);\n      build(words[0].length(), root, square, answer);\n    }\n    return answer;\n  }\n\n  private void insert(Node root, String word) {\n    Node node = root;\n    node.words.add(word);\n    for (char ch : word.toCharArray()) {\n      int child = ch - 'a';\n      if (node.next[child] == null) node.next[child] = new Node();\n      node = node.next[child];\n      node.words.add(word);\n    }\n  }\n\n  private void build(int size, Node root, List<String> square, List<List<String>> answer) {\n    if (square.size() == size) {\n      answer.add(new ArrayList<>(square));\n      return;\n    }\n    int row = square.size();\n    StringBuilder prefix = new StringBuilder();\n    for (String word : square) prefix.append(word.charAt(row));\n    for (String candidate : candidates(root, prefix.toString())) {\n      square.add(candidate);\n      build(size, root, square, answer);\n      square.remove(square.size() - 1);\n    }\n  }\n\n  private List<String> candidates(Node root, String prefix) {\n    Node node = root;\n    for (char ch : prefix.toCharArray()) {\n      node = node.next[ch - 'a'];\n      if (node == null) return Collections.emptyList();\n    }\n    return node.words;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    List<String> words = new ArrayList<>();\n  }\n\n  public List<List<String>> wordSquares(String[] words) {\n    Node root = new Node();\n    insertAll(root, words, 0);\n    List<List<String>> answer = new ArrayList<>();\n    start(words, 0, root, answer);\n    return answer;\n  }\n\n  private void start(String[] words, int index, Node root, List<List<String>> answer) {\n    if (index == words.length) return;\n    List<String> square = new ArrayList<>();\n    square.add(words[index]);\n    dfs(words[index].length(), root, square, answer);\n    start(words, index + 1, root, answer);\n  }\n\n  private void dfs(int size, Node root, List<String> square, List<List<String>> answer) {\n    if (square.size() == size) {\n      answer.add(new ArrayList<>(square));\n      return;\n    }\n    String prefix = prefix(square, square.size(), 0, new StringBuilder()).toString();\n    for (String next : find(root, prefix, 0).words) {\n      square.add(next);\n      dfs(size, root, square, answer);\n      square.remove(square.size() - 1);\n    }\n  }\n\n  private StringBuilder prefix(List<String> square, int row, int index, StringBuilder out) {\n    if (index == square.size()) return out;\n    out.append(square.get(index).charAt(row));\n    return prefix(square, row, index + 1, out);\n  }\n\n  private Node find(Node node, String prefix, int index) {\n    if (node == null) return new Node();\n    if (index == prefix.length()) return node;\n    return find(node.next[prefix.charAt(index) - 'a'], prefix, index + 1);\n  }\n\n  private void insertAll(Node root, String[] words, int index) {\n    if (index == words.length) return;\n    insert(root, words[index], 0, words[index]);\n    insertAll(root, words, index + 1);\n  }\n\n  private void insert(Node node, String word, int index, String full) {\n    node.words.add(full);\n    if (index == word.length()) return;\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1, full);\n  }\n}",
+      "optimizedComplexity": "Time O(number of partial squares * candidate lookup); Space O(nk). Trie prefix lookup prunes invalid branches.",
+      "recursiveComplexity": "Time O(number of partial squares * candidate lookup); Space O(nk + k). Recursive backtracking stores current square.",
+      "source": {
+        "label": "Word Squares - LeetCode 425",
+        "url": "https://leetcode.com/problems/word-squares/"
+      }
+    },
+    {
+      "name": "Index Pairs of a String",
+      "question": "Given a text and a list of words, return all index pairs [i, j] where text substring i..j appears in words.",
+      "constraints": "1 <= text.length <= 100; 1 <= words.length <= 20; words and text contain lowercase English letters.",
+      "examples": [
+        {
+          "input": "text = \"thestoryofleetcodeandme\", words = [\"story\",\"fleet\",\"leetcode\"]",
+          "output": "[[3,7],[9,13],[10,17]]",
+          "explanation": "All matching substrings are returned in sorted order."
+        },
+        {
+          "input": "text = \"ababa\", words = [\"aba\",\"ab\"]",
+          "output": "[[0,1],[0,2],[2,3],[2,4]]",
+          "explanation": "Matches can overlap."
+        },
+        {
+          "input": "text = \"abc\", words = [\"d\"]",
+          "output": "[]",
+          "explanation": "No dictionary word appears."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  public int[][] indexPairs(String text, String[] words) {\n    Node root = new Node();\n    for (String word : words) insert(root, word);\n    List<int[]> pairs = new ArrayList<>();\n\n    for (int start = 0; start < text.length(); start++) {\n      Node node = root;\n      for (int end = start; end < text.length(); end++) {\n        node = node.next[text.charAt(end) - 'a'];\n        if (node == null) break;\n        if (node.word) pairs.add(new int[] {start, end});\n      }\n    }\n    return pairs.toArray(new int[pairs.size()][]);\n  }\n\n  private void insert(Node root, String word) {\n    Node node = root;\n    for (char ch : word.toCharArray()) {\n      int child = ch - 'a';\n      if (node.next[child] == null) node.next[child] = new Node();\n      node = node.next[child];\n    }\n    node.word = true;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  public int[][] indexPairs(String text, String[] words) {\n    Node root = new Node();\n    for (String word : words) insert(root, word, 0);\n    List<int[]> pairs = new ArrayList<>();\n    scanStarts(text, 0, root, pairs);\n    return pairs.toArray(new int[pairs.size()][]);\n  }\n\n  private void scanStarts(String text, int start, Node root, List<int[]> pairs) {\n    if (start == text.length()) return;\n    collect(text, start, start, root, pairs);\n    scanStarts(text, start + 1, root, pairs);\n  }\n\n  private void collect(String text, int start, int end, Node node, List<int[]> pairs) {\n    if (end == text.length()) return;\n    Node child = node.next[text.charAt(end) - 'a'];\n    if (child == null) return;\n    if (child.word) pairs.add(new int[] {start, end});\n    collect(text, start, end + 1, child, pairs);\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index == word.length()) {\n      node.word = true;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(n * maxWordLength); Space O(total word chars + P). Trie walk stops when the prefix fails.",
+      "recursiveComplexity": "Time O(n * maxWordLength); Space O(total word chars + maxWordLength + P). Recursive scan follows one path per start.",
+      "source": {
+        "label": "Index Pairs of a String - LeetCode 1065",
+        "url": "https://leetcode.com/problems/index-pairs-of-a-string/"
+      }
+    },
+    {
+      "name": "Prefix and Suffix Search",
+      "question": "Design WordFilter so f(prefix, suffix) returns the largest index of a word that starts with prefix and ends with suffix.",
+      "constraints": "1 <= words.length <= 15000; 1 <= words[i].length <= 10; at most 15000 queries.",
+      "examples": [
+        {
+          "input": "WordFilter([\"apple\"]), f(\"a\", \"e\")",
+          "output": "0",
+          "explanation": "apple starts with a and ends with e."
+        },
+        {
+          "input": "WordFilter([\"apple\",\"apply\"]), f(\"app\", \"ly\")",
+          "output": "1",
+          "explanation": "apply is the latest matching word."
+        },
+        {
+          "input": "f(\"b\", \"e\")",
+          "output": "-1",
+          "explanation": "No word has both constraints."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass WordFilter {\n  private static class Node {\n    Map<Character, Node> next = new HashMap<>();\n    int weight = -1;\n  }\n\n  private final Node root = new Node();\n\n  public WordFilter(String[] words) {\n    for (int weight = 0; weight < words.length; weight++) {\n      String word = words[weight];\n      for (int i = 0; i <= word.length(); i++) {\n        insert(word.substring(i) + \"{\" + word, weight);\n      }\n    }\n  }\n\n  public int f(String pref, String suff) {\n    Node node = root;\n    String key = suff + \"{\" + pref;\n    for (char ch : key.toCharArray()) {\n      node = node.next.get(ch);\n      if (node == null) return -1;\n    }\n    return node.weight;\n  }\n\n  private void insert(String key, int weight) {\n    Node node = root;\n    node.weight = weight;\n    for (char ch : key.toCharArray()) {\n      node = node.next.computeIfAbsent(ch, unused -> new Node());\n      node.weight = weight;\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass WordFilter {\n  private static class Node {\n    Map<Character, Node> next = new HashMap<>();\n    int weight = -1;\n  }\n\n  private final Node root = new Node();\n\n  public WordFilter(String[] words) {\n    for (int weight = 0; weight < words.length; weight++) addSuffixes(words[weight], 0, weight);\n  }\n\n  public int f(String pref, String suff) {\n    Node node = find(root, suff + \"{\" + pref, 0);\n    return node == null ? -1 : node.weight;\n  }\n\n  private void addSuffixes(String word, int start, int weight) {\n    if (start > word.length()) return;\n    insert(root, word.substring(start) + \"{\" + word, 0, weight);\n    addSuffixes(word, start + 1, weight);\n  }\n\n  private void insert(Node node, String key, int index, int weight) {\n    node.weight = weight;\n    if (index == key.length()) return;\n    char ch = key.charAt(index);\n    node.next.putIfAbsent(ch, new Node());\n    insert(node.next.get(ch), key, index + 1, weight);\n  }\n\n  private Node find(Node node, String key, int index) {\n    if (node == null || index == key.length()) return node;\n    return find(node.next.get(key.charAt(index)), key, index + 1);\n  }\n}",
+      "optimizedComplexity": "Time constructor O(nL^2), query O(P + S); Space O(nL^2). Combined trie stores every suffix separator word path.",
+      "recursiveComplexity": "Time constructor O(nL^2), query O(P + S); Space O(nL^2 + L). Recursive trie insert/find follows combined keys.",
+      "source": {
+        "label": "Prefix and Suffix Search - LeetCode 745",
+        "url": "https://leetcode.com/problems/prefix-and-suffix-search/"
+      }
+    },
+    {
+      "name": "Implement Magic Dictionary",
+      "question": "Design a dictionary that supports building from words and searching whether a query can match a dictionary word after modifying exactly one character.",
+      "constraints": "1 <= dictionary.length <= 100; 1 <= word.length <= 100; searchWord contains lowercase English letters.",
+      "examples": [
+        {
+          "input": "buildDict([\"hello\",\"leetcode\"]), search(\"hello\")",
+          "output": "false",
+          "explanation": "Exactly one character must change."
+        },
+        {
+          "input": "search(\"hhllo\")",
+          "output": "true",
+          "explanation": "Changing e to h gives hello."
+        },
+        {
+          "input": "search(\"hell\")",
+          "output": "false",
+          "explanation": "Length must stay the same."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass MagicDictionary {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  private final Node root = new Node();\n\n  public void buildDict(String[] dictionary) {\n    for (String word : dictionary) {\n      Node node = root;\n      for (char ch : word.toCharArray()) {\n        int child = ch - 'a';\n        if (node.next[child] == null) node.next[child] = new Node();\n        node = node.next[child];\n      }\n      node.word = true;\n    }\n  }\n\n  public boolean search(String searchWord) {\n    Deque<State> stack = new ArrayDeque<>();\n    stack.push(new State(root, 0, 0));\n    while (!stack.isEmpty()) {\n      State state = stack.pop();\n      if (state.index == searchWord.length()) {\n        if (state.diff == 1 && state.node.word) return true;\n        continue;\n      }\n      int current = searchWord.charAt(state.index) - 'a';\n      for (int i = 0; i < 26; i++) {\n        if (state.node.next[i] == null) continue;\n        int nextDiff = state.diff + (i == current ? 0 : 1);\n        if (nextDiff <= 1) stack.push(new State(state.node.next[i], state.index + 1, nextDiff));\n      }\n    }\n    return false;\n  }\n\n  private static class State {\n    Node node;\n    int index;\n    int diff;\n    State(Node node, int index, int diff) { this.node = node; this.index = index; this.diff = diff; }\n  }\n}",
+      "recursiveCode": "class MagicDictionary {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  private final Node root = new Node();\n\n  public void buildDict(String[] dictionary) {\n    for (String word : dictionary) insert(root, word, 0);\n  }\n\n  public boolean search(String searchWord) {\n    return dfs(root, searchWord, 0, 0);\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index == word.length()) {\n      node.word = true;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1);\n  }\n\n  private boolean dfs(Node node, String word, int index, int diff) {\n    if (node == null || diff > 1) return false;\n    if (index == word.length()) return diff == 1 && node.word;\n    int current = word.charAt(index) - 'a';\n    for (int i = 0; i < 26; i++) {\n      if (dfs(node.next[i], word, index + 1, diff + (i == current ? 0 : 1))) return true;\n    }\n    return false;\n  }\n}",
+      "optimizedComplexity": "Time build O(nL), search O(26L) worst case; Space O(nL). Trie state tracks whether the modification was used.",
+      "recursiveComplexity": "Time build O(nL), search O(26L) worst case; Space O(nL + L). Recursive DFS tracks mismatch count.",
+      "source": {
+        "label": "Implement Magic Dictionary - LeetCode 676",
+        "url": "https://leetcode.com/problems/implement-magic-dictionary/"
+      }
+    },
+    {
+      "name": "Count Pairs With XOR in a Range",
+      "question": "Given nums, low, and high, count pairs i < j whose XOR value lies in the inclusive range [low, high].",
+      "constraints": "1 <= nums.length <= 20000; 1 <= nums[i] <= 20000; 1 <= low <= high <= 20000.",
+      "examples": [
+        {
+          "input": "nums = [1,4,2,7], low = 2, high = 6",
+          "output": "6",
+          "explanation": "Six index pairs have XOR in the target range."
+        },
+        {
+          "input": "nums = [9,8,4,2,1], low = 5, high = 14",
+          "output": "8",
+          "explanation": "Eight pairs satisfy the inclusive range."
+        },
+        {
+          "input": "nums = [1], low = 1, high = 1",
+          "output": "0",
+          "explanation": "No pair exists."
+        }
+      ],
+      "optimizedCode": "class Solution {\n  private static class Node {\n    Node[] next = new Node[2];\n    int count;\n  }\n\n  public int countPairs(int[] nums, int low, int high) {\n    Node root = new Node();\n    int answer = 0;\n    for (int num : nums) {\n      answer += countLess(root, num, high + 1) - countLess(root, num, low);\n      insert(root, num);\n    }\n    return answer;\n  }\n\n  private void insert(Node root, int num) {\n    Node node = root;\n    for (int bit = 14; bit >= 0; bit--) {\n      int current = (num >>> bit) & 1;\n      if (node.next[current] == null) node.next[current] = new Node();\n      node = node.next[current];\n      node.count++;\n    }\n  }\n\n  private int countLess(Node root, int num, int limit) {\n    Node node = root;\n    int count = 0;\n    for (int bit = 14; bit >= 0 && node != null; bit--) {\n      int current = (num >>> bit) & 1;\n      int bound = (limit >>> bit) & 1;\n      if (bound == 1) {\n        if (node.next[current] != null) count += node.next[current].count;\n        node = node.next[current ^ 1];\n      } else {\n        node = node.next[current];\n      }\n    }\n    return count;\n  }\n}",
+      "recursiveCode": "class Solution {\n  private static class Node {\n    Node[] next = new Node[2];\n    int count;\n  }\n\n  public int countPairs(int[] nums, int low, int high) {\n    Node root = new Node();\n    int answer = 0;\n    for (int num : nums) {\n      answer += countLess(root, num, high + 1, 14) - countLess(root, num, low, 14);\n      insert(root, num, 14);\n    }\n    return answer;\n  }\n\n  private void insert(Node node, int num, int bit) {\n    if (bit < 0) return;\n    int current = (num >>> bit) & 1;\n    if (node.next[current] == null) node.next[current] = new Node();\n    node.next[current].count++;\n    insert(node.next[current], num, bit - 1);\n  }\n\n  private int countLess(Node node, int num, int limit, int bit) {\n    if (node == null || bit < 0) return 0;\n    int current = (num >>> bit) & 1;\n    int bound = (limit >>> bit) & 1;\n    if (bound == 0) return countLess(node.next[current], num, limit, bit - 1);\n    int sameCount = node.next[current] == null ? 0 : node.next[current].count;\n    return sameCount + countLess(node.next[current ^ 1], num, limit, bit - 1);\n  }\n}",
+      "optimizedComplexity": "Time O(15n); Space O(15n). Binary trie counts prior values with XOR below each bound.",
+      "recursiveComplexity": "Time O(15n); Space O(15n + 15). Recursive query processes one bit per level.",
+      "source": {
+        "label": "Count Pairs With XOR in a Range - LeetCode 1803",
+        "url": "https://leetcode.com/problems/count-pairs-with-xor-in-a-range/"
+      }
+    },
+    {
+      "name": "Sum of Prefix Scores of Strings",
+      "question": "For each word, return the sum of counts of all its non-empty prefixes across the entire words array.",
+      "constraints": "1 <= words.length <= 1000; 1 <= words[i].length <= 1000; total characters <= 1000000.",
+      "examples": [
+        {
+          "input": "words = [\"abc\",\"ab\",\"bc\",\"b\"]",
+          "output": "[5,4,3,2]",
+          "explanation": "abc has prefix counts a=2, ab=2, abc=1 for total 5."
+        },
+        {
+          "input": "words = [\"abcd\"]",
+          "output": "[4]",
+          "explanation": "Each of its four prefixes appears once."
+        },
+        {
+          "input": "words = [\"a\",\"a\"]",
+          "output": "[2,2]",
+          "explanation": "The prefix a appears twice."
+        }
+      ],
+      "optimizedCode": "class Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    int count;\n  }\n\n  public int[] sumPrefixScores(String[] words) {\n    Node root = new Node();\n    for (String word : words) insert(root, word);\n\n    int[] answer = new int[words.length];\n    for (int i = 0; i < words.length; i++) {\n      Node node = root;\n      for (char ch : words[i].toCharArray()) {\n        node = node.next[ch - 'a'];\n        answer[i] += node.count;\n      }\n    }\n    return answer;\n  }\n\n  private void insert(Node root, String word) {\n    Node node = root;\n    for (char ch : word.toCharArray()) {\n      int child = ch - 'a';\n      if (node.next[child] == null) node.next[child] = new Node();\n      node = node.next[child];\n      node.count++;\n    }\n  }\n}",
+      "recursiveCode": "class Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    int count;\n  }\n\n  public int[] sumPrefixScores(String[] words) {\n    Node root = new Node();\n    for (String word : words) insert(root, word, 0);\n    int[] answer = new int[words.length];\n    fillScores(words, 0, root, answer);\n    return answer;\n  }\n\n  private void fillScores(String[] words, int index, Node root, int[] answer) {\n    if (index == words.length) return;\n    answer[index] = score(root, words[index], 0);\n    fillScores(words, index + 1, root, answer);\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index == word.length()) return;\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    node.next[child].count++;\n    insert(node.next[child], word, index + 1);\n  }\n\n  private int score(Node node, String word, int index) {\n    if (index == word.length()) return 0;\n    Node child = node.next[word.charAt(index) - 'a'];\n    return child.count + score(child, word, index + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(total characters); Space O(total characters). Trie nodes store prefix frequencies.",
+      "recursiveComplexity": "Time O(total characters); Space O(total characters + L). Recursive insert and score walk one character per level.",
+      "source": {
+        "label": "Sum of Prefix Scores of Strings - LeetCode 2416",
+        "url": "https://leetcode.com/problems/sum-of-prefix-scores-of-strings/"
+      }
+    },
+    {
+      "name": "Short Encoding of Words",
+      "question": "Given words, return the length of the shortest reference string that encodes every word as a suffix followed by #.",
+      "constraints": "1 <= words.length <= 2000; 1 <= words[i].length <= 7; words contain lowercase English letters.",
+      "examples": [
+        {
+          "input": "words = [\"time\",\"me\",\"bell\"]",
+          "output": "10",
+          "explanation": "time#bell# encodes me because me is a suffix of time."
+        },
+        {
+          "input": "words = [\"t\"]",
+          "output": "2",
+          "explanation": "The encoding is t#."
+        },
+        {
+          "input": "words = [\"me\",\"time\",\"ime\"]",
+          "output": "5",
+          "explanation": "time# also covers me and ime."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n  }\n\n  public int minimumLengthEncoding(String[] words) {\n    Set<String> unique = new HashSet<>(Arrays.asList(words));\n    Node root = new Node();\n    Map<Node, Integer> leafDepth = new HashMap<>();\n\n    for (String word : unique) {\n      Node node = root;\n      for (int i = word.length() - 1; i >= 0; i--) {\n        int child = word.charAt(i) - 'a';\n        if (node.next[child] == null) node.next[child] = new Node();\n        node = node.next[child];\n      }\n      leafDepth.put(node, word.length() + 1);\n    }\n\n    int total = 0;\n    for (Map.Entry<Node, Integer> entry : leafDepth.entrySet()) {\n      if (isLeaf(entry.getKey())) total += entry.getValue();\n    }\n    return total;\n  }\n\n  private boolean isLeaf(Node node) {\n    for (Node child : node.next) if (child != null) return false;\n    return true;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n  }\n\n  public int minimumLengthEncoding(String[] words) {\n    Node root = new Node();\n    Set<String> unique = new HashSet<>(Arrays.asList(words));\n    for (String word : unique) insert(root, word, word.length() - 1);\n    return length(root, 0);\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index < 0) return;\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index - 1);\n  }\n\n  private int length(Node node, int depth) {\n    boolean leaf = true;\n    int total = 0;\n    for (Node child : node.next) {\n      if (child != null) {\n        leaf = false;\n        total += length(child, depth + 1);\n      }\n    }\n    return leaf ? depth + 1 : total;\n  }\n}",
+      "optimizedComplexity": "Time O(nL); Space O(nL). Reverse trie counts only terminal leaves.",
+      "recursiveComplexity": "Time O(nL); Space O(nL + L). Recursive trie traversal sums leaf depths.",
+      "source": {
+        "label": "Short Encoding of Words - LeetCode 820",
+        "url": "https://leetcode.com/problems/short-encoding-of-words/"
+      }
+    },
+    {
+      "name": "Word Break with Trie",
+      "question": "Given a string and a dictionary, return true if the string can be segmented into one or more dictionary words.",
+      "constraints": "1 <= s.length <= 300; 1 <= wordDict.length <= 1000; words contain lowercase English letters.",
+      "examples": [
+        {
+          "input": "s = \"leetcode\", wordDict = [\"leet\",\"code\"]",
+          "output": "true",
+          "explanation": "leetcode splits into leet + code."
+        },
+        {
+          "input": "s = \"applepenapple\", wordDict = [\"apple\",\"pen\"]",
+          "output": "true",
+          "explanation": "Dictionary words may be reused."
+        },
+        {
+          "input": "s = \"catsandog\", wordDict = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]",
+          "output": "false",
+          "explanation": "No complete segmentation covers the string."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  public boolean wordBreak(String s, List<String> wordDict) {\n    Node root = new Node();\n    for (String word : wordDict) insert(root, word);\n    boolean[] dp = new boolean[s.length() + 1];\n    dp[0] = true;\n\n    for (int start = 0; start < s.length(); start++) {\n      if (!dp[start]) continue;\n      Node node = root;\n      for (int end = start; end < s.length(); end++) {\n        node = node.next[s.charAt(end) - 'a'];\n        if (node == null) break;\n        if (node.word) dp[end + 1] = true;\n      }\n    }\n    return dp[s.length()];\n  }\n\n  private void insert(Node root, String word) {\n    Node node = root;\n    for (char ch : word.toCharArray()) {\n      int child = ch - 'a';\n      if (node.next[child] == null) node.next[child] = new Node();\n      node = node.next[child];\n    }\n    node.word = true;\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass Solution {\n  private static class Node {\n    Node[] next = new Node[26];\n    boolean word;\n  }\n\n  public boolean wordBreak(String s, List<String> wordDict) {\n    Node root = new Node();\n    for (String word : wordDict) insert(root, word, 0);\n    Boolean[] memo = new Boolean[s.length()];\n    return canBreak(s, 0, root, memo);\n  }\n\n  private boolean canBreak(String s, int start, Node root, Boolean[] memo) {\n    if (start == s.length()) return true;\n    if (memo[start] != null) return memo[start];\n    Node node = root;\n    for (int end = start; end < s.length(); end++) {\n      node = node.next[s.charAt(end) - 'a'];\n      if (node == null) break;\n      if (node.word && canBreak(s, end + 1, root, memo)) return memo[start] = true;\n    }\n    return memo[start] = false;\n  }\n\n  private void insert(Node node, String word, int index) {\n    if (index == word.length()) {\n      node.word = true;\n      return;\n    }\n    int child = word.charAt(index) - 'a';\n    if (node.next[child] == null) node.next[child] = new Node();\n    insert(node.next[child], word, index + 1);\n  }\n}",
+      "optimizedComplexity": "Time O(nL); Space O(total word chars + n). Trie walk from reachable starts avoids unrelated dictionary words.",
+      "recursiveComplexity": "Time O(nL); Space O(total word chars + n). Memoized recursion stores failed start positions.",
+      "source": {
+        "label": "Word Break - LeetCode 139",
+        "url": "https://leetcode.com/problems/word-break/"
+      }
+    },
+    {
+      "name": "Design Search Autocomplete System",
+      "question": "Design an autocomplete system that returns the top three historical sentences for the current typed prefix, ranked by frequency then lexicographic order. Character # commits the current sentence.",
+      "constraints": "Sentences contain lowercase letters and spaces; times are positive; input is one lowercase letter, space, or #.",
+      "examples": [
+        {
+          "input": "sentences = [\"i love you\",\"island\",\"iroman\",\"i love leetcode\"], times = [5,3,2,2], input(\"i\")",
+          "output": "[\"i love you\",\"island\",\"i love leetcode\"]",
+          "explanation": "Top matches are ranked by count then lexicographic order."
+        },
+        {
+          "input": "input(\" \")",
+          "output": "[\"i love you\",\"i love leetcode\"]",
+          "explanation": "The prefix becomes \"i \"."
+        },
+        {
+          "input": "input(\"#\")",
+          "output": "[]",
+          "explanation": "The current sentence is committed and the buffer resets."
+        }
+      ],
+      "optimizedCode": "import java.util.*;\n\nclass AutocompleteSystem {\n  private static class Node {\n    Map<Character, Node> next = new HashMap<>();\n    Map<String, Integer> hot = new HashMap<>();\n  }\n\n  private final Node root = new Node();\n  private final StringBuilder current = new StringBuilder();\n  private Node node = root;\n\n  public AutocompleteSystem(String[] sentences, int[] times) {\n    for (int i = 0; i < sentences.length; i++) add(sentences[i], times[i]);\n  }\n\n  public List<String> input(char c) {\n    if (c == '#') {\n      add(current.toString(), 1);\n      current.setLength(0);\n      node = root;\n      return new ArrayList<>();\n    }\n\n    current.append(c);\n    node = node == null ? null : node.next.get(c);\n    if (node == null) return new ArrayList<>();\n\n    PriorityQueue<String> pq = new PriorityQueue<>((a, b) -> node.hot.get(a).equals(node.hot.get(b))\n        ? b.compareTo(a) : node.hot.get(a) - node.hot.get(b));\n    for (String sentence : node.hot.keySet()) {\n      pq.offer(sentence);\n      if (pq.size() > 3) pq.poll();\n    }\n    List<String> answer = new ArrayList<>();\n    while (!pq.isEmpty()) answer.add(pq.poll());\n    Collections.reverse(answer);\n    return answer;\n  }\n\n  private void add(String sentence, int delta) {\n    Node walk = root;\n    for (char ch : sentence.toCharArray()) {\n      walk = walk.next.computeIfAbsent(ch, unused -> new Node());\n      walk.hot.put(sentence, walk.hot.getOrDefault(sentence, 0) + delta);\n    }\n  }\n}",
+      "recursiveCode": "import java.util.*;\n\nclass AutocompleteSystem {\n  private static class Node {\n    Map<Character, Node> next = new HashMap<>();\n    String sentence;\n    int count;\n  }\n\n  private final Node root = new Node();\n  private final StringBuilder current = new StringBuilder();\n\n  public AutocompleteSystem(String[] sentences, int[] times) {\n    for (int i = 0; i < sentences.length; i++) add(root, sentences[i], 0, times[i]);\n  }\n\n  public List<String> input(char c) {\n    if (c == '#') {\n      add(root, current.toString(), 0, 1);\n      current.setLength(0);\n      return new ArrayList<>();\n    }\n    current.append(c);\n    Node node = find(root, current.toString(), 0);\n    List<Node> matches = new ArrayList<>();\n    collect(node, matches);\n    matches.sort((a, b) -> a.count == b.count ? a.sentence.compareTo(b.sentence) : b.count - a.count);\n    List<String> answer = new ArrayList<>();\n    for (int i = 0; i < Math.min(3, matches.size()); i++) answer.add(matches.get(i).sentence);\n    return answer;\n  }\n\n  private void add(Node node, String sentence, int index, int delta) {\n    if (index == sentence.length()) {\n      node.sentence = sentence;\n      node.count += delta;\n      return;\n    }\n    char ch = sentence.charAt(index);\n    node.next.putIfAbsent(ch, new Node());\n    add(node.next.get(ch), sentence, index + 1, delta);\n  }\n\n  private Node find(Node node, String prefix, int index) {\n    if (node == null || index == prefix.length()) return node;\n    return find(node.next.get(prefix.charAt(index)), prefix, index + 1);\n  }\n\n  private void collect(Node node, List<Node> matches) {\n    if (node == null) return;\n    if (node.sentence != null) matches.add(node);\n    for (Node child : node.next.values()) collect(child, matches);\n  }\n}",
+      "optimizedComplexity": "Time O(P + K log K) per query where K is candidates at the prefix; Space O(total sentence characters * prefix maps).",
+      "recursiveComplexity": "Time O(P + K log K) per query; Space O(total sentence characters + recursion depth). DFS collects candidates below the prefix node.",
+      "source": {
+        "label": "Design Search Autocomplete System - LeetCode 642",
+        "url": "https://leetcode.com/problems/design-search-autocomplete-system/"
+      }
+    }
+  ]
+}

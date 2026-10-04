@@ -1,0 +1,5792 @@
+[
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 1,
+    "title": "Maximum Depth of Binary Tree",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q01Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "maxDepth",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q01Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "maxDepth",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [3,9,20,null,null,15,7]",
+        "output": "3",
+        "explanation": "The longest root-to-leaf path has 3 nodes."
+      },
+      {
+        "input": "root = [1,null,2]",
+        "output": "2",
+        "explanation": "The right-skewed path has two nodes."
+      },
+      {
+        "input": "root = []",
+        "output": "0",
+        "explanation": "An empty tree has depth 0."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 2,
+    "title": "Same Tree",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q02Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isSameTree",
+            "parameters": "TreeNode p, TreeNode q"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q02Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isSameTree",
+            "parameters": "TreeNode p, TreeNode q"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "p = [1,2,3], q = [1,2,3]",
+        "output": "true",
+        "explanation": "Both structure and values match."
+      },
+      {
+        "input": "p = [1,2], q = [1,null,2]",
+        "output": "false",
+        "explanation": "The node positions differ."
+      },
+      {
+        "input": "p = [1,2,1], q = [1,1,2]",
+        "output": "false",
+        "explanation": "The same values are in different positions."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 3,
+    "title": "Invert Binary Tree",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q03Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "invertTree",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q03Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "invertTree",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [4,2,7,1,3,6,9]",
+        "output": "[4,7,2,9,6,3,1]",
+        "explanation": "All left and right child links are swapped."
+      },
+      {
+        "input": "root = [2,1,3]",
+        "output": "[2,3,1]",
+        "explanation": "The root children swap."
+      },
+      {
+        "input": "root = []",
+        "output": "[]",
+        "explanation": "The empty tree stays empty."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 4,
+    "title": "Binary Tree Level Order Traversal",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q04Optimized",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "levelOrder",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q04Recursive",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "levelOrder",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [3,9,20,null,null,15,7]",
+        "output": "[[3],[9,20],[15,7]]",
+        "explanation": "Values are grouped by depth."
+      },
+      {
+        "input": "root = [1]",
+        "output": "[[1]]",
+        "explanation": "One level contains the root."
+      },
+      {
+        "input": "root = []",
+        "output": "[]",
+        "explanation": "There are no levels."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 5,
+    "title": "Binary Tree Right Side View",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q05Optimized",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "rightSideView",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q05Recursive",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "rightSideView",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [1,2,3,null,5,null,4]",
+        "output": "[1,3,4]",
+        "explanation": "Nodes 1, 3, and 4 are rightmost by level."
+      },
+      {
+        "input": "root = [1,null,3]",
+        "output": "[1,3]",
+        "explanation": "The visible path follows the right child."
+      },
+      {
+        "input": "root = []",
+        "output": "[]",
+        "explanation": "No nodes are visible."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 6,
+    "title": "Diameter of Binary Tree",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q06Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "diameterOfBinaryTree",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q06Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "diameterOfBinaryTree",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [1,2,3,4,5]",
+        "output": "3",
+        "explanation": "The longest path is 4-2-1-3 or 5-2-1-3."
+      },
+      {
+        "input": "root = [1,2]",
+        "output": "1",
+        "explanation": "The only edge is the diameter."
+      },
+      {
+        "input": "root = [1]",
+        "output": "0",
+        "explanation": "A single node has no edge path."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 7,
+    "title": "Balanced Binary Tree",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q07Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isBalanced",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q07Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isBalanced",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [3,9,20,null,null,15,7]",
+        "output": "true",
+        "explanation": "Every subtree height difference is at most one."
+      },
+      {
+        "input": "root = [1,2,2,3,3,null,null,4,4]",
+        "output": "false",
+        "explanation": "The left subtree is too deep."
+      },
+      {
+        "input": "root = []",
+        "output": "true",
+        "explanation": "An empty tree is balanced."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 8,
+    "title": "Subtree of Another Tree",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q08Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isSubtree",
+            "parameters": "TreeNode root, TreeNode subRoot"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q08Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isSubtree",
+            "parameters": "TreeNode root, TreeNode subRoot"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [3,4,5,1,2], subRoot = [4,1,2]",
+        "output": "true",
+        "explanation": "The subtree rooted at 4 matches subRoot."
+      },
+      {
+        "input": "root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]",
+        "output": "false",
+        "explanation": "The extra 0 changes the structure."
+      },
+      {
+        "input": "root = [1], subRoot = [1]",
+        "output": "true",
+        "explanation": "The whole tree can be the subtree."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 9,
+    "title": "Lowest Common Ancestor of a Binary Tree",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q09Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "lowestCommonAncestor",
+            "parameters": "TreeNode root, TreeNode p, TreeNode q"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q09Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "lowestCommonAncestor",
+            "parameters": "TreeNode root, TreeNode p, TreeNode q"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1",
+        "output": "3",
+        "explanation": "The nodes are in different subtrees of 3."
+      },
+      {
+        "input": "same root, p = 5, q = 4",
+        "output": "5",
+        "explanation": "5 is an ancestor of 4."
+      },
+      {
+        "input": "root = [1,2], p = 1, q = 2",
+        "output": "1",
+        "explanation": "The root is an ancestor."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 10,
+    "title": "Binary Tree Maximum Path Sum",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q10Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "maxPathSum",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q10Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "maxPathSum",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [1,2,3]",
+        "output": "6",
+        "explanation": "The best path is 2 -> 1 -> 3."
+      },
+      {
+        "input": "root = [-10,9,20,null,null,15,7]",
+        "output": "42",
+        "explanation": "The best path is 15 -> 20 -> 7."
+      },
+      {
+        "input": "root = [-3]",
+        "output": "-3",
+        "explanation": "A path must contain at least one node."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 11,
+    "title": "Path Sum",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q11Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "hasPathSum",
+            "parameters": "TreeNode root, int targetSum"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q11Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "hasPathSum",
+            "parameters": "TreeNode root, int targetSum"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22",
+        "output": "true",
+        "explanation": "The path 5->4->11->2 sums to 22."
+      },
+      {
+        "input": "root = [1,2,3], targetSum = 5",
+        "output": "false",
+        "explanation": "No root-to-leaf path sums to 5."
+      },
+      {
+        "input": "root = [], targetSum = 0",
+        "output": "false",
+        "explanation": "An empty tree has no path."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 12,
+    "title": "Path Sum II",
+    "className": "TreesBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q12Optimized",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "pathSum",
+            "parameters": "TreeNode root, int targetSum"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q12Recursive",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "pathSum",
+            "parameters": "TreeNode root, int targetSum"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22",
+        "output": "[[5,4,11,2],[5,8,4,5]]",
+        "explanation": "Two root-to-leaf paths sum to 22."
+      },
+      {
+        "input": "root = [1,2,3], targetSum = 5",
+        "output": "[]",
+        "explanation": "No leaf path has sum 5."
+      },
+      {
+        "input": "root = [1,2], targetSum = 3",
+        "output": "[[1,2]]",
+        "explanation": "The only leaf path sums to 3."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 13,
+    "title": "Sum Root to Leaf Numbers",
+    "className": "TreesModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q13Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "sumNumbers",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q13Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "sumNumbers",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [1,2,3]",
+        "output": "25",
+        "explanation": "Paths 12 and 13 sum to 25."
+      },
+      {
+        "input": "root = [4,9,0,5,1]",
+        "output": "1026",
+        "explanation": "Paths 495, 491, and 40 sum to 1026."
+      },
+      {
+        "input": "root = [0]",
+        "output": "0",
+        "explanation": "The only path number is 0."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 14,
+    "title": "Count Good Nodes in Binary Tree",
+    "className": "TreesModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q14Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "goodNodes",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q14Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "goodNodes",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [3,1,4,3,null,1,5]",
+        "output": "4",
+        "explanation": "Nodes 3, 3, 4, and 5 are good."
+      },
+      {
+        "input": "root = [3,3,null,4,2]",
+        "output": "3",
+        "explanation": "Equal values count as good when not less than path max."
+      },
+      {
+        "input": "root = [1]",
+        "output": "1",
+        "explanation": "The root is always good."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 15,
+    "title": "Validate Binary Search Tree",
+    "className": "TreesModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q15Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isValidBST",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q15Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isValidBST",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [2,1,3]",
+        "output": "true",
+        "explanation": "The tree satisfies strict BST order."
+      },
+      {
+        "input": "root = [5,1,4,null,null,3,6]",
+        "output": "false",
+        "explanation": "3 is in the right subtree of 5 but less than 5."
+      },
+      {
+        "input": "root = [2,2,2]",
+        "output": "false",
+        "explanation": "Duplicates are not allowed."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 16,
+    "title": "Kth Smallest Element in a BST",
+    "className": "TreesModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q16Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "kthSmallest",
+            "parameters": "TreeNode root, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q16Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "kthSmallest",
+            "parameters": "TreeNode root, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [3,1,4,null,2], k = 1",
+        "output": "1",
+        "explanation": "The smallest value is 1."
+      },
+      {
+        "input": "root = [5,3,6,2,4,null,null,1], k = 3",
+        "output": "3",
+        "explanation": "The sorted order is [1,2,3,4,5,6]."
+      },
+      {
+        "input": "root = [1], k = 1",
+        "output": "1",
+        "explanation": "The only node is kth smallest."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 17,
+    "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+    "className": "TreesModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q17Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "buildTree",
+            "parameters": "int[] preorder, int[] inorder"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q17Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "buildTree",
+            "parameters": "int[] preorder, int[] inorder"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]",
+        "output": "[3,9,20,null,null,15,7]",
+        "explanation": "3 is root, then inorder splits left and right subtrees."
+      },
+      {
+        "input": "preorder = [-1], inorder = [-1]",
+        "output": "[-1]",
+        "explanation": "One node is constructed."
+      },
+      {
+        "input": "preorder = [1,2], inorder = [2,1]",
+        "output": "[1,2]",
+        "explanation": "2 is the left child of 1."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 18,
+    "title": "Serialize and Deserialize Binary Tree",
+    "className": "TreesModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q18Optimized",
+        "methods": [
+          {
+            "returnType": "String",
+            "name": "serialize",
+            "parameters": "TreeNode root"
+          },
+          {
+            "returnType": "TreeNode",
+            "name": "deserialize",
+            "parameters": "String data"
+          }
+        ],
+        "originalClass": "Codec"
+      },
+      "recursive": {
+        "className": "Q18Recursive",
+        "methods": [
+          {
+            "returnType": "String",
+            "name": "serialize",
+            "parameters": "TreeNode root"
+          },
+          {
+            "returnType": "TreeNode",
+            "name": "deserialize",
+            "parameters": "String data"
+          }
+        ],
+        "originalClass": "Codec"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [1,2,3,null,null,4,5]",
+        "output": "deserialize(serialize(root)) returns same tree",
+        "explanation": "Null markers preserve child positions."
+      },
+      {
+        "input": "root = []",
+        "output": "[]",
+        "explanation": "The empty tree serializes to a null marker."
+      },
+      {
+        "input": "root = [1]",
+        "output": "[1]",
+        "explanation": "A single value with two null children is reconstructed."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 19,
+    "title": "Flatten Binary Tree to Linked List",
+    "className": "TreesModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q19Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "flatten",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q19Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "flatten",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [1,2,5,3,4,null,6]",
+        "output": "[1,null,2,null,3,null,4,null,5,null,6]",
+        "explanation": "The right chain follows preorder."
+      },
+      {
+        "input": "root = []",
+        "output": "[]",
+        "explanation": "Nothing changes."
+      },
+      {
+        "input": "root = [0]",
+        "output": "[0]",
+        "explanation": "A single node is already flat."
+      }
+    ]
+  },
+  {
+    "topic": "trees",
+    "topicNumber": 12,
+    "number": 20,
+    "title": "Binary Tree Zigzag Level Order Traversal",
+    "className": "TreesModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q20Optimized",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "zigzagLevelOrder",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q20Recursive",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "zigzagLevelOrder",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [3,9,20,null,null,15,7]",
+        "output": "[[3],[20,9],[15,7]]",
+        "explanation": "The second level is reversed."
+      },
+      {
+        "input": "root = [1]",
+        "output": "[[1]]",
+        "explanation": "One level has no direction change effect."
+      },
+      {
+        "input": "root = []",
+        "output": "[]",
+        "explanation": "No levels exist."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 1,
+    "title": "Search in a Binary Search Tree",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q01Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "searchBST",
+            "parameters": "TreeNode root, int val"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q01Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "searchBST",
+            "parameters": "TreeNode root, int val"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [4,2,7,1,3], val = 2",
+        "output": "[2,1,3]",
+        "explanation": "The node with value 2 is found and its subtree is returned."
+      },
+      {
+        "input": "root = [4,2,7,1,3], val = 5",
+        "output": "[]",
+        "explanation": "5 does not exist in the BST."
+      },
+      {
+        "input": "root = [1], val = 1",
+        "output": "[1]",
+        "explanation": "The root itself matches."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 2,
+    "title": "Insert into a Binary Search Tree",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q02Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "insertIntoBST",
+            "parameters": "TreeNode root, int val"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q02Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "insertIntoBST",
+            "parameters": "TreeNode root, int val"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [4,2,7,1,3], val = 5",
+        "output": "[4,2,7,1,3,5]",
+        "explanation": "5 is inserted as the left child of 7."
+      },
+      {
+        "input": "root = [40,20,60,10,30,50,70], val = 25",
+        "output": "valid BST containing 25",
+        "explanation": "25 belongs between 20 and 30."
+      },
+      {
+        "input": "root = [], val = 5",
+        "output": "[5]",
+        "explanation": "A new root is created."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 3,
+    "title": "Delete Node in a BST",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q03Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "deleteNode",
+            "parameters": "TreeNode root, int key"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q03Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "deleteNode",
+            "parameters": "TreeNode root, int key"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [5,3,6,2,4,null,7], key = 3",
+        "output": "[5,4,6,2,null,null,7]",
+        "explanation": "3 is replaced by its inorder successor 4."
+      },
+      {
+        "input": "root = [5,3,6,2,4,null,7], key = 0",
+        "output": "same tree",
+        "explanation": "0 is absent."
+      },
+      {
+        "input": "root = [], key = 0",
+        "output": "[]",
+        "explanation": "Empty tree remains empty."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 4,
+    "title": "Validate Binary Search Tree",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q04Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isValidBST",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q04Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isValidBST",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [2,1,3]",
+        "output": "true",
+        "explanation": "All nodes satisfy BST ordering."
+      },
+      {
+        "input": "root = [5,1,4,null,null,3,6]",
+        "output": "false",
+        "explanation": "3 is in the right subtree of 5 but less than 5."
+      },
+      {
+        "input": "root = [2,2,2]",
+        "output": "false",
+        "explanation": "BST ordering is strict."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 5,
+    "title": "Kth Smallest Element in a BST",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q05Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "kthSmallest",
+            "parameters": "TreeNode root, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q05Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "kthSmallest",
+            "parameters": "TreeNode root, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [3,1,4,null,2], k = 1",
+        "output": "1",
+        "explanation": "The first inorder value is 1."
+      },
+      {
+        "input": "root = [5,3,6,2,4,null,null,1], k = 3",
+        "output": "3",
+        "explanation": "The sorted values are [1,2,3,4,5,6]."
+      },
+      {
+        "input": "root = [1], k = 1",
+        "output": "1",
+        "explanation": "The only value is kth."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 6,
+    "title": "Lowest Common Ancestor of a Binary Search Tree",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q06Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "lowestCommonAncestor",
+            "parameters": "TreeNode root, TreeNode p, TreeNode q"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q06Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "lowestCommonAncestor",
+            "parameters": "TreeNode root, TreeNode p, TreeNode q"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8",
+        "output": "6",
+        "explanation": "2 and 8 split at root 6."
+      },
+      {
+        "input": "same root, p = 2, q = 4",
+        "output": "2",
+        "explanation": "2 is an ancestor of 4."
+      },
+      {
+        "input": "root = [2,1], p = 2, q = 1",
+        "output": "2",
+        "explanation": "Root is the LCA."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 7,
+    "title": "Convert Sorted Array to Binary Search Tree",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q07Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "sortedArrayToBST",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q07Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "sortedArrayToBST",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums = [-10,-3,0,5,9]",
+        "output": "[0,-3,9,-10,null,5]",
+        "explanation": "One valid balanced BST uses 0 as root."
+      },
+      {
+        "input": "nums = [1,3]",
+        "output": "[1,null,3] or [3,1]",
+        "explanation": "Both are height-balanced."
+      },
+      {
+        "input": "nums = [1]",
+        "output": "[1]",
+        "explanation": "The only value becomes root."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 8,
+    "title": "Two Sum IV - Input is a BST",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q08Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "findTarget",
+            "parameters": "TreeNode root, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q08Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "findTarget",
+            "parameters": "TreeNode root, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [5,3,6,2,4,null,7], k = 9",
+        "output": "true",
+        "explanation": "2 + 7 = 9."
+      },
+      {
+        "input": "root = [5,3,6,2,4,null,7], k = 28",
+        "output": "false",
+        "explanation": "No pair sums to 28."
+      },
+      {
+        "input": "root = [1], k = 2",
+        "output": "false",
+        "explanation": "One node cannot form a pair with itself."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 9,
+    "title": "Minimum Absolute Difference in BST",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q09Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "getMinimumDifference",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q09Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "getMinimumDifference",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [4,2,6,1,3]",
+        "output": "1",
+        "explanation": "Adjacent sorted pairs differ by 1."
+      },
+      {
+        "input": "root = [1,0,48,null,null,12,49]",
+        "output": "1",
+        "explanation": "48 and 49 are closest."
+      },
+      {
+        "input": "root = [2,1]",
+        "output": "1",
+        "explanation": "The only pair differs by 1."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 10,
+    "title": "Range Sum of BST",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q10Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "rangeSumBST",
+            "parameters": "TreeNode root, int low, int high"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q10Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "rangeSumBST",
+            "parameters": "TreeNode root, int low, int high"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [10,5,15,3,7,null,18], low = 7, high = 15",
+        "output": "32",
+        "explanation": "7 + 10 + 15 = 32."
+      },
+      {
+        "input": "root = [10,5,15,3,7,13,18,1,null,6], low = 6, high = 10",
+        "output": "23",
+        "explanation": "6 + 7 + 10 = 23."
+      },
+      {
+        "input": "root = [1], low = 2, high = 3",
+        "output": "0",
+        "explanation": "The only value is outside range."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 11,
+    "title": "Increasing Order Search Tree",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q11Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "increasingBST",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q11Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "increasingBST",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [5,3,6,2,4,null,8,1,null,null,null,7,9]",
+        "output": "[1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]",
+        "explanation": "The right chain follows inorder order."
+      },
+      {
+        "input": "root = [5,1,7]",
+        "output": "[1,null,5,null,7]",
+        "explanation": "Values are rearranged ascending."
+      },
+      {
+        "input": "root = [1]",
+        "output": "[1]",
+        "explanation": "A single node already satisfies the shape."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 12,
+    "title": "Recover Binary Search Tree",
+    "className": "BinarySearchTreeBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q12Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "recoverTree",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q12Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "recoverTree",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [1,3,null,null,2]",
+        "output": "[3,1,null,null,2]",
+        "explanation": "Values 1 and 3 are swapped back."
+      },
+      {
+        "input": "root = [3,1,4,null,null,2]",
+        "output": "[2,1,4,null,null,3]",
+        "explanation": "Values 2 and 3 are swapped back."
+      },
+      {
+        "input": "root = [2,1]",
+        "output": "[2,1]",
+        "explanation": "A valid tree remains valid in no-op variants."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 13,
+    "title": "Balance a Binary Search Tree",
+    "className": "BinarySearchTreeModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q13Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "balanceBST",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q13Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "balanceBST",
+            "parameters": "TreeNode root"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [1,null,2,null,3,null,4]",
+        "output": "balanced BST with values [1,2,3,4]",
+        "explanation": "A skewed tree is rebuilt with smaller height."
+      },
+      {
+        "input": "root = [2,1,3]",
+        "output": "[2,1,3]",
+        "explanation": "Already balanced tree may remain unchanged."
+      },
+      {
+        "input": "root = [1]",
+        "output": "[1]",
+        "explanation": "One node is balanced."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 14,
+    "title": "Trim a Binary Search Tree",
+    "className": "BinarySearchTreeModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q14Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "trimBST",
+            "parameters": "TreeNode root, int low, int high"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q14Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "trimBST",
+            "parameters": "TreeNode root, int low, int high"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [1,0,2], low = 1, high = 2",
+        "output": "[1,null,2]",
+        "explanation": "0 is removed."
+      },
+      {
+        "input": "root = [3,0,4,null,2,null,null,1], low = 1, high = 3",
+        "output": "[3,2,null,1]",
+        "explanation": "0 and 4 are trimmed."
+      },
+      {
+        "input": "root = [1], low = 1, high = 1",
+        "output": "[1]",
+        "explanation": "Root remains."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 15,
+    "title": "Construct BST from Preorder Traversal",
+    "className": "BinarySearchTreeModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q15Optimized",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "bstFromPreorder",
+            "parameters": "int[] preorder"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q15Recursive",
+        "methods": [
+          {
+            "returnType": "TreeNode",
+            "name": "bstFromPreorder",
+            "parameters": "int[] preorder"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "preorder = [8,5,1,7,10,12]",
+        "output": "[8,5,10,1,7,null,12]",
+        "explanation": "Values are inserted respecting BST preorder structure."
+      },
+      {
+        "input": "preorder = [1,3]",
+        "output": "[1,null,3]",
+        "explanation": "3 is the right child."
+      },
+      {
+        "input": "preorder = [2,1]",
+        "output": "[2,1]",
+        "explanation": "1 is the left child."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 16,
+    "title": "Unique Binary Search Trees",
+    "className": "BinarySearchTreeModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q16Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "numTrees",
+            "parameters": "int n"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q16Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "numTrees",
+            "parameters": "int n"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n = 3",
+        "output": "5",
+        "explanation": "There are five structurally unique BSTs."
+      },
+      {
+        "input": "n = 1",
+        "output": "1",
+        "explanation": "Only one tree can be formed."
+      },
+      {
+        "input": "n = 2",
+        "output": "2",
+        "explanation": "Either 1 or 2 can be root."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 17,
+    "title": "Unique Binary Search Trees II",
+    "className": "BinarySearchTreeModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q17Optimized",
+        "methods": [
+          {
+            "returnType": "List<TreeNode>",
+            "name": "generateTrees",
+            "parameters": "int n"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q17Recursive",
+        "methods": [
+          {
+            "returnType": "List<TreeNode>",
+            "name": "generateTrees",
+            "parameters": "int n"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n = 3",
+        "output": "five unique BST roots",
+        "explanation": "All five structures for values 1..3 are generated."
+      },
+      {
+        "input": "n = 1",
+        "output": "[[1]]",
+        "explanation": "Only one tree exists."
+      },
+      {
+        "input": "n = 2",
+        "output": "[[1,null,2],[2,1]]",
+        "explanation": "Either value can be the root."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 18,
+    "title": "Closest Binary Search Tree Value",
+    "className": "BinarySearchTreeModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q18Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "closestValue",
+            "parameters": "TreeNode root, double target"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q18Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "closestValue",
+            "parameters": "TreeNode root, double target"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [4,2,5,1,3], target = 3.714286",
+        "output": "4",
+        "explanation": "4 is closest to the target."
+      },
+      {
+        "input": "root = [1], target = 4.428571",
+        "output": "1",
+        "explanation": "Only one value exists."
+      },
+      {
+        "input": "root = [2,1,3], target = 3.0",
+        "output": "3",
+        "explanation": "Exact match is closest."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 19,
+    "title": "Closest Binary Search Tree Value II",
+    "className": "BinarySearchTreeModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q19Optimized",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "closestKValues",
+            "parameters": "TreeNode root, double target, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q19Recursive",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "closestKValues",
+            "parameters": "TreeNode root, double target, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "root = [4,2,5,1,3], target = 3.714286, k = 2",
+        "output": "[4,3]",
+        "explanation": "4 and 3 are the two closest values."
+      },
+      {
+        "input": "root = [1], target = 0.0, k = 1",
+        "output": "[1]",
+        "explanation": "Only one node exists."
+      },
+      {
+        "input": "root = [2,1,3], target = 10.0, k = 2",
+        "output": "[3,2]",
+        "explanation": "Largest values are closest when target is above all nodes."
+      }
+    ]
+  },
+  {
+    "topic": "bst",
+    "topicNumber": 13,
+    "number": 20,
+    "title": "Binary Search Tree Iterator",
+    "className": "BinarySearchTreeModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q20Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "next",
+            "parameters": ""
+          },
+          {
+            "returnType": "boolean",
+            "name": "hasNext",
+            "parameters": ""
+          }
+        ],
+        "originalClass": "BSTIterator"
+      },
+      "recursive": {
+        "className": "Q20Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "next",
+            "parameters": ""
+          },
+          {
+            "returnType": "boolean",
+            "name": "hasNext",
+            "parameters": ""
+          }
+        ],
+        "originalClass": "BSTIterator"
+      }
+    },
+    "examples": [
+      {
+        "input": "BSTIterator([7,3,15,null,null,9,20]); next(); next(); hasNext();",
+        "output": "3, 7, true",
+        "explanation": "Values are returned in ascending order."
+      },
+      {
+        "input": "next(); next(); next()",
+        "output": "9, 15, 20 later in sequence",
+        "explanation": "The iterator continues inorder."
+      },
+      {
+        "input": "single-node tree",
+        "output": "next returns root then hasNext false",
+        "explanation": "Only one value exists."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 1,
+    "title": "Implement Trie Prefix Tree",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q01Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "insert",
+            "parameters": "String word"
+          },
+          {
+            "returnType": "boolean",
+            "name": "search",
+            "parameters": "String word"
+          },
+          {
+            "returnType": "boolean",
+            "name": "startsWith",
+            "parameters": "String prefix"
+          }
+        ],
+        "originalClass": "Trie"
+      },
+      "recursive": {
+        "className": "Q01Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "insert",
+            "parameters": "String word"
+          },
+          {
+            "returnType": "boolean",
+            "name": "search",
+            "parameters": "String word"
+          },
+          {
+            "returnType": "boolean",
+            "name": "startsWith",
+            "parameters": "String prefix"
+          }
+        ],
+        "originalClass": "Trie"
+      }
+    },
+    "examples": [
+      {
+        "input": "insert(\"apple\"), search(\"apple\"), search(\"app\"), startsWith(\"app\")",
+        "output": "true, false, true",
+        "explanation": "app is only a prefix until it is inserted."
+      },
+      {
+        "input": "insert(\"app\"), search(\"app\")",
+        "output": "true",
+        "explanation": "The terminal flag is set on the app node."
+      },
+      {
+        "input": "startsWith(\"banana\") on empty trie",
+        "output": "false",
+        "explanation": "The first character path is missing."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 2,
+    "title": "Design Add and Search Words Data Structure",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q02Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "addWord",
+            "parameters": "String word"
+          },
+          {
+            "returnType": "boolean",
+            "name": "search",
+            "parameters": "String pattern"
+          }
+        ],
+        "originalClass": "WordDictionary"
+      },
+      "recursive": {
+        "className": "Q02Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "addWord",
+            "parameters": "String word"
+          },
+          {
+            "returnType": "boolean",
+            "name": "search",
+            "parameters": "String word"
+          }
+        ],
+        "originalClass": "WordDictionary"
+      }
+    },
+    "examples": [
+      {
+        "input": "addWord(\"bad\"), addWord(\"dad\"), search(\"pad\")",
+        "output": "false",
+        "explanation": "No stored word matches pad."
+      },
+      {
+        "input": "search(\".ad\")",
+        "output": "true",
+        "explanation": "The dot can match b or d."
+      },
+      {
+        "input": "search(\"b..\")",
+        "output": "true",
+        "explanation": "Both dots match the remaining letters of bad."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 3,
+    "title": "Word Search II",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q03Optimized",
+        "methods": [
+          {
+            "returnType": "List<String>",
+            "name": "findWords",
+            "parameters": "char[][] board, String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q03Recursive",
+        "methods": [
+          {
+            "returnType": "List<String>",
+            "name": "findWords",
+            "parameters": "char[][] board, String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]",
+        "output": "[\"oath\",\"eat\"]",
+        "explanation": "Only oath and eat can be formed on valid adjacent paths."
+      },
+      {
+        "input": "board = [[\"a\",\"b\"],[\"c\",\"d\"]], words = [\"abcb\"]",
+        "output": "[]",
+        "explanation": "The path would need to reuse b."
+      },
+      {
+        "input": "board = [[\"a\"]], words = [\"a\"]",
+        "output": "[\"a\"]",
+        "explanation": "The single cell forms the word."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 4,
+    "title": "Replace Words",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q04Optimized",
+        "methods": [
+          {
+            "returnType": "String",
+            "name": "replaceWords",
+            "parameters": "List<String> dictionary, String sentence"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q04Recursive",
+        "methods": [
+          {
+            "returnType": "String",
+            "name": "replaceWords",
+            "parameters": "List<String> dictionary, String sentence"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "dictionary = [\"cat\",\"bat\",\"rat\"], sentence = \"the cattle was rattled by the battery\"",
+        "output": "\"the cat was rat by the bat\"",
+        "explanation": "cattle, rattled, and battery use their shortest roots."
+      },
+      {
+        "input": "dictionary = [\"a\",\"aa\",\"aaa\"], sentence = \"a aa aaaa\"",
+        "output": "\"a a a\"",
+        "explanation": "The shortest root a wins each time."
+      },
+      {
+        "input": "dictionary = [\"x\"], sentence = \"hello world\"",
+        "output": "\"hello world\"",
+        "explanation": "No word has x as a prefix."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 5,
+    "title": "Map Sum Pairs",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q05Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "insert",
+            "parameters": "String key, int val"
+          },
+          {
+            "returnType": "int",
+            "name": "sum",
+            "parameters": "String prefix"
+          }
+        ],
+        "originalClass": "MapSum"
+      },
+      "recursive": {
+        "className": "Q05Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "insert",
+            "parameters": "String key, int val"
+          },
+          {
+            "returnType": "int",
+            "name": "sum",
+            "parameters": "String prefix"
+          }
+        ],
+        "originalClass": "MapSum"
+      }
+    },
+    "examples": [
+      {
+        "input": "insert(\"apple\", 3), sum(\"ap\")",
+        "output": "3",
+        "explanation": "apple contributes 3 to prefix ap."
+      },
+      {
+        "input": "insert(\"app\", 2), sum(\"ap\")",
+        "output": "5",
+        "explanation": "apple and app both match ap."
+      },
+      {
+        "input": "insert(\"apple\", 2), sum(\"apple\")",
+        "output": "2",
+        "explanation": "Overwriting apple changes its contribution from 3 to 2."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 6,
+    "title": "Longest Word in Dictionary",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q06Optimized",
+        "methods": [
+          {
+            "returnType": "String",
+            "name": "longestWord",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q06Recursive",
+        "methods": [
+          {
+            "returnType": "String",
+            "name": "longestWord",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "words = [\"w\",\"wo\",\"wor\",\"worl\",\"world\"]",
+        "output": "\"world\"",
+        "explanation": "Every prefix of world is present."
+      },
+      {
+        "input": "words = [\"a\",\"banana\",\"app\",\"appl\",\"ap\",\"apply\",\"apple\"]",
+        "output": "\"apple\"",
+        "explanation": "apple and apply have length 5; apple is lexicographically smaller."
+      },
+      {
+        "input": "words = [\"abc\",\"bc\"]",
+        "output": "\"\"",
+        "explanation": "No word can be built from single-character prefixes."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 7,
+    "title": "Stream of Characters",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q07Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "query",
+            "parameters": "char letter"
+          }
+        ],
+        "originalClass": "StreamChecker"
+      },
+      "recursive": {
+        "className": "Q07Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "query",
+            "parameters": "char letter"
+          }
+        ],
+        "originalClass": "StreamChecker"
+      }
+    },
+    "examples": [
+      {
+        "input": "words = [\"cd\",\"f\",\"kl\"], queries = a,b,c,d",
+        "output": "false,false,false,true",
+        "explanation": "The suffix cd appears after reading d."
+      },
+      {
+        "input": "queries continue with f",
+        "output": "true",
+        "explanation": "The single-character word f matches the latest suffix."
+      },
+      {
+        "input": "queries end with k,l",
+        "output": "false,true",
+        "explanation": "The suffix kl matches after reading l."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 8,
+    "title": "Search Suggestions System",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q08Optimized",
+        "methods": [
+          {
+            "returnType": "List<List<String>>",
+            "name": "suggestedProducts",
+            "parameters": "String[] products, String searchWord"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q08Recursive",
+        "methods": [
+          {
+            "returnType": "List<List<String>>",
+            "name": "suggestedProducts",
+            "parameters": "String[] products, String searchWord"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "products = [\"mobile\",\"mouse\",\"moneypot\",\"monitor\",\"mousepad\"], searchWord = \"mouse\"",
+        "output": "[[\"mobile\",\"moneypot\",\"monitor\"],[\"mobile\",\"moneypot\",\"monitor\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"]]",
+        "explanation": "Suggestions shrink as the prefix becomes more specific."
+      },
+      {
+        "input": "products = [\"havana\"], searchWord = \"havana\"",
+        "output": "[[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"]]",
+        "explanation": "The only product matches every prefix."
+      },
+      {
+        "input": "products = [\"bags\",\"baggage\",\"banner\",\"box\",\"cloths\"], searchWord = \"bags\"",
+        "output": "[[\"baggage\",\"bags\",\"banner\"],[\"baggage\",\"bags\",\"banner\"],[\"baggage\",\"bags\"],[\"bags\"]]",
+        "explanation": "Each prefix returns up to three sorted matches."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 9,
+    "title": "Maximum XOR of Two Numbers in an Array",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q09Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "findMaximumXOR",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q09Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "findMaximumXOR",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums = [3,10,5,25,2,8]",
+        "output": "28",
+        "explanation": "5 XOR 25 equals 28."
+      },
+      {
+        "input": "nums = [0]",
+        "output": "0",
+        "explanation": "Only one number exists."
+      },
+      {
+        "input": "nums = [14,70,53,83,49,91,36,80,92,51,66,70]",
+        "output": "127",
+        "explanation": "The best pair creates all seven lower bits as 1."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 10,
+    "title": "Palindrome Pairs",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q10Optimized",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "palindromePairs",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q10Recursive",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "palindromePairs",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "words = [\"abcd\",\"dcba\",\"lls\",\"s\",\"sssll\"]",
+        "output": "[[0,1],[1,0],[3,2],[2,4]]",
+        "explanation": "Each listed concatenation is a palindrome."
+      },
+      {
+        "input": "words = [\"bat\",\"tab\",\"cat\"]",
+        "output": "[[0,1],[1,0]]",
+        "explanation": "bat+tab and tab+bat are palindromes."
+      },
+      {
+        "input": "words = [\"a\",\"\"]",
+        "output": "[[0,1],[1,0]]",
+        "explanation": "The empty string pairs with any palindrome word."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 11,
+    "title": "Concatenated Words",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q11Optimized",
+        "methods": [
+          {
+            "returnType": "List<String>",
+            "name": "findAllConcatenatedWordsInADict",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q11Recursive",
+        "methods": [
+          {
+            "returnType": "List<String>",
+            "name": "findAllConcatenatedWordsInADict",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "words = [\"cat\",\"cats\",\"catsdogcats\",\"dog\",\"dogcatsdog\",\"hippopotamuses\",\"rat\",\"ratcatdogcat\"]",
+        "output": "[\"catsdogcats\",\"dogcatsdog\",\"ratcatdogcat\"]",
+        "explanation": "Each returned word is composed from shorter dictionary words."
+      },
+      {
+        "input": "words = [\"cat\",\"dog\",\"catdog\"]",
+        "output": "[\"catdog\"]",
+        "explanation": "catdog is cat + dog."
+      },
+      {
+        "input": "words = [\"a\",\"aa\",\"aaa\"]",
+        "output": "[\"aa\",\"aaa\"]",
+        "explanation": "aa is a+a and aaa can be a+aa."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 12,
+    "title": "Word Squares",
+    "className": "TrieBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q12Optimized",
+        "methods": [
+          {
+            "returnType": "List<List<String>>",
+            "name": "wordSquares",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q12Recursive",
+        "methods": [
+          {
+            "returnType": "List<List<String>>",
+            "name": "wordSquares",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "words = [\"area\",\"lead\",\"wall\",\"lady\",\"ball\"]",
+        "output": "[[\"wall\",\"area\",\"lead\",\"lady\"],[\"ball\",\"area\",\"lead\",\"lady\"]]",
+        "explanation": "Rows and columns match for both squares."
+      },
+      {
+        "input": "words = [\"abat\",\"baba\",\"atan\",\"atal\"]",
+        "output": "[[\"baba\",\"abat\",\"baba\",\"atan\"],[\"baba\",\"abat\",\"baba\",\"atal\"]]",
+        "explanation": "The prefix trie finds valid row candidates."
+      },
+      {
+        "input": "words = [\"a\"]",
+        "output": "[[\"a\"]]",
+        "explanation": "A one-letter word forms a one-row square."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 13,
+    "title": "Index Pairs of a String",
+    "className": "TrieModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q13Optimized",
+        "methods": [
+          {
+            "returnType": "int[][]",
+            "name": "indexPairs",
+            "parameters": "String text, String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q13Recursive",
+        "methods": [
+          {
+            "returnType": "int[][]",
+            "name": "indexPairs",
+            "parameters": "String text, String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "text = \"thestoryofleetcodeandme\", words = [\"story\",\"fleet\",\"leetcode\"]",
+        "output": "[[3,7],[9,13],[10,17]]",
+        "explanation": "All matching substrings are returned in sorted order."
+      },
+      {
+        "input": "text = \"ababa\", words = [\"aba\",\"ab\"]",
+        "output": "[[0,1],[0,2],[2,3],[2,4]]",
+        "explanation": "Matches can overlap."
+      },
+      {
+        "input": "text = \"abc\", words = [\"d\"]",
+        "output": "[]",
+        "explanation": "No dictionary word appears."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 14,
+    "title": "Prefix and Suffix Search",
+    "className": "TrieModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q14Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "f",
+            "parameters": "String pref, String suff"
+          }
+        ],
+        "originalClass": "WordFilter"
+      },
+      "recursive": {
+        "className": "Q14Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "f",
+            "parameters": "String pref, String suff"
+          }
+        ],
+        "originalClass": "WordFilter"
+      }
+    },
+    "examples": [
+      {
+        "input": "WordFilter([\"apple\"]), f(\"a\", \"e\")",
+        "output": "0",
+        "explanation": "apple starts with a and ends with e."
+      },
+      {
+        "input": "WordFilter([\"apple\",\"apply\"]), f(\"app\", \"ly\")",
+        "output": "1",
+        "explanation": "apply is the latest matching word."
+      },
+      {
+        "input": "f(\"b\", \"e\")",
+        "output": "-1",
+        "explanation": "No word has both constraints."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 15,
+    "title": "Implement Magic Dictionary",
+    "className": "TrieModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q15Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "buildDict",
+            "parameters": "String[] dictionary"
+          },
+          {
+            "returnType": "boolean",
+            "name": "search",
+            "parameters": "String searchWord"
+          }
+        ],
+        "originalClass": "MagicDictionary"
+      },
+      "recursive": {
+        "className": "Q15Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "buildDict",
+            "parameters": "String[] dictionary"
+          },
+          {
+            "returnType": "boolean",
+            "name": "search",
+            "parameters": "String searchWord"
+          }
+        ],
+        "originalClass": "MagicDictionary"
+      }
+    },
+    "examples": [
+      {
+        "input": "buildDict([\"hello\",\"leetcode\"]), search(\"hello\")",
+        "output": "false",
+        "explanation": "Exactly one character must change."
+      },
+      {
+        "input": "search(\"hhllo\")",
+        "output": "true",
+        "explanation": "Changing e to h gives hello."
+      },
+      {
+        "input": "search(\"hell\")",
+        "output": "false",
+        "explanation": "Length must stay the same."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 16,
+    "title": "Count Pairs With XOR in a Range",
+    "className": "TrieModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q16Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countPairs",
+            "parameters": "int[] nums, int low, int high"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q16Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countPairs",
+            "parameters": "int[] nums, int low, int high"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums = [1,4,2,7], low = 2, high = 6",
+        "output": "6",
+        "explanation": "Six index pairs have XOR in the target range."
+      },
+      {
+        "input": "nums = [9,8,4,2,1], low = 5, high = 14",
+        "output": "8",
+        "explanation": "Eight pairs satisfy the inclusive range."
+      },
+      {
+        "input": "nums = [1], low = 1, high = 1",
+        "output": "0",
+        "explanation": "No pair exists."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 17,
+    "title": "Sum of Prefix Scores of Strings",
+    "className": "TrieModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q17Optimized",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "sumPrefixScores",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q17Recursive",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "sumPrefixScores",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "words = [\"abc\",\"ab\",\"bc\",\"b\"]",
+        "output": "[5,4,3,2]",
+        "explanation": "abc has prefix counts a=2, ab=2, abc=1 for total 5."
+      },
+      {
+        "input": "words = [\"abcd\"]",
+        "output": "[4]",
+        "explanation": "Each of its four prefixes appears once."
+      },
+      {
+        "input": "words = [\"a\",\"a\"]",
+        "output": "[2,2]",
+        "explanation": "The prefix a appears twice."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 18,
+    "title": "Short Encoding of Words",
+    "className": "TrieModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q18Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumLengthEncoding",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q18Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumLengthEncoding",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "words = [\"time\",\"me\",\"bell\"]",
+        "output": "10",
+        "explanation": "time#bell# encodes me because me is a suffix of time."
+      },
+      {
+        "input": "words = [\"t\"]",
+        "output": "2",
+        "explanation": "The encoding is t#."
+      },
+      {
+        "input": "words = [\"me\",\"time\",\"ime\"]",
+        "output": "5",
+        "explanation": "time# also covers me and ime."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 19,
+    "title": "Word Break with Trie",
+    "className": "TrieModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q19Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "wordBreak",
+            "parameters": "String s, List<String> wordDict"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q19Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "wordBreak",
+            "parameters": "String s, List<String> wordDict"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "s = \"leetcode\", wordDict = [\"leet\",\"code\"]",
+        "output": "true",
+        "explanation": "leetcode splits into leet + code."
+      },
+      {
+        "input": "s = \"applepenapple\", wordDict = [\"apple\",\"pen\"]",
+        "output": "true",
+        "explanation": "Dictionary words may be reused."
+      },
+      {
+        "input": "s = \"catsandog\", wordDict = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]",
+        "output": "false",
+        "explanation": "No complete segmentation covers the string."
+      }
+    ]
+  },
+  {
+    "topic": "tries",
+    "topicNumber": 16,
+    "number": 20,
+    "title": "Design Search Autocomplete System",
+    "className": "TrieModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q20Optimized",
+        "methods": [
+          {
+            "returnType": "List<String>",
+            "name": "input",
+            "parameters": "char c"
+          }
+        ],
+        "originalClass": "AutocompleteSystem"
+      },
+      "recursive": {
+        "className": "Q20Recursive",
+        "methods": [
+          {
+            "returnType": "List<String>",
+            "name": "input",
+            "parameters": "char c"
+          }
+        ],
+        "originalClass": "AutocompleteSystem"
+      }
+    },
+    "examples": [
+      {
+        "input": "sentences = [\"i love you\",\"island\",\"iroman\",\"i love leetcode\"], times = [5,3,2,2], input(\"i\")",
+        "output": "[\"i love you\",\"island\",\"i love leetcode\"]",
+        "explanation": "Top matches are ranked by count then lexicographic order."
+      },
+      {
+        "input": "input(\" \")",
+        "output": "[\"i love you\",\"i love leetcode\"]",
+        "explanation": "The prefix becomes \"i \"."
+      },
+      {
+        "input": "input(\"#\")",
+        "output": "[]",
+        "explanation": "The current sentence is committed and the buffer resets."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 1,
+    "title": "Number of Islands",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q01Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "numIslands",
+            "parameters": "char[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q01Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "numIslands",
+            "parameters": "char[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]",
+        "output": "1",
+        "explanation": "All land cells are connected into one island."
+      },
+      {
+        "input": "grid = [[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]",
+        "output": "3",
+        "explanation": "There are three disconnected land components."
+      },
+      {
+        "input": "grid = [[\"0\"]]",
+        "output": "0",
+        "explanation": "There is no land to count."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 2,
+    "title": "Clone Graph",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q02Optimized",
+        "methods": [
+          {
+            "returnType": "Node",
+            "name": "cloneGraph",
+            "parameters": "Node node"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q02Recursive",
+        "methods": [
+          {
+            "returnType": "Node",
+            "name": "cloneGraph",
+            "parameters": "Node node"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "adjList = [[2,4],[1,3],[2,4],[1,3]]",
+        "output": "[[2,4],[1,3],[2,4],[1,3]]",
+        "explanation": "The four-node cycle is copied with new node objects."
+      },
+      {
+        "input": "adjList = [[]]",
+        "output": "[[]]",
+        "explanation": "A single isolated node is cloned."
+      },
+      {
+        "input": "adjList = []",
+        "output": "[]",
+        "explanation": "A null input returns null."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 3,
+    "title": "Max Area of Island",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q03Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "maxAreaOfIsland",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q03Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "maxAreaOfIsland",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "grid = [[0,0,1,0],[1,1,1,0],[0,0,0,1]]",
+        "output": "4",
+        "explanation": "The largest four-direction component has four cells."
+      },
+      {
+        "input": "grid = [[0,0,0]]",
+        "output": "0",
+        "explanation": "There is no island."
+      },
+      {
+        "input": "grid = [[1,1],[1,1]]",
+        "output": "4",
+        "explanation": "Every cell belongs to the same island."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 4,
+    "title": "Pacific Atlantic Water Flow",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q04Optimized",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "pacificAtlantic",
+            "parameters": "int[][] heights"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q04Recursive",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "pacificAtlantic",
+            "parameters": "int[][] heights"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]",
+        "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]",
+        "explanation": "These cells can flow to both ocean borders."
+      },
+      {
+        "input": "heights = [[1]]",
+        "output": "[[0,0]]",
+        "explanation": "The only cell touches both oceans."
+      },
+      {
+        "input": "heights = [[1,2,3]]",
+        "output": "[[0,2]]",
+        "explanation": "Only the rightmost cell can flow to both ends in this row."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 5,
+    "title": "Surrounded Regions",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q05Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "solve",
+            "parameters": "char[][] board"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q05Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "solve",
+            "parameters": "char[][] board"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "board = [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]",
+        "output": "[[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]",
+        "explanation": "Only the border-connected O survives."
+      },
+      {
+        "input": "board = [[\"X\"]]",
+        "output": "[[\"X\"]]",
+        "explanation": "A single X is unchanged."
+      },
+      {
+        "input": "board = [[\"O\",\"O\"],[\"O\",\"O\"]]",
+        "output": "[[\"O\",\"O\"],[\"O\",\"O\"]]",
+        "explanation": "Every O touches the border."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 6,
+    "title": "Rotting Oranges",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q06Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "orangesRotting",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q06Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "orangesRotting",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "grid = [[2,1,1],[1,1,0],[0,1,1]]",
+        "output": "4",
+        "explanation": "The infection reaches the farthest fresh orange after four minutes."
+      },
+      {
+        "input": "grid = [[2,1,1],[0,1,1],[1,0,1]]",
+        "output": "-1",
+        "explanation": "The bottom-left fresh orange is isolated."
+      },
+      {
+        "input": "grid = [[0,2]]",
+        "output": "0",
+        "explanation": "There are no fresh oranges."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 7,
+    "title": "Walls and Gates",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q07Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "wallsAndGates",
+            "parameters": "int[][] rooms"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q07Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "wallsAndGates",
+            "parameters": "int[][] rooms"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "rooms = [[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]",
+        "output": "[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]",
+        "explanation": "Each empty room receives the shortest gate distance."
+      },
+      {
+        "input": "rooms = [[-1]]",
+        "output": "[[-1]]",
+        "explanation": "A wall stays unchanged."
+      },
+      {
+        "input": "rooms = [[0,2147483647]]",
+        "output": "[[0,1]]",
+        "explanation": "The empty room is one step from the gate."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 8,
+    "title": "Course Schedule",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q08Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "canFinish",
+            "parameters": "int numCourses, int[][] prerequisites"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q08Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "canFinish",
+            "parameters": "int numCourses, int[][] prerequisites"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "numCourses = 2, prerequisites = [[1,0]]",
+        "output": "true",
+        "explanation": "Take course 0 before course 1."
+      },
+      {
+        "input": "numCourses = 2, prerequisites = [[1,0],[0,1]]",
+        "output": "false",
+        "explanation": "The two courses depend on each other."
+      },
+      {
+        "input": "numCourses = 3, prerequisites = []",
+        "output": "true",
+        "explanation": "There are no dependency cycles."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 9,
+    "title": "Course Schedule II",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q09Optimized",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "findOrder",
+            "parameters": "int numCourses, int[][] prerequisites"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q09Recursive",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "findOrder",
+            "parameters": "int numCourses, int[][] prerequisites"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "numCourses = 2, prerequisites = [[1,0]]",
+        "output": "[0,1]",
+        "explanation": "Course 0 must appear before course 1."
+      },
+      {
+        "input": "numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]",
+        "output": "[0,1,2,3]",
+        "explanation": "Several valid topological orders exist."
+      },
+      {
+        "input": "numCourses = 2, prerequisites = [[1,0],[0,1]]",
+        "output": "[]",
+        "explanation": "A directed cycle prevents a valid order."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 10,
+    "title": "Graph Valid Tree",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q10Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "validTree",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q10Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "validTree",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]",
+        "output": "true",
+        "explanation": "All nodes are connected and there is no cycle."
+      },
+      {
+        "input": "n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]",
+        "output": "false",
+        "explanation": "The edge [1,3] creates a cycle."
+      },
+      {
+        "input": "n = 4, edges = [[0,1],[2,3]]",
+        "output": "false",
+        "explanation": "The graph has two components."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 11,
+    "title": "Number of Connected Components in an Undirected Graph",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q11Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countComponents",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q11Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countComponents",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n = 5, edges = [[0,1],[1,2],[3,4]]",
+        "output": "2",
+        "explanation": "Nodes 0,1,2 form one component and 3,4 form another."
+      },
+      {
+        "input": "n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]",
+        "output": "1",
+        "explanation": "All nodes are connected."
+      },
+      {
+        "input": "n = 3, edges = []",
+        "output": "3",
+        "explanation": "Each isolated node is its own component."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 12,
+    "title": "Redundant Connection",
+    "className": "GraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q12Optimized",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "findRedundantConnection",
+            "parameters": "int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q12Recursive",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "findRedundantConnection",
+            "parameters": "int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "edges = [[1,2],[1,3],[2,3]]",
+        "output": "[2,3]",
+        "explanation": "Nodes 2 and 3 are already connected through 1."
+      },
+      {
+        "input": "edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]",
+        "output": "[1,4]",
+        "explanation": "Adding [1,4] closes the cycle."
+      },
+      {
+        "input": "edges = [[1,2],[2,3],[3,1]]",
+        "output": "[3,1]",
+        "explanation": "The last edge completes the triangle."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 13,
+    "title": "Word Ladder",
+    "className": "GraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q13Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "ladderLength",
+            "parameters": "String beginWord, String endWord, List<String> wordList"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q13Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "ladderLength",
+            "parameters": "String beginWord, String endWord, List<String> wordList"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+        "output": "5",
+        "explanation": "hit -> hot -> dot -> dog -> cog."
+      },
+      {
+        "input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]",
+        "output": "0",
+        "explanation": "The end word is not available."
+      },
+      {
+        "input": "beginWord = \"a\", endWord = \"c\", wordList = [\"a\",\"b\",\"c\"]",
+        "output": "2",
+        "explanation": "a can change directly to c."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 14,
+    "title": "Open the Lock",
+    "className": "GraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q14Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "openLock",
+            "parameters": "String[] deadends, String target"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q14Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "openLock",
+            "parameters": "String[] deadends, String target"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "deadends = [\"0201\",\"0101\",\"0102\",\"1212\",\"2002\"], target = \"0202\"",
+        "output": "6",
+        "explanation": "The shortest safe route takes six turns."
+      },
+      {
+        "input": "deadends = [\"8888\"], target = \"0009\"",
+        "output": "1",
+        "explanation": "Turn the last wheel backward once."
+      },
+      {
+        "input": "deadends = [\"0000\"], target = \"8888\"",
+        "output": "-1",
+        "explanation": "The start state is blocked."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 15,
+    "title": "Shortest Path in Binary Matrix",
+    "className": "GraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q15Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "shortestPathBinaryMatrix",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q15Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "shortestPathBinaryMatrix",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "grid = [[0,1],[1,0]]",
+        "output": "2",
+        "explanation": "Move diagonally from start to target."
+      },
+      {
+        "input": "grid = [[0,0,0],[1,1,0],[1,1,0]]",
+        "output": "4",
+        "explanation": "The shortest path follows the right side."
+      },
+      {
+        "input": "grid = [[1,0,0],[1,1,0],[1,1,0]]",
+        "output": "-1",
+        "explanation": "The start cell is blocked."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 16,
+    "title": "01 Matrix",
+    "className": "GraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q16Optimized",
+        "methods": [
+          {
+            "returnType": "int[][]",
+            "name": "updateMatrix",
+            "parameters": "int[][] mat"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q16Recursive",
+        "methods": [
+          {
+            "returnType": "int[][]",
+            "name": "updateMatrix",
+            "parameters": "int[][] mat"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "mat = [[0,0,0],[0,1,0],[0,0,0]]",
+        "output": "[[0,0,0],[0,1,0],[0,0,0]]",
+        "explanation": "The center one is adjacent to a zero."
+      },
+      {
+        "input": "mat = [[0,0,0],[0,1,0],[1,1,1]]",
+        "output": "[[0,0,0],[0,1,0],[1,2,1]]",
+        "explanation": "Distances grow away from the nearest zero."
+      },
+      {
+        "input": "mat = [[1,0,1]]",
+        "output": "[[1,0,1]]",
+        "explanation": "Both one cells are one step from the zero."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 17,
+    "title": "Is Graph Bipartite?",
+    "className": "GraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q17Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isBipartite",
+            "parameters": "int[][] graph"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q17Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "isBipartite",
+            "parameters": "int[][] graph"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "graph = [[1,2,3],[0,2],[0,1,3],[0,2]]",
+        "output": "false",
+        "explanation": "Nodes 0,1,2 form an odd cycle conflict."
+      },
+      {
+        "input": "graph = [[1,3],[0,2],[1,3],[0,2]]",
+        "output": "true",
+        "explanation": "The graph can be split into {0,2} and {1,3}."
+      },
+      {
+        "input": "graph = [[],[2],[1]]",
+        "output": "true",
+        "explanation": "The isolated node does not affect coloring."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 18,
+    "title": "Possible Bipartition",
+    "className": "GraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q18Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "possibleBipartition",
+            "parameters": "int n, int[][] dislikes"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q18Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "possibleBipartition",
+            "parameters": "int n, int[][] dislikes"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n = 4, dislikes = [[1,2],[1,3],[2,4]]",
+        "output": "true",
+        "explanation": "One valid split is {1,4} and {2,3}."
+      },
+      {
+        "input": "n = 3, dislikes = [[1,2],[1,3],[2,3]]",
+        "output": "false",
+        "explanation": "Three mutual conflicts form an odd cycle."
+      },
+      {
+        "input": "n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[1,5]]",
+        "output": "false",
+        "explanation": "The cycle of length five cannot be two-colored."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 19,
+    "title": "Find Eventual Safe States",
+    "className": "GraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q19Optimized",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "eventualSafeNodes",
+            "parameters": "int[][] graph"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q19Recursive",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "eventualSafeNodes",
+            "parameters": "int[][] graph"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "graph = [[1,2],[2,3],[5],[0],[5],[],[]]",
+        "output": "[2,4,5,6]",
+        "explanation": "These nodes cannot reach the cycle containing 0,1,3."
+      },
+      {
+        "input": "graph = [[1,2,3,4],[1,2],[3,4],[0,4],[]]",
+        "output": "[4]",
+        "explanation": "Only node 4 is terminal-safe."
+      },
+      {
+        "input": "graph = [[],[0],[0,1]]",
+        "output": "[0,1,2]",
+        "explanation": "Every path reaches terminal node 0."
+      }
+    ]
+  },
+  {
+    "topic": "graphs",
+    "topicNumber": 14,
+    "number": 20,
+    "title": "Keys and Rooms",
+    "className": "GraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q20Optimized",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "canVisitAllRooms",
+            "parameters": "List<List<Integer>> rooms"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q20Recursive",
+        "methods": [
+          {
+            "returnType": "boolean",
+            "name": "canVisitAllRooms",
+            "parameters": "List<List<Integer>> rooms"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "rooms = [[1],[2],[3],[]]",
+        "output": "true",
+        "explanation": "The keys unlock every room in order."
+      },
+      {
+        "input": "rooms = [[1,3],[3,0,1],[2],[0]]",
+        "output": "false",
+        "explanation": "Room 2 is never reached."
+      },
+      {
+        "input": "rooms = [[]]",
+        "output": "true",
+        "explanation": "The only room is already visited."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 1,
+    "title": "Range Sum Query Mutable",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q01Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "update",
+            "parameters": "int index, int val"
+          },
+          {
+            "returnType": "int",
+            "name": "sumRange",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "NumArray"
+      },
+      "recursive": {
+        "className": "Q01Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "update",
+            "parameters": "int index, int val"
+          },
+          {
+            "returnType": "int",
+            "name": "sumRange",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "NumArray"
+      }
+    },
+    "examples": [
+      {
+        "input": "NumArray([1,3,5]); sumRange(0,2)",
+        "output": "9",
+        "explanation": "The initial full range sums to 9."
+      },
+      {
+        "input": "update(1,2); sumRange(0,2)",
+        "output": "8",
+        "explanation": "The array becomes [1,2,5]."
+      },
+      {
+        "input": "NumArray([7]); update(0,4); sumRange(0,0)",
+        "output": "4",
+        "explanation": "Single index updates and queries are valid."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 2,
+    "title": "Range Sum Query 2D Mutable",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q02Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "update",
+            "parameters": "int row, int col, int val"
+          },
+          {
+            "returnType": "int",
+            "name": "sumRegion",
+            "parameters": "int row1, int col1, int row2, int col2"
+          }
+        ],
+        "originalClass": "NumMatrix"
+      },
+      "recursive": {
+        "className": "Q02Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "update",
+            "parameters": "int row, int col, int val"
+          },
+          {
+            "returnType": "int",
+            "name": "sumRegion",
+            "parameters": "int row1, int col1, int row2, int col2"
+          }
+        ],
+        "originalClass": "NumMatrix"
+      }
+    },
+    "examples": [
+      {
+        "input": "NumMatrix sample matrix; sumRegion(2,1,4,3)",
+        "output": "8",
+        "explanation": "The selected rectangle sums to 8."
+      },
+      {
+        "input": "update(3,2,2); sumRegion(2,1,4,3)",
+        "output": "10",
+        "explanation": "Updating one cell changes later region sums."
+      },
+      {
+        "input": "matrix = [[5]]; update(0,0,3); sumRegion(0,0,0,0)",
+        "output": "3",
+        "explanation": "The one-cell matrix is handled directly."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 3,
+    "title": "Count of Smaller Numbers After Self",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q03Optimized",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "countSmaller",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q03Recursive",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "countSmaller",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums = [5,2,6,1]",
+        "output": "[2,1,1,0]",
+        "explanation": "5 has smaller values 2 and 1 after it."
+      },
+      {
+        "input": "nums = [-1]",
+        "output": "[0]",
+        "explanation": "No elements appear after the only value."
+      },
+      {
+        "input": "nums = [-1,-1]",
+        "output": "[0,0]",
+        "explanation": "Equal values are not smaller."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 4,
+    "title": "Reverse Pairs",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q04Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "reversePairs",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q04Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "reversePairs",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums = [1,3,2,3,1]",
+        "output": "2",
+        "explanation": "Two pairs satisfy the strict double relation."
+      },
+      {
+        "input": "nums = [2,4,3,5,1]",
+        "output": "3",
+        "explanation": "Three left values are more than double a later value."
+      },
+      {
+        "input": "nums = [-5,-5]",
+        "output": "1",
+        "explanation": "-5 > -10 is true for the ordered pair."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 5,
+    "title": "Create Sorted Array through Instructions",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q05Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "createSortedArray",
+            "parameters": "int[] instructions"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q05Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "createSortedArray",
+            "parameters": "int[] instructions"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "instructions = [1,5,6,2]",
+        "output": "1",
+        "explanation": "Only inserting 2 contributes min(1,2)=1."
+      },
+      {
+        "input": "instructions = [1,2,3,6,5,4]",
+        "output": "3",
+        "explanation": "Later smaller values create insertion costs."
+      },
+      {
+        "input": "instructions = [1,3,3,3,2,4,2,1,2]",
+        "output": "4",
+        "explanation": "Duplicates are excluded from strictly less/greater counts."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 6,
+    "title": "Count of Range Sum",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q06Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countRangeSum",
+            "parameters": "int[] nums, int lower, int upper"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q06Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countRangeSum",
+            "parameters": "int[] nums, int lower, int upper"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums = [-2,5,-1], lower = -2, upper = 2",
+        "output": "3",
+        "explanation": "Three subarrays have sums inside the target range."
+      },
+      {
+        "input": "nums = [0], lower = 0, upper = 0",
+        "output": "1",
+        "explanation": "The single zero sum is valid."
+      },
+      {
+        "input": "nums = [1,-1], lower = 0, upper = 0",
+        "output": "1",
+        "explanation": "The full subarray sums to zero."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 7,
+    "title": "Range Module",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q07Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "addRange",
+            "parameters": "int left, int right"
+          },
+          {
+            "returnType": "boolean",
+            "name": "queryRange",
+            "parameters": "int left, int right"
+          },
+          {
+            "returnType": "void",
+            "name": "removeRange",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeModule"
+      },
+      "recursive": {
+        "className": "Q07Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "addRange",
+            "parameters": "int left, int right"
+          },
+          {
+            "returnType": "boolean",
+            "name": "queryRange",
+            "parameters": "int left, int right"
+          },
+          {
+            "returnType": "void",
+            "name": "removeRange",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeModule"
+      }
+    },
+    "examples": [
+      {
+        "input": "addRange(10,20); removeRange(14,16); queryRange(10,14)",
+        "output": "true",
+        "explanation": "[10,14) remains covered."
+      },
+      {
+        "input": "queryRange(13,15)",
+        "output": "false",
+        "explanation": "The removed gap breaks full coverage."
+      },
+      {
+        "input": "queryRange(16,17)",
+        "output": "true",
+        "explanation": "[16,20) remains covered."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 8,
+    "title": "My Calendar III",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q08Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "book",
+            "parameters": "int start, int end"
+          }
+        ],
+        "originalClass": "MyCalendarThree"
+      },
+      "recursive": {
+        "className": "Q08Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "book",
+            "parameters": "int start, int end"
+          }
+        ],
+        "originalClass": "MyCalendarThree"
+      }
+    },
+    "examples": [
+      {
+        "input": "book(10,20); book(50,60); book(10,40)",
+        "output": "1,1,2",
+        "explanation": "The third booking overlaps [10,20)."
+      },
+      {
+        "input": "book(5,15); book(5,10); book(25,55)",
+        "output": "3,3,3 after the sample continuation",
+        "explanation": "The maximum overlap reaches three."
+      },
+      {
+        "input": "book(1,2); book(2,3)",
+        "output": "1,1",
+        "explanation": "Touching half-open intervals do not overlap."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 9,
+    "title": "Falling Squares",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q09Optimized",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "fallingSquares",
+            "parameters": "int[][] positions"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q09Recursive",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "fallingSquares",
+            "parameters": "int[][] positions"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "positions = [[1,2],[2,3],[6,1]]",
+        "output": "[2,5,5]",
+        "explanation": "The second square overlaps the first and stacks to height 5."
+      },
+      {
+        "input": "positions = [[100,100],[200,100]]",
+        "output": "[100,100]",
+        "explanation": "Touching intervals do not overlap."
+      },
+      {
+        "input": "positions = [[1,3],[1,2]]",
+        "output": "[3,5]",
+        "explanation": "The second square lands on the previous square."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 10,
+    "title": "Longest Increasing Subsequence II",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q10Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "lengthOfLIS",
+            "parameters": "int[] nums, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q10Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "lengthOfLIS",
+            "parameters": "int[] nums, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums = [4,2,1,4,3,4,5,8,15], k = 3",
+        "output": "5",
+        "explanation": "One valid subsequence is [1,3,4,5,8]."
+      },
+      {
+        "input": "nums = [7,4,5,1,8,12,4,7], k = 5",
+        "output": "4",
+        "explanation": "The value-difference limit restricts transitions."
+      },
+      {
+        "input": "nums = [1,5], k = 1",
+        "output": "1",
+        "explanation": "5 cannot follow 1 because the difference is greater than k."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 11,
+    "title": "Number of Longest Increasing Subsequence",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q11Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "findNumberOfLIS",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q11Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "findNumberOfLIS",
+            "parameters": "int[] nums"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums = [1,3,5,4,7]",
+        "output": "2",
+        "explanation": "The longest length is 4 with two choices ending at 7."
+      },
+      {
+        "input": "nums = [2,2,2,2,2]",
+        "output": "5",
+        "explanation": "Every single value is a longest subsequence."
+      },
+      {
+        "input": "nums = [1]",
+        "output": "1",
+        "explanation": "The only subsequence has length 1."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 12,
+    "title": "Handling Sum Queries After Update",
+    "className": "SegmentTreeFenwickBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q12Optimized",
+        "methods": [
+          {
+            "returnType": "long[]",
+            "name": "handleQuery",
+            "parameters": "int[] nums1, int[] nums2, int[][] queries"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q12Recursive",
+        "methods": [
+          {
+            "returnType": "long[]",
+            "name": "handleQuery",
+            "parameters": "int[] nums1, int[] nums2, int[][] queries"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums1=[1,0,1], nums2=[0,0,0], queries=[[1,1,1],[2,1,0],[3,0,0]]",
+        "output": "[3]",
+        "explanation": "After flipping index 1, nums1 has three ones, so add 3."
+      },
+      {
+        "input": "flip the same range twice",
+        "output": "original ones count restored",
+        "explanation": "Lazy flip toggles cancel when applied twice."
+      },
+      {
+        "input": "query type 3 before type 2",
+        "output": "initial sum(nums2)",
+        "explanation": "The sum is tracked independently as long."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 13,
+    "title": "Count Integers in Intervals",
+    "className": "SegmentTreeFenwickModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q13Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "add",
+            "parameters": "int left, int right"
+          },
+          {
+            "returnType": "int",
+            "name": "count",
+            "parameters": ""
+          }
+        ],
+        "originalClass": "CountIntervals"
+      },
+      "recursive": {
+        "className": "Q13Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "add",
+            "parameters": "int left, int right"
+          },
+          {
+            "returnType": "int",
+            "name": "count",
+            "parameters": ""
+          }
+        ],
+        "originalClass": "CountIntervals"
+      }
+    },
+    "examples": [
+      {
+        "input": "add(2, 3), add(7, 10), count()",
+        "output": "6",
+        "explanation": "Covered values are 2,3,7,8,9,10."
+      },
+      {
+        "input": "add(5, 8), count()",
+        "output": "8",
+        "explanation": "The intervals become [2,3] and [5,10], covering 8 integers."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 14,
+    "title": "Peaks in Array",
+    "className": "SegmentTreeFenwickModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q14Optimized",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "countOfPeaks",
+            "parameters": "int[] nums, int[][] queries"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q14Recursive",
+        "methods": [
+          {
+            "returnType": "List<Integer>",
+            "name": "countOfPeaks",
+            "parameters": "int[] nums, int[][] queries"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums=[3,1,4,2,5], query [1,0,4]",
+        "output": "[1]",
+        "explanation": "Index 2 is the only peak."
+      },
+      {
+        "input": "update index 3 to 6, then query [1,0,4]",
+        "output": "[1]",
+        "explanation": "The peak moves from index 2 to index 3."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 15,
+    "title": "Booking Concert Tickets in Groups",
+    "className": "SegmentTreeFenwickModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q15Optimized",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "gather",
+            "parameters": "int k, int maxRow"
+          },
+          {
+            "returnType": "boolean",
+            "name": "scatter",
+            "parameters": "int k, int maxRow"
+          }
+        ],
+        "originalClass": "BookMyShow"
+      },
+      "recursive": {
+        "className": "Q15Recursive",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "gather",
+            "parameters": "int k, int maxRow"
+          },
+          {
+            "returnType": "boolean",
+            "name": "scatter",
+            "parameters": "int k, int maxRow"
+          }
+        ],
+        "originalClass": "BookMyShow"
+      }
+    },
+    "examples": [
+      {
+        "input": "BookMyShow(2,5); gather(4,0)",
+        "output": "[0,0]",
+        "explanation": "Row 0 has 5 free seats and gives seats starting at 0."
+      },
+      {
+        "input": "scatter(6,1)",
+        "output": "true",
+        "explanation": "The remaining one seat in row 0 and five in row 1 are enough."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 16,
+    "title": "Range Frequency Queries",
+    "className": "SegmentTreeFenwickModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q16Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "query",
+            "parameters": "int left, int right, int value"
+          }
+        ],
+        "originalClass": "RangeFreqQuery"
+      },
+      "recursive": {
+        "className": "Q16Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "query",
+            "parameters": "int left, int right, int value"
+          }
+        ],
+        "originalClass": "RangeFreqQuery"
+      }
+    },
+    "examples": [
+      {
+        "input": "arr=[12,33,4,56,22,2,34,33,22,12,34,56], query(1,2,4)",
+        "output": "1",
+        "explanation": "Only index 2 contains 4."
+      },
+      {
+        "input": "query(0,11,33)",
+        "output": "2",
+        "explanation": "The value 33 appears at indices 1 and 7."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 17,
+    "title": "Mutable Range Minimum Query",
+    "className": "SegmentTreeFenwickModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q17Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "update",
+            "parameters": "int index, int value"
+          },
+          {
+            "returnType": "int",
+            "name": "rangeMin",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeMinQuery"
+      },
+      "recursive": {
+        "className": "Q17Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "update",
+            "parameters": "int index, int value"
+          },
+          {
+            "returnType": "int",
+            "name": "rangeMin",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeMinQuery"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums=[5,2,7,3], rangeMin(1,3)",
+        "output": "2",
+        "explanation": "Minimum in [2,7,3] is 2."
+      },
+      {
+        "input": "update(1,8), rangeMin(1,3)",
+        "output": "3",
+        "explanation": "The range becomes [8,7,3]."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 18,
+    "title": "Mutable Range Maximum Query",
+    "className": "SegmentTreeFenwickModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q18Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "update",
+            "parameters": "int index, int value"
+          },
+          {
+            "returnType": "int",
+            "name": "rangeMax",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeMaxQuery"
+      },
+      "recursive": {
+        "className": "Q18Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "update",
+            "parameters": "int index, int value"
+          },
+          {
+            "returnType": "int",
+            "name": "rangeMax",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeMaxQuery"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums=[5,2,7,3], rangeMax(1,3)",
+        "output": "7",
+        "explanation": "Maximum in [2,7,3] is 7."
+      },
+      {
+        "input": "update(2,1), rangeMax(1,3)",
+        "output": "3",
+        "explanation": "The range becomes [2,1,3]."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 19,
+    "title": "Lazy Propagation Range Add",
+    "className": "SegmentTreeFenwickModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q19Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "addRange",
+            "parameters": "int left, int right, long delta"
+          },
+          {
+            "returnType": "long",
+            "name": "sumRange",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeAddSum"
+      },
+      "recursive": {
+        "className": "Q19Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "addRange",
+            "parameters": "int left, int right, long delta"
+          },
+          {
+            "returnType": "long",
+            "name": "sumRange",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeAddSum"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums=[1,2,3,4], addRange(1,3,2), sumRange(0,3)",
+        "output": "16",
+        "explanation": "Array becomes [1,4,5,6]."
+      },
+      {
+        "input": "sumRange(1,2)",
+        "output": "9",
+        "explanation": "The updated middle range is 4+5."
+      }
+    ]
+  },
+  {
+    "topic": "segment-tree",
+    "topicNumber": 27,
+    "number": 20,
+    "title": "Lazy Propagation Range Assign",
+    "className": "SegmentTreeFenwickModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q20Optimized",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "assignRange",
+            "parameters": "int left, int right, long value"
+          },
+          {
+            "returnType": "long",
+            "name": "sumRange",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeAssignSum"
+      },
+      "recursive": {
+        "className": "Q20Recursive",
+        "methods": [
+          {
+            "returnType": "void",
+            "name": "assignRange",
+            "parameters": "int left, int right, long value"
+          },
+          {
+            "returnType": "long",
+            "name": "sumRange",
+            "parameters": "int left, int right"
+          }
+        ],
+        "originalClass": "RangeAssignSum"
+      }
+    },
+    "examples": [
+      {
+        "input": "nums=[1,2,3,4], assignRange(1,2,5), sumRange(0,3)",
+        "output": "15",
+        "explanation": "Array becomes [1,5,5,4]."
+      },
+      {
+        "input": "assignRange(0,3,2), sumRange(1,3)",
+        "output": "6",
+        "explanation": "All positions become 2."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 1,
+    "title": "Network Delay Time",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q01Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "networkDelayTime",
+            "parameters": "int[][] times, int n, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q01Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "networkDelayTime",
+            "parameters": "int[][] times, int n, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "times=[[2,1,1],[2,3,1],[3,4,1]], n=4, k=2",
+        "output": "2",
+        "explanation": "Node 4 receives after path 2->3->4."
+      },
+      {
+        "input": "times=[[1,2,1]], n=2, k=2",
+        "output": "-1",
+        "explanation": "Node 1 is unreachable from 2."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 2,
+    "title": "Cheapest Flights Within K Stops",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q02Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "findCheapestPrice",
+            "parameters": "int n, int[][] flights, int src, int dst, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q02Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "findCheapestPrice",
+            "parameters": "int n, int[][] flights, int src, int dst, int k"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=4, flights=[[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src=0, dst=3, k=1",
+        "output": "700",
+        "explanation": "0->1->3 uses one stop."
+      },
+      {
+        "input": "n=3, flights=[[0,1,100],[1,2,100],[0,2,500]], src=0, dst=2, k=1",
+        "output": "200",
+        "explanation": "The one-stop path is cheaper than direct."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 3,
+    "title": "Path With Minimum Effort",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q03Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumEffortPath",
+            "parameters": "int[][] heights"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q03Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumEffortPath",
+            "parameters": "int[][] heights"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "heights=[[1,2,2],[3,8,2],[5,3,5]]",
+        "output": "2",
+        "explanation": "A route exists where every step differs by at most 2."
+      },
+      {
+        "input": "heights=[[1,2,3],[3,8,4],[5,3,5]]",
+        "output": "1",
+        "explanation": "The right-side route keeps max effort 1."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 4,
+    "title": "Swim in Rising Water",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q04Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "swimInWater",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q04Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "swimInWater",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "grid=[[0,2],[1,3]]",
+        "output": "3",
+        "explanation": "The destination opens at time 3."
+      },
+      {
+        "input": "grid=[[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]]",
+        "output": "16",
+        "explanation": "The snake path is feasible when time reaches 16."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 5,
+    "title": "Find Critical and Pseudo-Critical Edges in MST",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q05Optimized",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "findCriticalAndPseudoCriticalEdges",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q05Recursive",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "findCriticalAndPseudoCriticalEdges",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=5, edges=[[0,1,1],[1,2,1],[2,3,2],[0,3,2],[0,4,3],[3,4,3],[1,4,6]]",
+        "output": "[[0,1],[2,3,4,5]]",
+        "explanation": "Edges 0 and 1 are required in every MST."
+      },
+      {
+        "input": "n=4, edges=[[0,1,1],[1,2,1],[2,3,1],[0,3,1]]",
+        "output": "[[],[0,1,2,3]]",
+        "explanation": "Any three cycle edges can form an MST."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 6,
+    "title": "Min Cost to Connect All Points",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q06Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minCostConnectPoints",
+            "parameters": "int[][] points"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q06Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minCostConnectPoints",
+            "parameters": "int[][] points"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "points=[[0,0],[2,2],[3,10],[5,2],[7,0]]",
+        "output": "20",
+        "explanation": "The minimum spanning tree has total cost 20."
+      },
+      {
+        "input": "points=[[3,12],[-2,5],[-4,1]]",
+        "output": "18",
+        "explanation": "Connect all three points with two cheapest useful edges."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 7,
+    "title": "Optimize Water Distribution in a Village",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q07Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minCostToSupplyWater",
+            "parameters": "int n, int[] wells, int[][] pipes"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q07Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minCostToSupplyWater",
+            "parameters": "int n, int[] wells, int[][] pipes"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=3, wells=[1,2,2], pipes=[[1,2,1],[2,3,1]]",
+        "output": "3",
+        "explanation": "Build well at house 1 and connect 1-2 and 2-3."
+      },
+      {
+        "input": "n=2, wells=[5,5], pipes=[[1,2,1]]",
+        "output": "6",
+        "explanation": "One well plus one pipe is cheapest."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 8,
+    "title": "Reconstruct Itinerary",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q08Optimized",
+        "methods": [
+          {
+            "returnType": "List<String>",
+            "name": "findItinerary",
+            "parameters": "List<List<String>> tickets"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q08Recursive",
+        "methods": [
+          {
+            "returnType": "List<String>",
+            "name": "findItinerary",
+            "parameters": "List<List<String>> tickets"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "tickets=[[JFK,SFO],[JFK,ATL],[SFO,ATL],[ATL,JFK],[ATL,SFO]]",
+        "output": "[JFK, ATL, JFK, SFO, ATL, SFO]",
+        "explanation": "ATL is chosen before SFO lexicographically."
+      },
+      {
+        "input": "tickets=[[JFK,KUL],[JFK,NRT],[NRT,JFK]]",
+        "output": "[JFK, NRT, JFK, KUL]",
+        "explanation": "Postorder handles the KUL dead end correctly."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 9,
+    "title": "Alien Dictionary",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q09Optimized",
+        "methods": [
+          {
+            "returnType": "String",
+            "name": "alienOrder",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q09Recursive",
+        "methods": [
+          {
+            "returnType": "String",
+            "name": "alienOrder",
+            "parameters": "String[] words"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "words=[wrt,wrf,er,ett,rftt]",
+        "output": "wertf",
+        "explanation": "Constraints imply w before e, e before r, r before t, t before f."
+      },
+      {
+        "input": "words=[z,x,z]",
+        "output": "",
+        "explanation": "The constraints create a cycle."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 10,
+    "title": "Course Schedule II",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q10Optimized",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "findOrder",
+            "parameters": "int numCourses, int[][] prerequisites"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q10Recursive",
+        "methods": [
+          {
+            "returnType": "int[]",
+            "name": "findOrder",
+            "parameters": "int numCourses, int[][] prerequisites"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "numCourses=2, prerequisites=[[1,0]]",
+        "output": "[0,1]",
+        "explanation": "Course 0 must come before 1."
+      },
+      {
+        "input": "numCourses=2, prerequisites=[[1,0],[0,1]]",
+        "output": "[]",
+        "explanation": "The prerequisites form a cycle."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 11,
+    "title": "Shortest Path Visiting All Nodes",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q11Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "shortestPathLength",
+            "parameters": "int[][] graph"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q11Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "shortestPathLength",
+            "parameters": "int[][] graph"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "graph=[[1,2,3],[0],[0],[0]]",
+        "output": "4",
+        "explanation": "Start at a leaf, visit center and the other leaves."
+      },
+      {
+        "input": "graph=[[1],[0,2,4],[1,3,4],[2],[1,2]]",
+        "output": "4",
+        "explanation": "A shortest walk can cover all nodes in four edges."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 12,
+    "title": "Minimum Cost to Reach Destination in Time",
+    "className": "AdvancedGraphsBasic",
+    "variants": {
+      "optimized": {
+        "className": "Q12Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minCost",
+            "parameters": "int maxTime, int[][] edges, int[] passingFees"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q12Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minCost",
+            "parameters": "int maxTime, int[][] edges, int[] passingFees"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "maxTime=30, edges=[[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], fees=[5,1,2,20,20,3]",
+        "output": "11",
+        "explanation": "Path 0-1-2-5 reaches in 30 with fee 11."
+      },
+      {
+        "input": "maxTime=29 with the same graph",
+        "output": "48",
+        "explanation": "The cheaper path is too slow, so another route is needed."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 13,
+    "title": "Find the City With the Smallest Number of Neighbors",
+    "className": "AdvancedGraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q13Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "findTheCity",
+            "parameters": "int n, int[][] edges, int distanceThreshold"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q13Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "findTheCity",
+            "parameters": "int n, int[][] edges, int distanceThreshold"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=4, edges=[[0,1,3],[1,2,1],[1,3,4],[2,3,1]], threshold=4",
+        "output": "3",
+        "explanation": "City 3 has the smallest reachable count after tie-breaking."
+      },
+      {
+        "input": "n=5, edges=[[0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,1],[3,4,1]], threshold=2",
+        "output": "0",
+        "explanation": "City 0 reaches only city 1 within threshold."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 14,
+    "title": "Critical Connections in a Network",
+    "className": "AdvancedGraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q14Optimized",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "criticalConnections",
+            "parameters": "int n, List<List<Integer>> connections"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q14Recursive",
+        "methods": [
+          {
+            "returnType": "List<List<Integer>>",
+            "name": "criticalConnections",
+            "parameters": "int n, List<List<Integer>> connections"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=4, connections=[[0,1],[1,2],[2,0],[1,3]]",
+        "output": "[[1,3]]",
+        "explanation": "Removing 1-3 isolates node 3."
+      },
+      {
+        "input": "n=2, connections=[[0,1]]",
+        "output": "[[0,1]]",
+        "explanation": "The only edge is a bridge."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 15,
+    "title": "Number of Connected Components in an Undirected Graph",
+    "className": "AdvancedGraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q15Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countComponents",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q15Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countComponents",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=5, edges=[[0,1],[1,2],[3,4]]",
+        "output": "2",
+        "explanation": "Components are {0,1,2} and {3,4}."
+      },
+      {
+        "input": "n=5, edges=[[0,1],[1,2],[2,3],[3,4]]",
+        "output": "1",
+        "explanation": "All nodes are connected."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 16,
+    "title": "Kosaraju SCC Count",
+    "className": "AdvancedGraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q16Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countSCC",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q16Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countSCC",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=5, edges=[[1,0],[0,2],[2,1],[0,3],[3,4]]",
+        "output": "3",
+        "explanation": "{0,1,2}, {3}, and {4} are SCCs."
+      },
+      {
+        "input": "n=3, edges=[[0,1],[1,2],[2,0]]",
+        "output": "1",
+        "explanation": "Every node reaches every other node."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 17,
+    "title": "Tarjan SCC Count",
+    "className": "AdvancedGraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q17Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countSCC",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q17Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "countSCC",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=5, edges=[[1,0],[0,2],[2,1],[0,3],[3,4]]",
+        "output": "3",
+        "explanation": "{0,1,2}, {3}, and {4} are SCCs."
+      },
+      {
+        "input": "n=4, edges=[[0,1],[1,2],[2,3]]",
+        "output": "4",
+        "explanation": "A DAG has each node as its own SCC."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 18,
+    "title": "Minimum Spanning Tree Kruskal",
+    "className": "AdvancedGraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q18Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumSpanningTree",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q18Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumSpanningTree",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=4, edges=[[0,1,1],[1,2,2],[2,3,3],[0,3,10]]",
+        "output": "6",
+        "explanation": "Choose the first three edges."
+      },
+      {
+        "input": "n=3, edges=[[0,1,5]]",
+        "output": "-1",
+        "explanation": "Node 2 is disconnected."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 19,
+    "title": "Minimum Spanning Tree Prim",
+    "className": "AdvancedGraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q19Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumSpanningTree",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q19Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumSpanningTree",
+            "parameters": "int n, int[][] edges"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "n=4, edges=[[0,1,1],[1,2,2],[2,3,3],[0,3,10]]",
+        "output": "6",
+        "explanation": "The frontier picks weights 1, 2, and 3."
+      },
+      {
+        "input": "n=3, edges=[[0,1,5]]",
+        "output": "-1",
+        "explanation": "Node 2 never enters the tree."
+      }
+    ]
+  },
+  {
+    "topic": "advanced-graphs",
+    "topicNumber": 28,
+    "number": 20,
+    "title": "Minimum Obstacle Removal to Reach Corner",
+    "className": "AdvancedGraphsModerate",
+    "variants": {
+      "optimized": {
+        "className": "Q20Optimized",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumObstacles",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      },
+      "recursive": {
+        "className": "Q20Recursive",
+        "methods": [
+          {
+            "returnType": "int",
+            "name": "minimumObstacles",
+            "parameters": "int[][] grid"
+          }
+        ],
+        "originalClass": "Solution"
+      }
+    },
+    "examples": [
+      {
+        "input": "grid=[[0,1,1],[1,1,0],[1,1,0]]",
+        "output": "2",
+        "explanation": "Remove two obstacles along the best route."
+      },
+      {
+        "input": "grid=[[0,1,0,0,0],[0,1,0,1,0],[0,0,0,1,0]]",
+        "output": "0",
+        "explanation": "A zero-obstacle path exists."
+      }
+    ]
+  }
+]
